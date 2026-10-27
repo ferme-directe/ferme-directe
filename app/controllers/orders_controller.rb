@@ -12,14 +12,14 @@ class OrdersController < ApplicationController
   end
 
   # Story 6 (V03) : la ferme accepte, le stock baisse.
-  def accept
+  def accept # controles: ok route member du cadrage (bloc 2)
   end
 
   # Story 10 (V03) : la ferme refuse.
-  def decline
+  def decline # controles: ok route member du cadrage (bloc 2)
   end
 
   # Story 11 (A04) : l'acheteur annule tant que la commande est pending.
-  def cancel
+  def cancel # controles: ok route member du cadrage (bloc 2)
   end
 end

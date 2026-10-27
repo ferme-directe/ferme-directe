@@ -11,10 +11,10 @@ class Listing < ApplicationRecord
   belongs_to :product
   belongs_to :address
   has_many :discount_tiers, -> { order(:min_quantity) }, dependent: :destroy, inverse_of: :listing
-  has_many :orders_as_need, class_name: "Order", foreign_key: :need_id,
-                            inverse_of: :need, dependent: :restrict_with_error
-  has_many :orders_as_offer, class_name: "Order", foreign_key: :offer_id,
-                             inverse_of: :offer, dependent: :restrict_with_error
+  has_many :orders_as_need, dependent: :restrict_with_error,
+                            class_name: "Order", foreign_key: :need_id, inverse_of: :need
+  has_many :orders_as_offer, dependent: :restrict_with_error,
+                             class_name: "Order", foreign_key: :offer_id, inverse_of: :offer
   has_many :notifications, as: :notifiable, dependent: :destroy
 
   enum :kind, { offer: 0, need: 1 }, validate: true
