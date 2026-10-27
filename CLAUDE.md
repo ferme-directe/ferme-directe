@@ -51,7 +51,7 @@ Lire `Gemfile.lock` avant d'écrire du code : il fait foi.
 | `simple_form` | Formulaires Bootstrap | 1, 4 |
 | `letter_opener` (dev) | Ouvre les e-mails dans le navigateur au lieu de les envoyer | 8 |
 | `bullet` (dev) | Signale les requêtes N+1 | 2, 9, 12 |
-| `rails-i18n`, `devise-i18n` | Textes Rails et Devise en français | toutes |
+| `rails-i18n`, `devise-i18n` | Textes Rails et Devise en français (à ajouter, issue #20) | toutes |
 
 Ajouter une gem est une décision : on la propose dans une PR à part, avec son pourquoi, après avoir regardé
 si Rails le fait déjà.
