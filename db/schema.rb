@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_27_160009) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_27_200001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -37,6 +37,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_27_160009) do
     t.boolean "can_sell", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "legal_form"
+    t.string "naf_code"
+    t.string "vat_number"
+    t.boolean "vat_exempt", default: false, null: false
+    t.string "administrative_status"
+    t.datetime "siret_verified_at"
+    t.text "certifications"
+    t.text "production_method"
     t.index ["siret"], name: "index_companies_on_siret", unique: true, where: "(siret IS NOT NULL)"
   end
 
@@ -81,8 +89,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_27_160009) do
     t.string "priorities", default: [], null: false, array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "nature", default: 0, null: false
+    t.integer "storage"
+    t.text "free_text"
+    t.uuid "group_id"
     t.index ["address_id"], name: "index_listings_on_address_id"
     t.index ["company_id"], name: "index_listings_on_company_id"
+    t.index ["group_id"], name: "index_listings_on_group_id"
     t.index ["kind", "status", "product_id"], name: "index_listings_on_kind_and_status_and_product_id"
     t.index ["product_id"], name: "index_listings_on_product_id"
   end
@@ -125,6 +138,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_27_160009) do
     t.datetime "cancelled_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "lot_number"
+    t.date "best_before"
+    t.datetime "delivered_at"
     t.index ["address_id"], name: "index_orders_on_address_id"
     t.index ["buyer_company_id", "status"], name: "index_orders_on_buyer_company_id_and_status"
     t.index ["buyer_company_id"], name: "index_orders_on_buyer_company_id"
@@ -142,6 +158,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_27_160009) do
     t.string "default_unit", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "processed", default: false, null: false
     t.index ["name"], name: "index_products_on_name", unique: true
   end
 
