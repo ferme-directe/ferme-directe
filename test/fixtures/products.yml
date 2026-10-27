@@ -1,0 +1,9 @@
+eggs:
+  name: Œufs
+  category: Œufs
+  default_unit: pièce
+
+flour:
+  name: Farine de blé
+  category: Farines
+  default_unit: kilo
