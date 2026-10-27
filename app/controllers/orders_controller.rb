@@ -1,0 +1,25 @@
+class OrdersController < ApplicationController
+  # Story 4 (A03) : le récapitulatif avant envoi. Rien n'est écrit en base.
+  def new
+  end
+
+  # Story 5 (A03 → A04) : crée la commande en pending et notifie la ferme.
+  def create
+  end
+
+  # Story 7 (A05, BC) : la commande et son bon de commande (format PDF).
+  def show
+  end
+
+  # Story 6 (V03) : la ferme accepte, le stock baisse.
+  def accept # controles: ok route member du cadrage (bloc 2)
+  end
+
+  # Story 10 (V03) : la ferme refuse.
+  def decline # controles: ok route member du cadrage (bloc 2)
+  end
+
+  # Story 11 (A04) : l'acheteur annule tant que la commande est pending.
+  def cancel # controles: ok route member du cadrage (bloc 2)
+  end
+end

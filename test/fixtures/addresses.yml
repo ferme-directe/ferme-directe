@@ -1,0 +1,19 @@
+farm_pickup:
+  company: farm
+  kind: pickup
+  label: La ferme
+  street: 2 route de Dourdan
+  postcode: "91530"
+  city: Saint-Chéron
+  latitude: 48.5547
+  longitude: 2.1239
+
+shop_delivery:
+  company: shop
+  kind: delivery
+  label: Ma boutique
+  street: 1 rue de la Mairie
+  postcode: "91530"
+  city: Sermaise
+  latitude: 48.5333
+  longitude: 2.0833

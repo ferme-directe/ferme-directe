@@ -1,0 +1,13 @@
+farmer:
+  email: ferme@ferme-directe.test
+  encrypted_password: <%= Devise::Encryptor.digest(User, "motdepasse") %>
+  first_name: Jeanne
+  last_name: Martin
+  company: farm
+
+buyer:
+  email: acheteur@ferme-directe.test
+  encrypted_password: <%= Devise::Encryptor.digest(User, "motdepasse") %>
+  first_name: Paul
+  last_name: Durand
+  company: shop

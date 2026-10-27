@@ -1,0 +1,44 @@
+# Les libellés français de la base. Une seule source : les vues appellent
+# Order.human_enum_value(:status, :pending) ou order.human_enum(:status),
+# jamais « En attente » écrit en dur.
+# La langue par défaut passera en :fr avec les gems rails-i18n et devise-i18n (issue « Socle »).
+fr:
+  activerecord:
+    models:
+      company: Entreprise
+      user: Utilisateur
+      address: Adresse
+      product: Produit
+      listing: Annonce
+      discount_tier: Palier de remise
+      favorite: Favori
+      order: Commande
+      notification: Notification
+    attributes:
+      address/kind:
+        billing: Facturation
+        delivery: Livraison
+        pickup: Lieu d'enlèvement
+      listing/kind:
+        offer: Offre
+        need: Besoin
+      listing/status:
+        active: En ligne
+        closed: Terminée
+      listing/priorities:
+        label: Le label
+        distance: La distance
+        price: Le prix
+      order/status:
+        pending: En attente
+        accepted: Acceptée
+        declined: Refusée
+        cancelled: Annulée
+      order/fulfillment:
+        pickup: Retrait à la ferme
+        delivery: Livraison
+      notification/kind:
+        order_received: Commande reçue
+        order_accepted: Commande acceptée
+        order_declined: Commande refusée
+        need_matched: Un acheteur cherche un produit que vous proposez

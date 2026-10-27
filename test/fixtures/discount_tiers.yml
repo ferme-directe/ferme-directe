@@ -1,0 +1,4 @@
+eggs_500:
+  listing: eggs_offer
+  min_quantity: 500
+  discount_percent: 5
