@@ -1,0 +1,5 @@
+# Relecteurs demandés automatiquement sur chaque pull request.
+# GitHub leur envoie une notification à l'ouverture de la PR, et la règle de
+# protection de main exige l'approbation de l'un d'eux avant la fusion.
+# Silvère est lead dev ; Marine relit les PR de Silvère.
+* @Silver4045 @mfargetton
