@@ -1,0 +1,27 @@
+eggs_offer:
+  company: farm
+  product: eggs
+  address: farm_pickup
+  kind: offer
+  status: active
+  label: Plein air
+  size: Gros
+  quantity: 1200
+  unit: pièce
+  unit_price_cents: 36
+  available_until: <%= 30.days.from_now.to_date %>
+  radius_km: 40
+  pickup_hours: Du lundi au samedi, 9 h – 12 h
+
+eggs_need:
+  company: shop
+  product: eggs
+  address: shop_delivery
+  kind: need
+  status: active
+  quantity: 300
+  unit: pièce
+  max_price_cents: 40
+  needed_on: <%= 10.days.from_now.to_date %>
+  radius_km: 30
+  priorities: ["distance"]

@@ -1,0 +1,12 @@
+# Une ferme et un acheteur, assez pour que chaque modèle ait ses liens.
+farm:
+  name: Ferme des Tilleuls
+  siret: "12345678900011"
+  can_buy: false
+  can_sell: true
+
+shop:
+  name: Épicerie du Moulin
+  siret: "98765432100022"
+  can_buy: true
+  can_sell: false

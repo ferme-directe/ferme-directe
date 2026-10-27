@@ -1,0 +1,18 @@
+eggs_order:
+  buyer_company: shop
+  seller_company: farm
+  need: eggs_need
+  offer: eggs_offer
+  product: eggs
+  address: farm_pickup
+  label: Plein air
+  size: Gros
+  unit: pièce
+  quantity: 300
+  unit_price_cents: 36
+  total_cents: 10800
+  discount_percent: 0
+  needed_on: <%= 10.days.from_now.to_date %>
+  fulfillment: pickup
+  reference: FD-TEST-0001
+  status: pending

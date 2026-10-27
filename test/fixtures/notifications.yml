@@ -1,0 +1,10 @@
+# Polymorphique : la fixture donne l'objet et sa classe entre parenthèses.
+order_received:
+  user: farmer
+  notifiable: eggs_order (Order)
+  kind: order_received
+
+need_matched:
+  user: farmer
+  notifiable: eggs_need (Listing)
+  kind: need_matched
