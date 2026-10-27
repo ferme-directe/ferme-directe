@@ -25,6 +25,13 @@ fr:
       listing/status:
         active: En ligne
         closed: Terminée
+      listing/nature:
+        sale: Vente
+        helping_hand: Entraide
+      listing/storage:
+        fresh: Frais
+        dry: Sec
+        frozen: Surgelé
       listing/priorities:
         label: Le label
         distance: La distance

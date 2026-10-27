@@ -19,6 +19,10 @@ class Listing < ApplicationRecord
 
   enum :kind, { offer: 0, need: 1 }, validate: true
   enum :status, { active: 0, closed: 1 }, validate: true
+  # Champs optionnels du cadrage, hors démo : entraide entre fermes, conservation.
+  enum :nature, { sale: 0, helping_hand: 1 }, validate: true
+  # prefix : « frozen » donnerait frozen?, déjà défini par Ruby. Méthodes : storage_fresh?, storage_frozen?…
+  enum :storage, { fresh: 0, dry: 1, frozen: 2 }, prefix: true, validate: { allow_nil: true }
 
   validates :quantity, numericality: { only_integer: true, greater_than: 0 }
   validates :unit, inclusion: { in: UNITS }
