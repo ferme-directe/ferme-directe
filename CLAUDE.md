@@ -69,8 +69,13 @@ Principe : gratuit, européen ou natif Rails d'abord. Avant tout service payant 
 ## Modèle de données
 
 9 tables au cœur de démo : `companies`, `users`, `addresses`, `products`, `listings`, `discount_tiers`,
-`favorites`, `orders`, `notifications`. Les tables en réserve du cadrage (`profile_views`, `questions`,
-`product_sheets`, `recurrences`) ne sont créées que si une story les demande.
+`favorites`, `orders`, `notifications`. **Tous leurs champs sont en base dès le socle, optionnels compris**
+(décision 9 du cadrage : personne ne touche `db/schema.rb` à cinq en parallèle), sauf `companies.photos`
+(Active Storage, à installer avec la story qui l'utilise). Les 4 tables en réserve du cadrage (`profile_views`,
+`questions`, `product_sheets`, `recurrences`) ne sont pas créées : question P1, à trancher avec le prof.
+
+**Toute migration passe par une PR annoncée dans le canal de l'équipe avant d'être ouverte**, et chacun
+lance `bin/rails db:migrate` après son `git pull`.
 
 - `companies` : fermes et acheteurs dans la même table (`can_buy`, `can_sell`).
 - `listings` : offres ET besoins, distingués par `kind` (`offer` / `need`). Pas de STI.

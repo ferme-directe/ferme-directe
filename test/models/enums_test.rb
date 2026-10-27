@@ -20,6 +20,11 @@ class EnumsTest < ActiveSupport::TestCase
     assert_equal %w[active closed], Listing.statuses.keys
   end
 
+  test "listings.nature et listings.storage (optionnels, hors démo)" do
+    assert_equal %w[sale helping_hand], Listing.natures.keys
+    assert_equal %w[fresh dry frozen], Listing.storages.keys
+  end
+
   test "addresses.kind" do
     assert_equal %w[billing delivery pickup], Address.kinds.keys
   end
@@ -30,7 +35,7 @@ class EnumsTest < ActiveSupport::TestCase
 
   test "chaque valeur a son libellé français" do
     I18n.with_locale(:fr) do
-      { Order => %i[status fulfillment], Listing => %i[kind status], Address => %i[kind],
+      { Order => %i[status fulfillment], Listing => %i[kind status nature storage], Address => %i[kind],
         Notification => %i[kind] }.each do |model, attributes|
         attributes.each do |attribute|
           model.public_send(attribute.to_s.pluralize).each_key do |value|
