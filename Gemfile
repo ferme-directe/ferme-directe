@@ -75,7 +75,7 @@ end
 
 gem "pundit", "~> 2.5"
 gem "geocoder", "~> 1.8"
-gem "prawn", "~> 2.4"
+gem "prawn", "~> 2.5"
 gem "prawn-table", "~> 0.2.2"
 
 gem "letter_opener", "~> 1.10", group: :development
