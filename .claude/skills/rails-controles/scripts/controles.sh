@@ -11,6 +11,8 @@
 #
 # Exception justifiée : une ligne qui porte le marqueur « controles: ok <raison> »
 # (en commentaire Ruby, ERB ou CSS) est ignorée par tous les contrôles ✓/✗.
+# Pour une action hors CRUD, le marqueur se met en commentaire sur la ligne
+# AU-DESSUS du def (RuboCop refuse un commentaire sur la ligne du def).
 #
 # Réglage : CONTROLES_VARIABLES est le motif (grep -E) des fichiers de style
 # autorisés à contenir des couleurs en dur (défaut : fichiers de variables,
@@ -109,7 +111,7 @@ if find app/controllers -name '*_controller.rb' 2>/dev/null | grep -q .; then
   list  "Paramètres autorisés (à relire un par un)" "grep -rnE 'permit\(|expect\(' app/controllers/"
   check "Aucune valeur interpolée dans une requête (injection SQL)" "grep -rnE '(where|order|group|having|select|joins|find_by_sql|pluck)\\(\\s*[\"'\''][^\"'\'']*#\\{|order\\(\\s*params' app/ lib/ 2>/dev/null"
   list  "Relations parcourues sans borne (.all / .each sur une relation : pagination, limit ou find_each ?)" "grep -rnE '\\.all\\b|\\.each\\b' app/controllers/ app/views/ 2>/dev/null | grep -vE 'find_each|in_batches|\\.limit\\(|\\.page\\(|\\.first\\(|\\.last\\('"
-  check "Aucune méthode publique hors des sept actions CRUD" "find app/controllers -name '*_controller.rb' ! -name 'application_controller.rb' -exec awk '/^[[:space:]]*(private|protected)([[:space:]]|$)/{p=1} /^[[:space:]]*def / && !p && \$0 !~ /controles: ok/ { m=\$2; sub(/[(;].*/,\"\",m); if (m !~ /^(index|show|new|create|edit|update|destroy)\$/) print FILENAME\": \"m }' {} \;"
+  check "Aucune méthode publique hors des sept actions CRUD" "find app/controllers -name '*_controller.rb' ! -name 'application_controller.rb' -exec awk '/^[[:space:]]*(private|protected)([[:space:]]|$)/{p=1} /controles: ok/{mk=1; next} /^[[:space:]]*def / && !p && !mk { m=\$2; sub(/[(;].*/,\"\",m); if (m !~ /^(index|show|new|create|edit|update|destroy)\$/) print FILENAME\": \"m } {mk=0}' {} \;"
 fi
 
 if [ -d app/models ]; then

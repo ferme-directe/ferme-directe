@@ -5,7 +5,7 @@ description: Contrôles automatiques de fin de sous-étape pour un projet Rails 
 
 # Contrôles de fin de sous-étape et journal des recettes
 
-Ces contrôles existent parce que ce sont les erreurs qui reviennent le plus souvent dans du code généré, et qu'un `grep` de dix secondes vaut mieux qu'une découverte en production. Chaque contrôle doit remonter vide. S'il remonte quelque chose, corrige avant de rendre la main, ou déclare l'exception **dans le code** avec le marqueur `controles: ok <raison>` (en commentaire Ruby, ERB ou CSS sur la ligne concernée) : le script ignore ces lignes, et la raison reste lisible par le prochain relecteur.
+Ces contrôles existent parce que ce sont les erreurs qui reviennent le plus souvent dans du code généré, et qu'un `grep` de dix secondes vaut mieux qu'une découverte en production. Chaque contrôle doit remonter vide. S'il remonte quelque chose, corrige avant de rendre la main, ou déclare l'exception **dans le code** avec le marqueur `controles: ok <raison>` (en commentaire Ruby, ERB ou CSS sur la ligne concernée ; pour une action hors CRUD, sur la ligne au-dessus du `def`, RuboCop refusant un commentaire sur la ligne du `def`) : le script ignore ces lignes, et la raison reste lisible par le prochain relecteur.
 
 Le journal des recettes existe parce que « les tests passent » n'est une preuve que si une machine l'a écrit, avec la commande exacte, sa sortie exacte, son code de sortie et le commit sur lequel elle a tourné.
 
