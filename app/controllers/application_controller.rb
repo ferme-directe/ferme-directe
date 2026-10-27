@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   # Pundit : chaque action doit vérifier les droits (authorize) ou filtrer la liste (policy_scope).
   # Une action qui oublie lève une erreur en développement et en test : l'oubli ne passe pas inaperçu.
   include Pundit::Authorization
+
   after_action :verify_authorized, except: :index, unless: :skip_pundit?
   after_action :verify_policy_scoped, only: :index, unless: :skip_pundit?
 

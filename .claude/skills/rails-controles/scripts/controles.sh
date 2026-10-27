@@ -1,0 +1,156 @@
+#!/usr/bin/env bash
+# Contrôles de fin de sous-étape — à copier dans bin/controles et rendre exécutable.
+#
+# Usage : bin/controles          contrôles courants
+#         bin/controles --prod   ajoute les contrôles avant mise en ligne
+#
+# Trois types de lignes :
+#   ✓ / ✗  le contrôle doit remonter vide ; un ✗ fait sortir le script en erreur,
+#          pour servir d'étape dans config/ci.rb (step "Contrôles", "bin/controles")
+#   ◦      une liste à relire ligne par ligne, sans jugement automatique
+#
+# Exception justifiée : une ligne qui porte le marqueur « controles: ok <raison> »
+# (en commentaire Ruby, ERB ou CSS) est ignorée par tous les contrôles ✓/✗.
+# Pour une action hors CRUD, le marqueur se met en commentaire sur la ligne
+# AU-DESSUS du def (RuboCop refuse un commentaire sur la ligne du def).
+#
+# Réglage : CONTROLES_VARIABLES est le motif (grep -E) des fichiers de style
+# autorisés à contenir des couleurs en dur (défaut : fichiers de variables,
+# de couleurs, de jetons, dossier config/ des feuilles de style, thème Tailwind).
+#
+# RuboCop et Brakeman ne sont pas lancés ici : ils ont leur étape dans
+# config/ci.rb et dans la liste par défaut de bin/recette. Un seul endroit chacun.
+
+set -u
+export LC_ALL=C.UTF-8
+cd "$(dirname "$0")/.." || exit 1
+
+VARIABLES="${CONTROLES_VARIABLES:-_variables|_colors|_tokens|stylesheets/config/|tailwind/application.css|application.tailwind.css}"
+MARQUEUR='controles: ok'
+ok=0; ko=0
+
+# grep -P (expressions PCRE) est propre à GNU grep. Sans lui, deux contrôles
+# sont marqués « non exécuté » plutôt qu'affichés verts à tort.
+if echo x | grep -qP 'x' 2>/dev/null; then PCRE=1; else PCRE=0; fi
+
+check() {  # check "libellé" "commande" — OK si la commande ne sort rien
+  local label="$1" cmd="$2" out
+  out=$(bash -c "$cmd" 2>/dev/null | grep -v "$MARQUEUR")
+  if [ -z "$out" ]; then
+    printf '  ✓ %s\n' "$label"; ok=$((ok+1))
+  else
+    printf '  ✗ %s\n%s\n' "$label" "$(echo "$out" | head -20 | sed 's/^/      /')"; ko=$((ko+1))
+  fi
+}
+check_pcre() {  # comme check, mais seulement si grep -P est disponible
+  if [ "$PCRE" = 1 ]; then check "$1" "$2"; else printf '  ◦ %s — non exécuté (grep -P indisponible : installez GNU grep)\n' "$1"; fi
+}
+run() {  # run "libellé" "commande" — OK si le code de sortie est 0
+  local label="$1" cmd="$2" out
+  if out=$(bash -c "$cmd" 2>&1); then
+    printf '  ✓ %s\n' "$label"; ok=$((ok+1))
+  else
+    printf '  ✗ %s\n%s\n' "$label" "$(echo "$out" | tail -20 | sed 's/^/      /')"; ko=$((ko+1))
+  fi
+}
+list() {  # list "libellé" "commande" — affiche sans juger
+  local label="$1" cmd="$2" out
+  out=$(bash -c "$cmd" 2>/dev/null)
+  printf '  ◦ %s\n' "$label"
+  [ -n "$out" ] && echo "$out" | sed 's/^/      /'
+}
+
+echo "Vues"
+check "Aucun style= ni <style> dans les vues (mailers exclus)" "grep -rnE 'style=|<style' app/views/ --exclude-dir='*_mailer' --exclude-dir='*mailer*' --exclude='mailer.*.erb'"
+check "Aucun gestionnaire JS inline (onclick…)"  "grep -rnE '\son[a-z]+=' app/views/"
+check "Aucun html_safe / raw"                    "grep -rnE '\.html_safe|(^|[^.[:alnum:]_])raw[ (]' app/views/ app/helpers/"
+check "Aucune variable @ dans un partial"        "grep -rnE '<%[^%]*(^|[^[:alnum:]_.\"'\''])@[a-z_]' app/views/ --include='_*'"
+# Le contrôle des textes en dur n'a de sens que si le projet traduit ses vues.
+if grep -rqE '\bt\(' app/views/ 2>/dev/null; then
+  check_pcre "Textes visibles via t() uniquement (une ligne par texte)" "grep -rnP '>\s*\p{Lu}[\p{Ll}\s,’'\''-]{12,}[.!?…]?\s*<' app/views/ | grep -vE '(^|[^A-Za-z_.])t\('"
+fi
+
+echo "Ruby"
+check "Time.current plutôt que Time.now"         "grep -rnE '\bTime\.now\b|\bDate\.today\b' app/ lib/ 2>/dev/null"
+if [ "$PCRE" = 1 ]; then
+  list "Méthodes de même nom dans modèles, helpers, lib (logique réécrite ?)" "grep -rhoP '^\s*def (self\.)?\K\w+[?!]?' app/models/ app/helpers/ lib/ 2>/dev/null | sort | uniq -c | sort -rn | awk '\$1 > 1' | grep -vwE 'initialize|to_s|to_param|call|name|title|to_h'"
+fi
+
+# Détection de la stack CSS
+if find app/assets/stylesheets -name '*.scss' 2>/dev/null | grep -q .; then
+  echo "Sass"
+  check "Aucune couleur hexadécimale hors des fichiers de variables" "grep -rn '#[0-9A-Fa-f]\{3,8\}\b' app/assets/stylesheets/ --include='*.scss' | grep -vE '$VARIABLES'"
+  check "Aucun !important"                       "grep -rn '!important' app/assets/stylesheets/"
+  if grep -q 'dartsass-rails' Gemfile.lock 2>/dev/null && [ -x bin/rails ]; then
+    run "Compilation Sass"                       "bin/rails dartsass:build"
+  fi
+  # Bootstrap (gem « bootstrap ») : on le personnalise par ses variables Sass,
+  # redéfinies avant l'import ; redéfinir ses sélecteurs est une dette.
+  if grep -qE '^\s+bootstrap \(' Gemfile.lock 2>/dev/null; then
+    list "Bootstrap : sélecteurs du framework redéfinis hors des variables (variable à utiliser, ou exception justifiée)" \
+      "grep -rnE '^\s*\.(btn|navbar|nav-link|card|form-control|form-select|modal|dropdown|badge|alert|table|container|row|col)(-[a-z0-9-]+)?\s*\{' app/assets/stylesheets/ | grep -vE '$VARIABLES'"
+  fi
+elif [ -d app/assets/tailwind ] || [ -f config/tailwind.config.js ] || [ -f tailwind.config.js ] \
+     || ls app/assets/stylesheets/*.tailwind.css >/dev/null 2>&1 || grep -q '"tailwindcss"' package.json 2>/dev/null; then
+  echo "Tailwind"
+  check "Aucune valeur arbitraire de couleur"    "grep -rnE '(bg|text|border|ring|fill|stroke|from|to|via)-\[#' app/views/ app/helpers/ app/javascript/ 2>/dev/null"
+  check "Aucune couleur hexadécimale hors du thème" "grep -rn '#[0-9A-Fa-f]\{3,8\}\b' app/assets/stylesheets/ app/assets/tailwind/ 2>/dev/null | grep -vE '$VARIABLES' | grep -v -- '--'"
+elif find app/assets/stylesheets -name '*.css' 2>/dev/null | grep -q .; then
+  echo "CSS"
+  check "Aucune couleur hexadécimale hors des variables (:root)" "grep -rn '#[0-9A-Fa-f]\{3,8\}\b' app/assets/stylesheets/ --include='*.css' | grep -vE '$VARIABLES' | grep -v -- '--'"
+  check "Aucun !important"                       "grep -rn '!important' app/assets/stylesheets/"
+fi
+
+if [ -d app/javascript/controllers ]; then
+  echo "Stimulus"
+  check "Contrôleurs de 30 lignes de code au plus (hors commentaires et lignes vides)" "find app/javascript/controllers \( -name '*_controller.js' -o -name '*_controller.ts' \) -exec awk '!/^[[:space:]]*(\/\/|\*|\/\*|$)/ { n++ } END { if (n > 30) print FILENAME \": \" n \" lignes\" }' {} \;"
+fi
+
+if find app/controllers -name '*_controller.rb' 2>/dev/null | grep -q .; then
+  echo "Contrôleurs"
+  list  "Paramètres autorisés (à relire un par un)" "grep -rnE 'permit\(|expect\(' app/controllers/"
+  check "Aucune valeur interpolée dans une requête (injection SQL)" "grep -rnE '(where|order|group|having|select|joins|find_by_sql|pluck)\\(\\s*[\"'\''][^\"'\'']*#\\{|order\\(\\s*params' app/ lib/ 2>/dev/null"
+  list  "Relations parcourues sans borne (.all / .each sur une relation : pagination, limit ou find_each ?)" "grep -rnE '\\.all\\b|\\.each\\b' app/controllers/ app/views/ 2>/dev/null | grep -vE 'find_each|in_batches|\\.limit\\(|\\.page\\(|\\.first\\(|\\.last\\('"
+  check "Aucune méthode publique hors des sept actions CRUD" "find app/controllers -name '*_controller.rb' ! -name 'application_controller.rb' -exec awk '/^[[:space:]]*(private|protected)([[:space:]]|$)/{p=1} /controles: ok/{mk=1; next} /^[[:space:]]*def / && !p && !mk { m=\$2; sub(/[(;].*/,\"\",m); if (m !~ /^(index|show|new|create|edit|update|destroy)\$/) print FILENAME\": \"m } {mk=0}' {} \;"
+fi
+
+if [ -d app/models ]; then
+  echo "Robustesse"
+  check "Aucune erreur avalée (rescue sans classe, rescue Exception, rescue nil)" "grep -rnE '^\\s*rescue\\s*(=>\\s*\\w+)?\\s*$|rescue\\s+Exception\\b|\\brescue\\s+nil\\b' app/ lib/ 2>/dev/null"
+  check "Aucun raccourci qui saute les validations (update_attribute, update_column, save(validate: false), skip_callback)" "grep -rnE '\\bupdate_attribute\\b|\\bupdate_columns?\\b|save!?\\(\\s*validate:\\s*false|skip_callback' app/ lib/ 2>/dev/null"
+  list  "has_many sans dependent (que deviennent les enfants à la suppression ?)" "grep -rnE '^\\s*has_many\\b' app/models/ | grep -v 'dependent:' | grep -v 'through:'"
+  list  "Callbacks de modèle à effet de bord (mailer, job, service, autre modèle : à relire)" "grep -rnE '^\\s*(after|before|around)_(save|create|update|commit|destroy)\\b' app/models/"
+fi
+
+# Autorisation (Pundit) : l'oubli d'un authorize doit faire une erreur, pas une faille.
+if grep -qE '^\s+pundit \(' Gemfile.lock 2>/dev/null; then
+  echo "Autorisation (Pundit)"
+  run  "verify_authorized dans ApplicationController (after_action)" "grep -qE '^\s*after_action\s+:verify_authorized' app/controllers/application_controller.rb"
+  run  "verify_policy_scoped dans ApplicationController (after_action)" "grep -qE '^\s*after_action\s+:verify_policy_scoped' app/controllers/application_controller.rb"
+  list "Contrôleurs de ressource sans authorize ni policy_scope (à relire : chacun doit en avoir un, ou être exempté par skip_… justifié)" \
+    "grep -rLE 'authorize|policy_scope|skip_authorization|skip_policy_scope' app/controllers/ --include='*_controller.rb' | grep -vE 'application_controller|pages_controller'"
+fi
+
+if [ -d test ]; then
+  echo "Tests"
+  if grep -qE 'fixture:\s*false' config/application.rb 2>/dev/null; then
+    list "Fixtures désactivées par les générateurs (config.generators) : décision à consigner dans CLAUDE.md, ou à réactiver" "grep -n 'fixture' config/application.rb"
+  fi
+  list  "Tests ignorés (skip) sans commentaire daté" "grep -rn '\bskip\b' test/ | grep -vE '#.*20[0-9]{2}-[0-9]{2}-[0-9]{2}'"
+fi
+
+if [ "${1:-}" = "--prod" ]; then
+  echo "Avant mise en ligne"
+  check "Aucun secret en dur"                    "grep -rniE '(password|secret|api_key|token)\s*[:=]\s*[\"'\''][^\"'\'']{8,}' app/ config/ --include='*.rb' --include='*.yml' --exclude-dir=locales | grep -vE '<%=|ENV\[|credentials'"
+  list  "Journaux citant un champ personnel (à relire)" "grep -rn 'Rails.logger\|logger\.' app/ | grep -iE '\b(email|phone|telephone|address|adresse|first_name|last_name)\b'"
+  list  "filter_parameters (à relire si un champ personnel a été ajouté)" "grep -rn 'filter_parameters' config/"
+  if [ -x bin/bundler-audit ]; then
+    run "Dépendances sans faille connue"         "bin/bundler-audit check --update"
+  elif command -v bundle-audit >/dev/null; then
+    run "Dépendances sans faille connue"         "bundle-audit check --update"
+  fi
+fi
+
+echo
+printf '%d OK, %d à traiter\n' "$ok" "$ko"
+[ "$ko" -eq 0 ]
