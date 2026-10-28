@@ -1,0 +1,38 @@
+<%# Pied de page (maquette « Pied de page »). Styles : components/_footer.scss.
+    Les pages de ces rubriques (mentions légales, tarifs…) n'existent pas dans la démo :
+    elles sont écrites en texte, pas en liens qui mèneraient à une erreur.
+    Le bandeau légal de la maquette (société, RCS, adresse) est remplacé par la mention
+    du projet : on n'affiche pas de fausses informations légales. %>
+<footer class="site-footer">
+  <div class="container py-5">
+    <div class="row gy-4">
+      <div class="col-lg-5">
+        <p class="site-brand site-brand--on-dark mb-2"><%= t("app_name") %></p>
+        <p class="site-footer__tagline mb-0"><%= t(".tagline") %></p>
+      </div>
+
+      <%# Les trois colonnes ont la même forme : un titre, puis une liste.
+          On les décrit une fois (titre => rubriques), et la boucle les affiche.
+          Les mots viennent de fr.yml : t(".platform") lit shared.footer.platform. %>
+      <% { platform: %i[how_it_works for_farms for_shops pricing],
+           help: %i[faq contact],
+           legal: %i[legal_notice terms privacy cookies mediation] }.each do |title, items| %>
+        <div class="col-6 col-lg">
+          <h2 class="site-footer__title"><%= t(".#{title}") %></h2>
+          <ul class="site-footer__list">
+            <% items.each do |item| %>
+              <li><%= t(".#{item}") %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="site-footer__legal">
+    <div class="container d-flex flex-wrap justify-content-between gap-2">
+      <span><%= t(".project") %></span>
+      <span class="site-footer__hosting"><%= t(".hosting") %></span>
+    </div>
+  </div>
+</footer>

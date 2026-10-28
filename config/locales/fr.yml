@@ -3,6 +3,45 @@
 # jamais « En attente » écrit en dur.
 # Le français est la langue par défaut (config/application.rb, issue #20).
 fr:
+  # Le nom du site : titre de l'onglet, logo de la barre et du pied de page.
+  app_name: Ferme Directe
+
+  # Les textes des partials partagés. Dans app/views/shared/_navbar.html.erb,
+  # t(".needs") est une « recherche paresseuse » (lazy lookup) : Rails complète
+  # la clé avec le chemin du fichier et lit shared.navbar.needs.
+  shared:
+    navbar:
+      toggle: Ouvrir le menu
+      listings: Annonces
+      needs: Mes besoins
+      orders: Mes commandes
+      favorites: Fermes favorites
+      notifications: Notifications
+      role_switch: Choisir le mode
+      buy: J'achète
+      sell: Je vends
+      account: Mon compte
+    footer:
+      tagline: De nouveaux débouchés pour les fermes françaises.
+      platform: La plateforme
+      how_it_works: Comment ça marche
+      for_farms: Pour les fermes
+      for_shops: Pour les commerces
+      pricing: Tarifs
+      help: Aide
+      faq: Questions fréquentes
+      contact: Nous écrire
+      legal: Informations légales
+      legal_notice: Mentions légales
+      terms: Conditions générales de vente
+      privacy: Politique de confidentialité
+      cookies: Gestion des cookies
+      mediation: Médiation de la consommation
+      project: Projet de démonstration · Le Wagon, batch 2312
+      hosting: Hébergement en France
+    flashes:
+      close: Fermer
+
   activerecord:
     models:
       company: Entreprise

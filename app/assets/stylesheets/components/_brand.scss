@@ -1,0 +1,22 @@
+// =============================================================================
+// Logo texte : « ● Ferme Directe »
+// =============================================================================
+// Le même logo dans la barre du haut (terre sur blé) et dans le pied de page
+// (blanc sur sapin, pastille blé). Un seul bloc, une variante pour le fond sombre.
+
+.site-brand {
+  @include dot(0.875rem);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  color: $terre;
+  font-size: 1.1875rem; // 19 px, comme la maquette
+  font-weight: 700;
+  text-decoration: none;
+}
+
+// Sur fond sombre : texte blanc, pastille blé.
+.site-brand--on-dark {
+  @include dot(0.875rem, $ble);
+  color: $blanc;
+}

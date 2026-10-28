@@ -1,28 +1,100 @@
-// This is where you override default Bootstrap variables
-// 1. Find all Bootstrap variables that you can override at the end of each component's documentation under the `Sass variables` anchor
-// e.g. here are the ones you can override for the navbar https://getbootstrap.com/docs/5.3/components/navbar/#sass-variables
-// 2. These variables are defined with default value (see https://robots.thoughtbot.com/sass-default)
-// 3. You can override them below!
+// =============================================================================
+// Bootstrap, branché sur la charte
+// =============================================================================
+// Bootstrap déclare chacun de ses réglages avec !default, qui veut dire :
+// « cette valeur, sauf si quelqu'un en a déjà donné une ». Ce fichier est lu
+// AVANT Bootstrap (voir application.scss) : nos valeurs gagnent, et Bootstrap
+// construit tous ses composants avec elles.
+//
+// C'est la règle du projet : on personnalise Bootstrap ici, par ses variables,
+// jamais en réécrivant ses classes (.btn, .navbar, .card…) dans un autre fichier.
+// La liste des variables d'un composant est en bas de sa page de documentation,
+// rubrique « Sass variables » : https://getbootstrap.com/docs/5.3/
 
-// General style
-$font-family-sans-serif: $body-font;
-$headings-font-family:   $headers-font;
-$body-bg:                $light-gray;
-$font-size-base:         1rem;
+// --- Les rôles de Bootstrap -----------------------------------------------------
+// Ces noms sont ceux de Bootstrap. Chacun fabrique une famille de classes :
+// $primary donne btn-primary, text-primary, bg-primary… On garde ces noms,
+// que tout développeur Bootstrap connaît, et on leur donne nos couleurs.
+$primary:   $sapin;           // l'action principale (btn-primary), les liens
+$secondary: $terre;           // le retour, l'annulation (btn-outline-secondary)
+$success:   $statut-positif;  // messages de réussite
+$info:      $statut-attente;  // messages d'information
+$danger:    $statut-negatif;  // erreurs
+$warning:   $ble;             // messages « attention »
+$light:     $papier;
+$dark:      $encre;
 
-// Colors
-$body-color: $gray;
-$primary:    $blue;
-$success:    $green;
-$info:       $yellow;
-$danger:     $red;
-$warning:    $orange;
+// --- La page --------------------------------------------------------------------
+$body-bg:              $papier;
+$body-color:           $encre;
+$body-secondary-color: $gris-chaud; // la classe text-body-secondary : le texte secondaire
+$border-color:         $trait;
+$link-color:           $sapin;
 
-// Buttons & inputs' radius
-$border-radius-sm:            .0625rem;
-$border-radius:               .125rem;
-$border-radius-lg:            .25rem;
-$border-radius-xl:            .5rem;
-$border-radius-xxl:           1rem;
+// Largeur maximale du contenu : 1200 px sur grand écran, comme la maquette.
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1200px
+);
 
-// Override other variables below!
+// --- Le texte -------------------------------------------------------------------
+// Charte : titres en gras de 28 à 32, corps de 15 à 16, secondaire 13, jamais
+// en dessous de 12. Interlignage large. 1 rem = 16 px.
+$font-family-sans-serif: $font-family-inter;
+$font-size-base:         0.9375rem; // 15 px
+$font-size-sm:           0.8125rem; // 13 px
+$line-height-base:       1.6;
+$headings-font-weight:   700;
+$h1-font-size:           2rem;      // 32 px
+$h2-font-size:           1.75rem;   // 28 px
+$h3-font-size:           1.25rem;   // 20 px
+$h4-font-size:           1.125rem;  // 18 px
+$h5-font-size:           1rem;
+$h6-font-size:           0.9375rem;
+
+// --- Les arrondis (maquette : boutons 10 px, champs 8 px, cartes 12 px) -----------
+$border-radius:    0.625rem; // 10 px
+$border-radius-sm: 0.5rem;   // 8 px
+$border-radius-lg: 0.75rem;  // 12 px
+
+// --- Les boutons ----------------------------------------------------------------
+// Maquette : 40 px de haut sur les cartes (taille normale), 52 px pour
+// l'action principale d'un écran (btn-lg). Texte en gras, 15 px dans les deux cas.
+$btn-font-weight:   700;
+$btn-border-width:  1.5px;
+$btn-padding-y:     0.4rem;
+$btn-padding-x:     1.5rem;
+$btn-padding-y-lg:  0.8rem;
+$btn-padding-x-lg:  1.875rem;
+$btn-font-size-lg:  $font-size-base;
+$btn-border-radius-lg: $border-radius;
+
+// --- Les champs de formulaire ------------------------------------------------------
+// Charte : bord « trait » au repos, bord « blé » quand le champ est actif,
+// libellés en terre, texte en encre. 46 px de haut.
+$input-border-width:        1.5px;
+$input-border-color:        $trait;
+$input-border-radius:       $border-radius-sm;
+$input-padding-y:           0.6rem;
+$input-padding-x:           0.875rem;
+$input-focus-border-color:  $ble;
+$input-focus-box-shadow:    0 0 0 0.5px $ble; // avec le bord, 2 px de blé, comme la maquette
+$form-select-focus-box-shadow:     $input-focus-box-shadow;
+$form-check-input-focus-box-shadow: $input-focus-box-shadow;
+$form-label-color:          $terre;
+$form-label-font-size:      0.75rem; // 12 px (en capitales : voir components/_forms.scss)
+$form-label-font-weight:    500;
+
+// --- Les cartes (fermes, offres, récapitulatifs) ----------------------------------
+$card-bg:            $blanc;
+$card-border-color:  $trait;
+$card-border-radius: $border-radius-lg;
+$card-spacer-x:      1.5rem;
+$card-spacer-y:      1.375rem;
+
+// --- Le menu déroulant du compte --------------------------------------------------
+$dropdown-link-active-bg:    $ble-pale;
+$dropdown-link-active-color: $encre;

@@ -1,0 +1,22 @@
+// =============================================================================
+// Nos mixins
+// =============================================================================
+// Un mixin est un morceau de CSS réutilisable : on l'écrit une fois ici, on
+// l'inclut avec @include là où il sert. Il ne produit rien tant qu'on ne
+// l'inclut pas.
+
+// La pastille ronde de la charte : devant le logo (« ● Ferme Directe »), devant
+// les statuts (« ● Acceptée »), devant « Hébergement en France ».
+// Elle est dessinée en CSS (::before) plutôt qu'écrite « ● » dans le texte :
+// le texte reste le mot traduit, la pastille reste de la décoration.
+// Par défaut, elle prend la couleur du texte (currentColor).
+@mixin dot($size, $color: currentColor) {
+  &::before {
+    content: "";
+    flex-shrink: 0;
+    width: $size;
+    height: $size;
+    border-radius: 50%;
+    background-color: $color;
+  }
+}
