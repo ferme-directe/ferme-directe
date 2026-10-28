@@ -30,8 +30,6 @@ gem "solid_cable"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
-# Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
-
 # Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
 gem "thruster", require: false
 
@@ -41,9 +39,7 @@ gem "image_processing", "~> 1.2"
 gem "sprockets-rails"
 gem "bootstrap", "~> 5.3"
 gem "devise"
-gem "autoprefixer-rails"
-gem "font-awesome-sass", "~> 6.1"
-gem "simple_form", github: "heartcombo/simple_form"
+gem "simple_form", "~> 5.4"
 gem "sassc-rails"
 
 group :development, :test do
