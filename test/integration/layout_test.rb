@@ -9,6 +9,8 @@ class LayoutTest < ActionDispatch::IntegrationTest
   test "un visiteur ne voit que le logo dans la barre" do
     get new_user_session_path
 
+    # assert_dom lit la page comme un navigateur et cherche par sélecteur CSS.
+    # count: 0 : aucune rubrique ne doit apparaître pour un visiteur.
     assert_dom ".site-navbar .site-brand", text: "Ferme Directe"
     assert_dom ".site-navbar__link", count: 0
   end

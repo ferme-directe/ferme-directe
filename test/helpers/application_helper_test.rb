@@ -14,6 +14,8 @@ class ApplicationHelperTest < ActionView::TestCase
   end
 
   test "status_tone lève une erreur sur un statut absent de la table" do
+    # Struct.new(:status) fabrique un petit objet qui n'a qu'un status : pas besoin
+    # d'une vraie commande pour tester ce cas, seulement d'un statut inconnu.
     record = Struct.new(:status).new("inconnu")
     assert_raises(KeyError) { status_tone(record) }
   end
@@ -24,6 +26,8 @@ class ApplicationHelperTest < ActionView::TestCase
   end
 
   test "nav_link_to grise une rubrique qui n'a pas encore de page" do
+    # assert_dom_equal compare deux morceaux de HTML comme le navigateur les lit :
+    # l'ordre des attributs ou les espaces ne comptent pas.
     assert_dom_equal(
       %(<span class="nav-link site-navbar__link disabled" aria-disabled="true">Annonces</span>),
       nav_link_to("Annonces", nil)
