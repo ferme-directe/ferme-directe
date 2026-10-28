@@ -33,9 +33,12 @@ La méthode est dans les skills du dépôt, lus automatiquement par Claude Code 
 Lire `Gemfile.lock` avant d'écrire du code : il fait foi.
 
 - Ruby 3.3.5 (`.ruby-version`), Rails 8.1, PostgreSQL.
-- Template Le Wagon `devise` : Devise, Bootstrap 5.3, Simple Form, Sprockets + sassc, Font Awesome.
+- Né du template Le Wagon `devise` : on en garde Devise, Bootstrap 5.3 et Simple Form.
   Les écarts avec une application neuve et nos décisions : `docs/decisions/0001-ecarts-du-template.md`.
-- Hotwire (Turbo, Stimulus) via importmap.
+- Assets : **Propshaft** et **Dart Sass** (`dartsass-rails`), le défaut de Rails 8. Hotwire (Turbo, Stimulus) via importmap.
+- **On lance l'application avec `bin/dev`**, pas `rails s` : il démarre le serveur et Dart Sass, qui recompile
+  le CSS à chaque enregistrement d'un `.scss`. Le CSS compilé (`app/assets/builds/`) n'est pas dans Git.
+  Une erreur de SCSS s'affiche dans le terminal (ligne `css |`), pas dans le navigateur.
 - Tests : **Minitest et fixtures** (défaut Rails). Pas de RSpec.
 - Style : le `.rubocop.yml` du Wagon fait foi. Analyse : Brakeman, bundler-audit.
 - Hébergement : Scalingo. Fuseau : `Paris`.
@@ -106,8 +109,8 @@ Outil de démo : `POST /demo/orders/:order_id/acceptance`, déclaré seulement s
 
 ## Autorisation
 
-Pundit est branché dans `ApplicationController` : `verify_authorized` (sauf `index`) et
-`verify_policy_scoped` (sur `index`). Chaque action appelle `authorize` ou `policy_scope`, et chaque
+Pundit est branché dans `ApplicationController` par un seul `after_action :verify_pundit_authorization`
+(forme du README de Pundit) : `verify_policy_scoped` sur `index`, `verify_authorized` ailleurs. Chaque action appelle `authorize` ou `policy_scope`, et chaque
 policy a son test (un accès refusé au moins).
 
 ## Textes et langue
