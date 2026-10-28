@@ -110,8 +110,8 @@ Outil de démo : `POST /demo/orders/:order_id/acceptance`, déclaré seulement s
 ## Autorisation
 
 Pundit est branché dans `ApplicationController` par un seul `after_action :verify_pundit_authorization`
-(forme du README de Pundit) : `verify_policy_scoped` sur `index`, `verify_authorized` ailleurs. Chaque action appelle `authorize` ou `policy_scope`, et chaque
-policy a son test (un accès refusé au moins).
+(forme du README de Pundit) : `verify_policy_scoped` sur `index`, `verify_authorized` ailleurs.
+Chaque action appelle `authorize` ou `policy_scope`, et chaque policy a son test (un accès refusé au moins).
 
 ## Textes et langue
 

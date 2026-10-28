@@ -7,3 +7,4 @@ Ce qu'on repère en cours de story et qu'on ne traite pas tout de suite. Une lig
 - 28 oct. · nettoyage · Remplacer les couleurs et polices d'exemple (`config/_colors.scss`, `config/_fonts.scss`) par celles de notre charte.
 - 28 oct. · déploiement · `config/environments/production.rb` : remplacer l'hôte des e-mails `TODO_PUT_YOUR_DOMAIN_HERE` par notre domaine.
 - 28 oct. · déploiement · `config/database.yml` : en production, une seule base. Rails 8 range par défaut Solid Queue, Solid Cache et Solid Cable dans trois bases à part ; on les met dans la base principale.
+- 28 oct. · charte · Icône du site : remplacer `public/icon.png` et `public/icon.svg` (icône Rails) par la nôtre ; le navigateur demande aussi `/favicon.ico`, qui n'existe pas.
