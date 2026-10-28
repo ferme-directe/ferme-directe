@@ -8,6 +8,9 @@ L'application est générée avec `rails new -d postgresql -m …/lewagon/rails-
 Le template change plusieurs défauts d'une application Rails 8.1 neuve. Chaque écart est noté ici une fois,
 pour que personne ne le redécouvre à ses frais.
 
+Le template a été utilisé sans décision formelle de l'équipe : la commande figurait dans le script de lancement.
+On le garde pour ses outils (Devise, Bootstrap, Simple Form) ; son visuel (barre, logo, styles d'exemple) est remplacé par le nôtre.
+
 ## Écarts et décisions
 
 | Écart du template | Décision | Pourquoi |
@@ -17,6 +20,9 @@ pour que personne ne le redécouvre à ses frais.
 | `.rubocop.yml` du Wagon à la place de `rubocop-rails-omakase` | **On garde celui du Wagon** | C'est celui du cours ; un seul fait foi. |
 | Sprockets + sassc à la place de Propshaft | On garde | Bootstrap et les feuilles du Wagon en dépendent. |
 | Vues Devise générées en anglais (Simple Form, Bootstrap) | Gardées ; messages et erreurs traduits par `devise-i18n` ; vues exclues du contrôle `t()` de `bin/controles` | La démo passe par des comptes de seeds. Traduire les vues est noté dans `docs/a-faire-plus-tard.md`. |
-| Kamal, `Dockerfile`, `config/deploy.yml` générés par Rails | Non utilisés | On déploie sur Scalingo. Fichiers gardés, inoffensifs. |
+| Kamal (`.kamal/`, `config/deploy.yml`, `bin/kamal`, gem `kamal`), générés par Rails | **Supprimés** le 28 oct. | Outil de déploiement sur son propre serveur ; on déploie sur Scalingo. Des fichiers qui ne déploient rien égarent le lecteur. |
+| `Dockerfile`, `thruster` | Gardés | Standards de Rails, sans effet avec Scalingo, réutilisables si on change d'hébergement. |
+| Vues Devise des modules non activés (`confirmations`, `unlocks` et leurs e-mails) | **Supprimées** le 28 oct. | `User` n'active ni la confirmation par e-mail ni le verrouillage : ces vues ne s'affichent jamais. |
+| Barre de navigation du Wagon (`shared/_navbar.html.erb`, logo et avatar chargés depuis les serveurs du Wagon) | **À remplacer** par la nôtre, selon notre charte | Un exemple du template, pas notre identité. Voir `docs/a-faire-plus-tard.md`. |
 | Dependabot hebdomadaire, 10 PR ouvertes au plus | Mensuel, mises à jour mineures groupées | Éviter une PR par gem chaque semaine pendant le projet. |
 | Fuseau horaire UTC | `config.time_zone = "Paris"` | Les heures des commandes et du bon de commande. |
