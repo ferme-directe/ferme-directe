@@ -1,7 +1,7 @@
 # Les libellés français de la base. Une seule source : les vues appellent
 # Order.human_enum_value(:status, :pending) ou order.human_enum(:status),
 # jamais « En attente » écrit en dur.
-# La langue par défaut passera en :fr avec les gems rails-i18n et devise-i18n (issue « Socle »).
+# Le français est la langue par défaut (config/application.rb, issue #20).
 fr:
   activerecord:
     models:
