@@ -127,8 +127,8 @@ fi
 # Autorisation (Pundit) : l'oubli d'un authorize doit faire une erreur, pas une faille.
 if grep -qE '^\s+pundit \(' Gemfile.lock 2>/dev/null; then
   echo "Autorisation (Pundit)"
-  run  "verify_authorized dans ApplicationController (after_action)" "grep -qE '^\s*after_action\s+:verify_authorized' app/controllers/application_controller.rb"
-  run  "verify_policy_scoped dans ApplicationController (after_action)" "grep -qE '^\s*after_action\s+:verify_policy_scoped' app/controllers/application_controller.rb"
+  run  "verify_authorized dans ApplicationController (after_action)" "grep -qE '^\s*after_action\s+:verify_(authorized|pundit_authorization)' app/controllers/application_controller.rb"
+  run  "verify_policy_scoped dans ApplicationController (after_action)" "grep -qE '^\s*after_action\s+:verify_(policy_scoped|pundit_authorization)' app/controllers/application_controller.rb"
   list "Contrôleurs de ressource sans authorize ni policy_scope (à relire : chacun doit en avoir un, ou être exempté par skip_… justifié)" \
     "grep -rLE 'authorize|policy_scope|skip_authorization|skip_policy_scope' app/controllers/ --include='*_controller.rb' | grep -vE 'application_controller|pages_controller'"
 fi

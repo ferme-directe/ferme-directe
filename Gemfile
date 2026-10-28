@@ -3,6 +3,7 @@ source "https://rubygems.org"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.1.4"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
+gem "propshaft", "~> 1.3"
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
 # Use the Puma web server [https://github.com/puma/puma]
@@ -36,11 +37,9 @@ gem "thruster", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
 
-gem "sprockets-rails"
 gem "bootstrap", "~> 5.3"
 gem "devise"
 gem "simple_form", "~> 5.4"
-gem "sassc-rails"
 
 group :development, :test do
   gem "dotenv-rails"
@@ -75,3 +74,5 @@ gem "prawn-table", "~> 0.2.2"
 
 gem "letter_opener", "~> 1.10", group: :development
 gem "bullet", "~> 8.3", group: :development
+
+gem "dartsass-rails", "~> 0.5.1"
