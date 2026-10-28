@@ -4,6 +4,8 @@ source "https://rubygems.org"
 gem "rails", "~> 8.1.4"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft", "~> 1.3"
+# Compile le SCSS avec Dart Sass, sans Node [https://github.com/rails/dartsass-rails]
+gem "dartsass-rails", "~> 0.5.1"
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
 # Use the Puma web server [https://github.com/puma/puma]
@@ -37,9 +39,10 @@ gem "thruster", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
 
-gem "bootstrap", "~> 5.3"
-gem "devise"
-gem "simple_form", "~> 5.4"
+# Du template Le Wagon (voir docs/decisions/0001-ecarts-du-template.md)
+gem "bootstrap", "~> 5.3" # CSS et JS de Bootstrap, servis par Propshaft et l'importmap
+gem "devise"              # comptes et connexion
+gem "simple_form", "~> 5.4" # formulaires Bootstrap
 
 group :development, :test do
   gem "dotenv-rails"
@@ -67,12 +70,11 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "pundit", "~> 2.5"
-gem "geocoder", "~> 1.8"
-gem "prawn", "~> 2.4"
+# Gems du projet : leur rôle et leur story sont dans CLAUDE.md
+gem "pundit", "~> 2.5"          # qui a le droit de faire quoi
+gem "geocoder", "~> 1.8"        # adresse → coordonnées, distance, rayon
+gem "prawn", "~> 2.4"           # bon de commande en PDF
 gem "prawn-table", "~> 0.2.2"
 
-gem "letter_opener", "~> 1.10", group: :development
-gem "bullet", "~> 8.3", group: :development
-
-gem "dartsass-rails", "~> 0.5.1"
+gem "letter_opener", "~> 1.10", group: :development # ouvre les e-mails dans le navigateur
+gem "bullet", "~> 8.3", group: :development         # signale les requêtes N+1
