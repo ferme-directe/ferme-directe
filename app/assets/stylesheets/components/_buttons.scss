@@ -1,0 +1,37 @@
+// =============================================================================
+// Boutons (charte, cadre « 2 — Composants », rubrique « Boutons »)
+// =============================================================================
+// La charte a trois boutons. Deux sont ceux de Bootstrap, réglés dans
+// config/_bootstrap_variables.scss ; le troisième est le nôtre, ci-dessous.
+//
+//   Action principale, une seule par écran (Sapin)
+//     class: "btn btn-primary btn-lg"      ex. « Envoyer ma commande »
+//   Retour, annulation (contour Terre)
+//     class: "btn btn-outline-secondary"   ex. « Modifier », « Retour »
+//   Commander, l'action répétée sur chaque carte (Blé)
+//     class: "btn btn-order"               ex. « Commander »
+//
+// Nos ajouts sont nommés par leur fonction : qui cherche le bouton
+// « Commander » trouve btn-order. Un nom de couleur (btn-ble) mentirait le jour
+// où la couleur change ; un nom de designer (btn-accent) ne dit rien à personne.
+
+// button-variant est le mixin avec lequel Bootstrap fabrique btn-primary,
+// btn-success… On lui donne nos couleurs ; il calcule le survol, le clic,
+// l'état désactivé et le contour de focus. shade-color assombrit une couleur
+// du pourcentage donné (fonction de Bootstrap).
+.btn-order { // controles: ok classe à nous, pas une réécriture de Bootstrap
+  @include button-variant(
+    $background: $ble,
+    $border: $ble,
+    $color: $encre,
+    $hover-background: shade-color($ble, 10%),
+    $hover-border: shade-color($ble, 10%),
+    $hover-color: $encre,
+    $active-background: shade-color($ble, 20%),
+    $active-border: shade-color($ble, 20%),
+    $active-color: $encre,
+    $disabled-background: $ble,
+    $disabled-border: $ble,
+    $disabled-color: $encre
+  );
+}

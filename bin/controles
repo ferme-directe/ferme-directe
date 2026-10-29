@@ -90,7 +90,7 @@ if find app/assets/stylesheets -name '*.scss' 2>/dev/null | grep -q .; then
   # redéfinies avant l'import ; redéfinir ses sélecteurs est une dette.
   if grep -qE '^\s+bootstrap \(' Gemfile.lock 2>/dev/null; then
     list "Bootstrap : sélecteurs du framework redéfinis hors des variables (variable à utiliser, ou exception justifiée)" \
-      "grep -rnE '^\s*\.(btn|navbar|nav-link|card|form-control|form-select|modal|dropdown|badge|alert|table|container|row|col)(-[a-z0-9-]+)?\s*\{' app/assets/stylesheets/ | grep -vE '$VARIABLES'"
+      "grep -rnE '^\s*\.(btn|navbar|nav-link|card|form-control|form-select|modal|dropdown|badge|alert|table|container|row|col)(-[a-z0-9-]+)?\s*\{' app/assets/stylesheets/ | grep -vE '$VARIABLES' | grep -v '$MARQUEUR'"
   fi
 elif [ -d app/assets/tailwind ] || [ -f config/tailwind.config.js ] || [ -f tailwind.config.js ] \
      || ls app/assets/stylesheets/*.tailwind.css >/dev/null 2>&1 || grep -q '"tailwindcss"' package.json 2>/dev/null; then

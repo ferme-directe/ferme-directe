@@ -1,38 +1,62 @@
-<nav class="navbar navbar-expand-sm navbar-light navbar-lewagon">
-  <div class="container-fluid">
-    <%= link_to "#", class: "navbar-brand" do %>
-      <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/logo.png" %>
+<%# Barre du haut (maquette « Barre du haut »). Styles : components/_navbar.scss.
+    Deux états :
+    - visiteur : le logo seul, puisqu'il n'a accès qu'à la connexion ;
+    - connecté : les rubriques, les notifications, la bascule J'achète / Je vends, le compte.
+    Les rubriques sans page dans la démo (pas de route) sont grisées : nav_link_to(…, nil).
+    Chaque story qui crée une de ces pages remplace nil par sa route. %>
+<nav class="navbar navbar-expand-lg site-navbar">
+  <div class="container-fluid px-4">
+    <%= link_to t("app_name"), root_path, class: "navbar-brand site-brand" %>
+
+    <% if user_signed_in? %>
+      <%# Sur petit écran, Bootstrap replie les rubriques derrière ce bouton
+          (data-bs-toggle="collapse" ouvre et ferme le bloc #site-navbar-menu). %>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#site-navbar-menu"
+              aria-controls="site-navbar-menu" aria-expanded="false" aria-label="<%= t(".toggle") %>">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="site-navbar-menu">
+        <ul class="navbar-nav me-auto ms-lg-5 gap-lg-3">
+          <li class="nav-item"><%= nav_link_to t(".listings"), nil %></li>
+          <%# « Mes besoins » mène au formulaire de besoin (story 1), en attendant une liste
+              des besoins (hors démo). Il reste souligné sur la page des fermes trouvées. %>
+          <li class="nav-item">
+            <%= nav_link_to t(".needs"), new_need_path, active: controller_name.in?(%w[needs matches]) %>
+          </li>
+          <li class="nav-item"><%= nav_link_to t(".orders"), nil %></li>
+          <li class="nav-item"><%= nav_link_to t(".favorites"), nil %></li>
+          <li class="nav-item d-flex align-items-center gap-2">
+            <%= nav_link_to t(".notifications"), notifications_path %>
+            <%# Emplacement de la story 9 : le nombre de notifications non lues. %>
+            <%= render "notifications/counter" %>
+          </li>
+        </ul>
+
+        <div class="d-flex align-items-center gap-3 py-2 py-lg-0">
+          <%# La bascule : deux liens, celui du mode en cours est actif.
+              « Je vends » mène à « Mes ventes » (story 12). %>
+          <div class="site-navbar__role-switch" role="group" aria-label="<%= t(".role_switch") %>">
+            <%= link_to t(".buy"), new_need_path,
+                        class: ["site-navbar__role", ("active" unless controller_name == "sales")] %>
+            <%= link_to t(".sell"), sales_path,
+                        class: ["site-navbar__role", ("active" if controller_name == "sales")] %>
+          </div>
+
+          <%# Le compte : un rond avec les initiales, qui ouvre un menu (dropdown de Bootstrap). %>
+          <div class="dropdown">
+            <button class="site-navbar__avatar" type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                    aria-label="<%= t(".account") %>">
+              <%= user_initials(current_user) %>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><span class="dropdown-item-text text-body-secondary small"><%= current_user.email %></span></li>
+              <%# Emplacement de la story 14 : le lien « Se déconnecter ». %>
+              <%= render "shared/sign_out_link" %>
+            </ul>
+          </div>
+        </div>
+      </div>
     <% end %>
-
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto">
-        <% if user_signed_in? %>
-          <li class="nav-item active">
-            <%= link_to "Home", "#", class: "nav-link" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Messages", "#", class: "nav-link" %>
-          </li>
-          <li class="nav-item dropdown">
-          <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar", alt: "dropdown menu" %>
-          </a>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <%= link_to "Action", "#", class: "dropdown-item" %>
-              <%= link_to "Another action", "#", class: "dropdown-item" %>
-              <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
-            </div>
-          </li>
-        <% else %>
-          <li class="nav-item">
-            <%= link_to "Login", new_user_session_path, class: "nav-link" %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
   </div>
 </nav>

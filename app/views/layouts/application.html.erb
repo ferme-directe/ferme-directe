@@ -1,31 +1,42 @@
 <!DOCTYPE html>
-<html>
+<%# Le gabarit commun à toutes les pages : la barre en haut, le pied de page en bas,
+    et la page elle-même à la place de yield. Chaque vue ne contient que son contenu. %>
+<html lang="<%= I18n.locale %>">
   <head>
-    <title><%= content_for(:title) || "Ferme Directe" %></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title><%= content_for(:title) || t("app_name") %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Ferme Directe">
+    <meta name="application-name" content="<%= t("app_name") %>">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= yield :head %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%# Le CSS compilé par Dart Sass (app/assets/builds/application.css), servi par Propshaft. %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body><%= render "shared/navbar" %>
-<%= render "shared/flashes" %>
+  <%# Le pied de page reste en bas, même sur une page courte : la page est une colonne
+      (d-flex flex-column) d'au moins la hauteur de l'écran (min-vh-100), et le contenu
+      prend toute la place libre (flex-grow-1). Des classes de Bootstrap, sans CSS à écrire. %>
+  <body class="d-flex flex-column min-vh-100">
+    <%= render "shared/navbar" %>
 
-    <%= yield %>
+    <main class="flex-grow-1 py-4">
+      <div class="container">
+        <%= render "shared/flashes" %>
+      </div>
+      <%# Chaque vue pose son propre <div class="container"> : une page peut ainsi
+          utiliser toute la largeur si la maquette le demande. %>
+      <%= yield %>
+    </main>
+
+    <%= render "shared/footer" %>
   </body>
 </html>

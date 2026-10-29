@@ -116,7 +116,36 @@ Chaque action appelle `authorize` ou `policy_scope`, et chaque policy a son test
 ## Textes et langue
 
 Textes visibles par `t()` et `config/locales/fr.yml`, jamais en dur dans une vue, un modèle ou un
-contrôleur. `bin/controles` le vérifie. Langue par défaut : français.
+contrôleur. `bin/controles` le vérifie. Langue par défaut : français (`rails-i18n`, `devise-i18n`).
+Une clé manquante lève une erreur en test et en développement.
+
+## Front : charte et conventions
+
+La charte est dans Figma (fichier « Charte ») ; sa traduction en code, dans `app/assets/stylesheets/`.
+Les décisions et leurs raisons : `docs/decisions/0002-charte-et-conventions-front.md`.
+
+- **Couleurs** : seulement dans `config/_colors.scss`, sous les noms de la charte (`$ble`, `$sapin`,
+  `$terre`…). Ailleurs, on écrit la variable, jamais le code couleur : `bin/controles` le bloque.
+- **Bootstrap** se règle par ses variables (`config/_bootstrap_variables.scss`), jamais en réécrivant
+  ses classes (`.btn`, `.navbar`, `.card`…) dans un autre fichier.
+- **Boutons** :
+  - `btn btn-primary btn-lg` : l'action principale (sapin), une seule par écran ;
+  - `btn btn-outline-secondary` : retour, annulation (contour terre) ;
+  - `btn btn-order` : « Commander » (blé), l'action répétée sur chaque carte.
+- **Statut** d'une commande ou d'une annonce : `render "shared/status_tag", record: order`.
+  Autres étiquettes : `tag tag--favorite`, `tag tag--neutral`.
+- **Prix** : `format_price(cents)` (« 0,36 € », « 108 € »). Jamais de calcul de prix dans une vue.
+- **Nommage des classes**, le même partout :
+  - les classes de Bootstrap telles quelles (`btn-primary`, `card`, `d-flex`…) ;
+  - nos classes en anglais, nommées par leur fonction, jamais par leur couleur, au format BEM :
+    bloc `site-navbar`, élément `site-navbar__link`, variante `tag--positive` ;
+  - les variables de couleur gardent les noms français de la charte, pour parler comme la maquette.
+- **Pages partagées** par plusieurs stories : un fichier cadre et un partial par story. Celui qui crée
+  le cadre crée aussi les partials des autres, vides avec un commentaire ; chacun remplit le sien.
+  Exemples en place : `notifications/_counter` (story 9) et `shared/_sign_out_link` (story 14),
+  appelés par la barre du haut.
+- Le gabarit (`layouts/application`) pose la barre, les messages et le pied de page ; chaque vue
+  pose son propre `<div class="container">`.
 
 ## Secrets
 

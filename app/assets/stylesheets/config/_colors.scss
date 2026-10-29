@@ -1,10 +1,32 @@
-// Define variables for your color scheme
+// =============================================================================
+// Couleurs de la charte (Figma « Charte », cadre « 1 — Palette »)
+// =============================================================================
+// C'est le SEUL fichier du projet qui contient des codes couleur (#…).
+// Partout ailleurs, on écrit ces variables : changer une couleur, c'est changer
+// une ligne ici, et tout le site suit. bin/controles bloque un code couleur
+// écrit dans un autre fichier.
+//
+// Les variables portent les noms de la charte, en français, pour qu'on parle
+// de la même chose dans la maquette, en réunion et dans le code :
+// « le bouton principal est en sapin ».
 
-// For example:
-$red: #FD1015;
-$blue: #0D6EFD;
-$yellow: #FFC65A;
-$orange: #E67E22;
-$green: #1EDD88;
-$gray: #0E0000;
-$light-gray: #F4F4F4;
+// Identité : trois couleurs hiérarchisées. Le blé domine, la terre accompagne,
+// le sapin structure.
+$ble:      #D9B44A; // dominante : marque, barre du haut, états actifs, bouton « Commander »
+$ble-pale: #F5EACB; // surfaces chaudes, encadrés, étiquette « Favorite »
+$terre:    #6E5443; // libellés, logo, accents secondaires, bouton retour
+$sapin:    #2E463A; // bouton principal, pied de page
+
+// Neutres
+$papier:     #FBF8F1; // fond des pages
+$blanc:      #FFFFFF; // cartes, champs
+$trait:      #E4DDD0; // bordures, séparateurs
+$gris-chaud: #6E655B; // texte secondaire
+$encre:      #1F2A24; // texte courant
+
+// Statuts : ils portent un sens, ils ne décorent jamais. Toujours accompagnés
+// d'un mot (« une pastille et un mot ») : la couleur seule ne suffit pas, pour
+// les daltoniens comme pour tout le monde.
+$statut-positif: #3E8E5A; // accepté, confirmé, disponible
+$statut-attente: #3B6E9C; // en attente, en cours, partiel
+$statut-negatif: #B24232; // refusé, annulé, épuisé
