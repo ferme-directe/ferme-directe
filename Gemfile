@@ -78,3 +78,6 @@ gem "prawn-table", "~> 0.2.2"
 
 gem "letter_opener", "~> 1.10", group: :development # ouvre les e-mails dans le navigateur
 gem "bullet", "~> 8.3", group: :development         # signale les requêtes N+1
+
+gem "rails-i18n", "~> 8.1"
+gem "devise-i18n", "~> 1.16"
