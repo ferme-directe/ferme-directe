@@ -49,3 +49,27 @@ fr:
         order_accepted: Commande acceptée
         order_declined: Commande refusée
         need_matched: Un acheteur cherche un produit que vous proposez
+  orders:
+    show:
+      title: "Commande %{reference}"
+      reference: Référence
+      timestamp: Horodatage
+      buyer: Acheteur
+      seller: Ferme
+      product: Produit
+      label: Label
+      quantity: Quantité
+      quantity_value: "%{quantity} %{unit}"
+      unit_price: Prix unitaire
+      total: Total
+      fulfillment: Modalité
+      status: Statut
+      address: Adresse
+  number:
+    currency:
+      format:
+        unit: "€"
+        delimiter: " "
+        separator: ","
+        precision: 2
+        format: "%n %u"

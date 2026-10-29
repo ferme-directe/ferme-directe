@@ -7,8 +7,13 @@ class OrdersController < ApplicationController
   def create
   end
 
-  # Story 7 (A05, BC) : la commande et son bon de commande (format PDF).
+  # Story 7 (A05) : référence, horodatage et détail. Le PDF est la sous-étape suivante.
   def show
+    # CHOIX : la langue par défaut reste :en tant que l'issue #20 n'a pas ajouté rails-i18n.
+    # Cette page lit fr.yml. À retirer quand la locale par défaut sera :fr.
+    I18n.locale = :fr
+    @order = Order.includes(:buyer_company, :seller_company, :product, :address).find(params[:id])
+    authorize @order
   end
 
   # Story 6 (V03) : la ferme accepte, le stock baisse.
