@@ -24,6 +24,7 @@ class OrdersShowTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "Retrait à la ferme"
     assert_includes response.body, "En attente"
     assert_includes response.body, "2 route de Dourdan"
+    assert_select "a[href=?]", order_path(@order, format: :pdf), text: "Télécharger le bon de commande"
   end
 
   test "la ferme de la commande voit la référence" do
@@ -35,6 +36,31 @@ class OrdersShowTest < ActionDispatch::IntegrationTest
     assert_includes response.body, @order.reference
   end
 
+  test "l'acheteur télécharge le bon de commande" do
+    sign_in users(:buyer)
+
+    get order_path(@order, format: :pdf)
+
+    assert_purchase_order_pdf
+  end
+
+  test "la ferme télécharge le bon de commande" do
+    sign_in users(:farmer)
+
+    get order_path(@order, format: :pdf)
+
+    assert_purchase_order_pdf
+  end
+
+  test "un autre compte ne télécharge pas le bon" do
+    sign_in users(:stranger)
+
+    get order_path(@order, format: :pdf)
+
+    assert_redirected_to root_path
+    assert_not_equal "application/pdf", response.media_type
+  end
+
   test "un autre compte est refusé" do
     sign_in users(:stranger)
 
@@ -44,5 +70,14 @@ class OrdersShowTest < ActionDispatch::IntegrationTest
     assert_equal "Vous n'avez pas accès à cette page.", flash[:alert]
     follow_redirect!
     assert_not_includes response.body, @order.reference
+  end
+
+  private
+
+  def assert_purchase_order_pdf
+    assert_response :success
+    assert_equal "application/pdf", response.media_type
+    assert response.body.start_with?("%PDF")
+    assert_match "#{@order.reference}.pdf", response.headers["Content-Disposition"]
   end
 end

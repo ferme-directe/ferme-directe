@@ -2,6 +2,7 @@
 
 <main class="container py-4">
   <h1 class="h3"><%= t(".title", reference: @order.reference) %></h1>
+  <p><%= link_to t(".download"), order_path(@order, format: :pdf) %></p>
 
   <dl class="row">
     <dt class="col-sm-4"><%= t(".reference") %></dt>

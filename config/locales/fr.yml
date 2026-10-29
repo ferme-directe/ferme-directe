@@ -52,6 +52,7 @@ fr:
   orders:
     show:
       title: "Commande %{reference}"
+      download: Télécharger le bon de commande
       reference: Référence
       timestamp: Horodatage
       buyer: Acheteur

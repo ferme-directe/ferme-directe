@@ -7,13 +7,18 @@ class OrdersController < ApplicationController
   def create
   end
 
-  # Story 7 (A05) : référence, horodatage et détail. Le PDF est la sous-étape suivante.
+  # Story 7 (A05, BC) : la page et le bon de commande PDF. Rien n'est écrit en base.
   def show
     # CHOIX : la langue par défaut reste :en tant que l'issue #20 n'a pas ajouté rails-i18n.
     # Cette page lit fr.yml. À retirer quand la locale par défaut sera :fr.
     I18n.locale = :fr
     @order = Order.includes(:buyer_company, :seller_company, :product, :address).find(params[:id])
     authorize @order
+
+    respond_to do |format|
+      format.html
+      format.pdf { send_purchase_order }
+    end
   end
 
   # Story 6 (V03) : la ferme accepte, le stock baisse.
@@ -29,5 +34,14 @@ class OrdersController < ApplicationController
   # Story 11 (A04) : l'acheteur annule tant que la commande est pending.
   # controles: ok route member du cadrage (bloc 2)
   def cancel
+  end
+
+  private
+
+  def send_purchase_order
+    send_data PurchaseOrderPdf.new(@order).render,
+              filename: "#{@order.reference}.pdf",
+              type: "application/pdf",
+              disposition: "attachment"
   end
 end
