@@ -18,4 +18,17 @@ class Order < ApplicationRecord
   validates :discount_percent, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
   validates :unit, :needed_on, :payment_terms, presence: true
   validates :reference, presence: true, uniqueness: true
+
+  # Story 8. La story 6 appelle cette méthode à la fin de accept!.
+  def deliver_confirmations
+    confirmation_recipients.each do |recipient|
+      OrderMailer.confirmation(self, recipient).deliver_later
+    end
+  end
+
+  private
+
+  def confirmation_recipients
+    buyer_company.users + seller_company.users
+  end
 end

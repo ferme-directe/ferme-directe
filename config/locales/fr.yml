@@ -66,6 +66,10 @@ fr:
       fulfillment: Modalité
       status: Statut
       address: Adresse
+  order_mailer:
+    confirmation:
+      subject: "Bon de commande %{reference}"
+      body: "Le bon de commande %{reference} est joint à ce message."
   number:
     currency:
       format:
