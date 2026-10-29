@@ -1,0 +1,11 @@
+// =============================================================================
+// Formulaires (charte, rubrique « Champ »)
+// =============================================================================
+// Couleur, taille et graisse des libellés et des champs viennent des variables
+// de config/_bootstrap_variables.scss. Seule exception : Bootstrap n'a pas de
+// variable pour mettre les libellés en capitales (« QUANTITÉ », « UNITÉ »).
+// Cette règle ne fait qu'ajouter à la classe de Bootstrap, elle ne la réécrit pas.
+.form-label {
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}

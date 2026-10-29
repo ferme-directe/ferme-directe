@@ -1,2 +1,5 @@
-// Import page-specific CSS files here.
-@import "home";
+// Le CSS propre à une seule page, s'il en faut : un fichier par page
+// (pages/_matches.scss…), importé ici.
+// La plupart des pages n'en ont pas besoin : les composants et les classes
+// utilitaires de Bootstrap (d-flex, gap-3, mb-4…) suffisent. Avant d'ajouter
+// un fichier ici, se demander si ce n'est pas plutôt un composant réutilisable.

@@ -1,16 +1,25 @@
-// Import Google fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito:400,700|Work+Sans:400,700&display=swap');
+// =============================================================================
+// Police de la charte : Inter, hébergée chez nous
+// =============================================================================
+// Le fichier est dans app/assets/fonts/. Pourquoi pas Google Fonts : aucun
+// appel à un service extérieur, l'adresse IP du visiteur n'est transmise à
+// personne, et la police arrive avec le reste du site.
+//
+// Un seul fichier « variable » contient toutes les graisses, de 100 (fin) à
+// 900 (très gras). Le format .woff2 est compressé et lu par tous les
+// navigateurs actuels : plus besoin des .eot et .ttf d'autrefois.
+// Licence libre SIL OFL 1.1 : app/assets/fonts/Inter-LICENSE.txt.
+//
+// Propshaft remplace "InterVariable.woff2" par le nom du fichier avec son
+// empreinte (InterVariable-3f2a….woff2), pour que le navigateur reprenne la
+// nouvelle version si elle change.
+@font-face {
+  font-family: "Inter";
+  src: url("InterVariable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap; // le texte s'affiche tout de suite, la police arrive ensuite
+}
 
-// Define fonts for body and headers
-$body-font: "Work Sans", "Helvetica", "sans-serif";
-$headers-font: "Nunito", "Helvetica", "sans-serif";
-
-// To use a font file (.woff) uncomment following lines
-// @font-face {
-//   font-family: "Font Name";
-//   src: font-url('FontFile.eot');
-//   src: font-url('FontFile.eot?#iefix') format('embedded-opentype'),
-//        font-url('FontFile.woff') format('woff'),
-//        font-url('FontFile.ttf') format('truetype')
-// }
-// $my-font: "Font Name";
+// Si Inter ne se charge pas, la police du système prend le relais.
+$font-family-inter: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;

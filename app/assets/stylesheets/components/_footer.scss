@@ -1,0 +1,48 @@
+// =============================================================================
+// Pied de page (maquette, cadre « Pied de page »)
+// =============================================================================
+// Le HTML est dans app/views/shared/_footer.html.erb. La mise en colonnes vient
+// de la grille de Bootstrap (row, col-…) : ici, seulement les couleurs et les
+// tailles de la maquette.
+
+.site-footer {
+  background-color: $sapin;
+  color: rgba($blanc, 0.85); // texte clair sur fond sombre, un peu adouci
+  font-size: $font-size-sm;
+}
+
+.site-footer__tagline {
+  color: rgba($blanc, 0.75);
+  font-size: 0.875rem;
+}
+
+// Le titre d'une colonne (« La plateforme », « Aide »…).
+.site-footer__title {
+  margin-bottom: 0.75rem;
+  color: $ble;
+  font-size: $font-size-sm;
+  font-weight: 700;
+}
+
+.site-footer__list {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+// Le bandeau du bas, en terre.
+.site-footer__legal {
+  padding: 0.875rem 0;
+  background-color: $terre;
+  color: rgba($blanc, 0.75);
+  font-size: 0.75rem;
+}
+
+.site-footer__hosting {
+  @include dot(0.625rem, $ble);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}

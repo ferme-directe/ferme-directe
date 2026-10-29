@@ -1,5 +1,14 @@
-// Import your components CSS files here.
-@import "alert";
-@import "avatar";
-@import "form_legend_clear";
+// Les composants de la charte : un fichier par composant, un nom par fonction.
+// Convention de nommage des classes, la même partout (détail dans CLAUDE.md) :
+//   - les classes de Bootstrap telles quelles : btn, btn-primary, navbar, card… ;
+//   - nos classes en anglais, nommées par ce qu'elles font, au format BEM :
+//       bloc               .site-navbar   (la barre du site)
+//       élément du bloc    .site-navbar__link   (deux tirets bas : « un lien de la barre »)
+//       variante du bloc   .tag--positive  (deux tirets : « une étiquette, version positive »)
+@import "buttons";
+@import "tag";
+@import "brand";
 @import "navbar";
+@import "footer";
+@import "forms";
+@import "form_legend_clear";

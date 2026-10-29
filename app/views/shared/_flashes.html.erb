@@ -1,14 +1,15 @@
+<%# Les messages après une action (« Commande envoyée », « Connexion réussie »…).
+    notice : une confirmation ; alert : un problème. Le bouton ✕ ferme le message
+    (data-bs-dismiss, JavaScript de Bootstrap). %>
 <% if notice %>
-  <div class="alert alert-info alert-dismissible fade show m-1" role="alert">
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
     <%= notice %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-    </button>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="<%= t(".close") %>"></button>
   </div>
 <% end %>
 <% if alert %>
-  <div class="alert alert-warning alert-dismissible fade show m-1" role="alert">
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
     <%= alert %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-    </button>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="<%= t(".close") %>"></button>
   </div>
 <% end %>

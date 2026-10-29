@@ -17,6 +17,12 @@ module FermeDirecte
     config.load_defaults 8.1
     config.time_zone = "Paris"
 
+    # Français par défaut (issue #20). Les textes de Rails (« doit être rempli(e) »)
+    # viennent de la gem rails-i18n, ceux de Devise de devise-i18n, les nôtres de
+    # config/locales/fr.yml. Une seule langue disponible : rien ne bascule en anglais.
+    config.i18n.default_locale = :fr
+    config.i18n.available_locales = [:fr]
+
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.

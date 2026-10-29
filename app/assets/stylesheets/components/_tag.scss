@@ -1,0 +1,52 @@
+// =============================================================================
+// Étiquettes (charte, rubrique « Étiquettes de statut »)
+// =============================================================================
+// Une petite pilule avec un mot : « ● Acceptée », « ★ Favorite », « Déjà vue ».
+// Un bloc (.tag) et ses variantes (.tag--…). Les variantes sont nommées par leur
+// sens, pas par leur couleur : si la charte change le vert, « positive » reste vrai.
+//
+//   .tag--positive  accepté, confirmé, disponible   (vert, avec pastille)
+//   .tag--waiting   en attente, en cours, partiel   (bleu, avec pastille)
+//   .tag--negative  refusé, annulé, épuisé          (rouge, avec pastille)
+//   .tag--favorite  ferme favorite (blé pâle) : une préférence, pas un état
+//   .tag--neutral   information sans enjeu, ex. « Déjà vue » (gris)
+//
+// Pour le statut d'une commande ou d'une annonce, on ne choisit pas la
+// variante à la main : le partial shared/_status_tag le fait (voir
+// ApplicationHelper#status_tone).
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.875rem;
+  border-radius: 50rem; // une pilule, quelle que soit la hauteur du texte
+  font-size: $font-size-sm;
+  font-weight: 500;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+// Les trois variantes de statut se construisent pareil : le texte et la
+// pastille dans la couleur du statut, le fond dans cette même couleur diluée
+// (tint-color, fonction de Bootstrap : 90 % de blanc, 10 % de couleur).
+// Une seule source de couleur par statut, dans config/_colors.scss.
+@mixin tag-status($color) {
+  @include dot(0.5rem);
+  color: $color;
+  background-color: tint-color($color, 90%);
+}
+
+.tag--positive { @include tag-status($statut-positif); }
+.tag--waiting  { @include tag-status($statut-attente); }
+.tag--negative { @include tag-status($statut-negatif); }
+
+.tag--favorite {
+  color: $encre;
+  background-color: $ble-pale;
+}
+
+.tag--neutral {
+  color: $gris-chaud;
+  background-color: tint-color($trait, 45%);
+}
