@@ -1,10 +1,8 @@
-// In bootstrap 5 legend floats left and requires the following element
-// to be cleared. In a radio button or checkbox group the element after
-// the legend will be the automatically generated hidden input; the fix
-// in https://github.com/twbs/bootstrap/pull/30345 applies to the hidden
-// input and has no visual effect. Here we try to fix matters by
-// applying the clear to the div wrapping the first following radio button
-// or checkbox.
+// Correctif d'un défaut de Bootstrap 5 dans les groupes de boutons radio et de
+// cases à cocher (Simple Form les entoure d'un <fieldset> et d'une <legend>).
+// Bootstrap fait « flotter » la légende à gauche, et la première option vient
+// se coller à côté d'elle au lieu de passer à la ligne. clear: left force
+// l'option sous la légende.
 legend ~ div.form-check:first-of-type {
   clear: left;
 }

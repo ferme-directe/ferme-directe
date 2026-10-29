@@ -1,0 +1,5 @@
+<%# Étiquette de statut (charte : une pastille et un mot). Styles : components/_tag.scss.
+    Reçoit record: une commande, une annonce… tout modèle qui a un status.
+      render "shared/status_tag", record: order
+    Le mot vient de fr.yml (human_enum), la variante de couleur de status_tone. %>
+<span class="tag tag--<%= status_tone(record) %>"><%= record.human_enum(:status) %></span>

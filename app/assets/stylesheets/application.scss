@@ -1,11 +1,20 @@
-// Graphical variables
-@import "config/fonts";
+// =============================================================================
+// Point d'entrée du CSS
+// =============================================================================
+// Dart Sass compile ce fichier, et tout ce qu'il importe, en un seul fichier :
+// app/assets/builds/application.css (bin/dev le recompile à chaque
+// enregistrement). L'ordre des imports compte.
+
+// 1. Nos réglages, AVANT Bootstrap, pour qu'il prenne nos valeurs.
 @import "config/colors";
+@import "config/fonts";
+@import "config/mixins";
 @import "config/bootstrap_variables";
 
-// External libraries
+// 2. Bootstrap (fourni par la gem bootstrap), construit avec nos réglages.
 @import "bootstrap";
 
-// Your CSS partials
+// 3. Nos composants et nos pages. Placés après Bootstrap, ils peuvent utiliser
+//    ses variables et ses fonctions (tint-color, button-variant…).
 @import "components/index";
 @import "pages/index";
