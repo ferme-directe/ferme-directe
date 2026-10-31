@@ -7,3 +7,4 @@ Ce qu'on repère en cours de story et qu'on ne traite pas tout de suite. Une lig
 - 28 oct. · déploiement · `config/database.yml` : en production, une seule base. Rails 8 range par défaut Solid Queue, Solid Cache et Solid Cable dans trois bases à part ; on les met dans la base principale.
 - 28 oct. · charte · Icône du site : remplacer `public/icon.png` et `public/icon.svg` (icône Rails) par la nôtre ; le navigateur demande aussi `/favicon.ico`, qui n'existe pas.
 - 28 oct. · charte · Barre du haut : « Annonces », « Mes commandes » et « Fermes favorites » sont grisées faute de page dans la démo ; « Mes besoins » mène au formulaire de besoin. À brancher quand ces pages existeront.
+- 31 oct. · story 5 · `Order.build_from` calcule le total sans remise par quantité (`discount_tiers`). À brancher sur le calcul de la story 4 quand il existera.
