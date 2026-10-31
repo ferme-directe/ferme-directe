@@ -18,4 +18,25 @@ class Order < ApplicationRecord
   validates :discount_percent, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
   validates :unit, :needed_on, :payment_terms, presence: true
   validates :reference, presence: true, uniqueness: true
+
+  # Story 5 : prépare la commande à partir du besoin de l'acheteur et de l'offre choisie.
+  # Les données de l'accord sont recopiées : si la ferme change son prix demain, la commande ne bouge pas.
+  # CHOIX : total = prix unitaire × quantité, sans remise par quantité pour l'instant (docs/a-faire-plus-tard.md).
+  def self.build_from(need:, offer:, quantity: need.quantity)
+    quantity = quantity.to_i
+    new(
+      need: need, offer: offer,
+      buyer_company: need.company, seller_company: offer.company,
+      product: offer.product, address: offer.address,
+      label: offer.label, size: offer.size, unit: offer.unit, pickup_hours: offer.pickup_hours,
+      quantity: quantity, unit_price_cents: offer.unit_price_cents, total_cents: offer.unit_price_cents * quantity,
+      needed_on: need.needed_on, reference: generate_reference
+    )
+  end
+
+  # Une référence lisible sur le bon de commande : FD-20261031-A1B2C3.
+  # La partie au hasard évite deux références identiques le même jour (l'index unique en base garantit le reste).
+  def self.generate_reference
+    "FD-#{Time.current.strftime('%Y%m%d')}-#{SecureRandom.hex(3).upcase}"
+  end
 end
