@@ -34,6 +34,19 @@ class Order < ApplicationRecord
     )
   end
 
+  # Story 5 : enregistre la commande et prévient chaque compte de la ferme (notification « commande reçue »).
+  # Tout ou rien : si une notification échoue, la commande n'est pas gardée non plus.
+  # Renvoie la commande enregistrée, ou nil si elle est invalide (les erreurs sont dans order.errors).
+  def place
+    return unless valid?
+
+    transaction do
+      save!
+      seller_company.users.each { |user| notifications.create!(user: user, kind: :order_received) }
+    end
+    self
+  end
+
   # Une référence lisible sur le bon de commande : FD-20261031-A1B2C3.
   # La partie au hasard évite deux références identiques le même jour (l'index unique en base garantit le reste).
   def self.generate_reference
