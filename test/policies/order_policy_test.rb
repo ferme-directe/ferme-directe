@@ -19,4 +19,13 @@ class OrderPolicyTest < ActiveSupport::TestCase
 
     assert_not OrderPolicy.new(user, @order).create?
   end
+
+  test "l'acheteur et la ferme voient la commande, un compte sans entreprise non" do
+    order = orders(:eggs_order)
+    user = users(:buyer).dup.tap { |u| u.company = nil }
+
+    assert OrderPolicy.new(users(:buyer), order).show?
+    assert OrderPolicy.new(users(:farmer), order).show?
+    assert_not OrderPolicy.new(user, order).show?
+  end
 end

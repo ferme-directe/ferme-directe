@@ -48,4 +48,25 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to need_matches_path(@need)
   end
+
+  test "la page de la commande montre le statut, le récapitulatif et la suite" do
+    sign_in users(:buyer)
+
+    get order_path(orders(:eggs_order))
+
+    assert_response :success
+    assert_dom "h1", text: "Votre commande"
+    assert_dom ".tag--waiting", text: "En attente"
+    assert_dom "dd", text: "108 €"
+    assert_dom ".card-title", text: "Et maintenant ?"
+  end
+
+  test "un compte qui n'est ni l'acheteur ni la ferme ne voit pas la commande" do
+    users(:buyer).update!(company: nil)
+    sign_in users(:buyer)
+
+    get order_path(orders(:eggs_order))
+
+    assert_redirected_to root_path
+  end
 end

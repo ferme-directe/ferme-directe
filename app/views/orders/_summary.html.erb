@@ -1,0 +1,35 @@
+<%# Le récapitulatif d'une commande : ce qui a été recopié de l'offre au moment de l'envoi.
+    Partagé avec la story 4 (A03, avant l'envoi). Reçoit order: une commande.
+      render "orders/summary", order: order %>
+<section class="card">
+  <div class="card-body">
+    <h2 class="h5 card-title"><%= t(".title") %></h2>
+    <dl class="row mb-0">
+      <dt class="col-5"><%= t(".farm") %></dt>
+      <dd class="col-7"><%= order.seller_company.name %></dd>
+
+      <dt class="col-5"><%= t(".product") %></dt>
+      <dd class="col-7"><%= [order.product.name, order.label, order.size].compact_blank.join(" · ") %></dd>
+
+      <dt class="col-5"><%= t(".quantity") %></dt>
+      <dd class="col-7"><%= order.quantity %> <%= order.unit %></dd>
+
+      <dt class="col-5"><%= t(".unit_price") %></dt>
+      <dd class="col-7"><%= format_price(order.unit_price_cents) %></dd>
+
+      <dt class="col-5"><%= t(".needed_on") %></dt>
+      <dd class="col-7"><%= l(order.needed_on, format: :long) %></dd>
+
+      <dt class="col-5"><%= t(".fulfillment") %></dt>
+      <dd class="col-7"><%= order.human_enum(:fulfillment) %></dd>
+
+      <% if order.pickup_hours.present? %>
+        <dt class="col-5"><%= t(".pickup_hours") %></dt>
+        <dd class="col-7"><%= order.pickup_hours %></dd>
+      <% end %>
+
+      <dt class="col-5 fw-bold"><%= t(".total") %></dt>
+      <dd class="col-7 fw-bold mb-0"><%= format_price(order.total_cents) %></dd>
+    </dl>
+  </div>
+</section>

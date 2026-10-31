@@ -19,7 +19,10 @@ class OrdersController < ApplicationController
   end
 
   # Story 7 (A05, BC) : la commande et son bon de commande (format PDF).
+  # Story 5 (A04) : la page de la commande ; la story 7 y ajoutera le PDF.
   def show
+    @order = Order.find(params[:id])
+    authorize @order
   end
 
   # Story 6 (V03) : la ferme accepte, le stock baisse.
