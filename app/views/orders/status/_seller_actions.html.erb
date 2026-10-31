@@ -1,0 +1,12 @@
+<%# Story 6 (V03) : les boutons de la ferme sur une commande en attente. Reçoit order: une commande.
+    button_to et non link_to : accepter change l'état de la commande (un formulaire en PATCH). %>
+<section class="card">
+  <div class="card-body">
+    <h2 class="h5 card-title"><%= t(".title") %></h2>
+    <p class="card-text"><%= t(".text", buyer: order.buyer_company.name) %></p>
+    <div class="d-flex flex-wrap gap-2">
+      <%= button_to t(".accept"), accept_order_path(order), method: :patch, class: "btn btn-primary btn-lg" %>
+      <%# Story 10 : le bouton « Je ne peux pas » (btn btn-outline-secondary) vient ici. %>
+    </div>
+  </div>
+</section>

@@ -42,6 +42,43 @@ fr:
     flashes:
       close: Fermer
 
+  # Stories 5 et 6 : les messages après l'envoi (create) et l'acceptation (accept) d'une commande.
+  orders:
+    accept:
+      success: Commande acceptée. L'acheteur est prévenu.
+    create:
+      success: Votre commande est envoyée. Elle attend la réponse de la ferme.
+      failure: La commande n'a pas pu être envoyée. Vérifiez la quantité.
+    # Story 5 (A04) : la page de la commande (orders/show) et son récapitulatif (orders/_summary).
+    show:
+      title: Commande %{reference}
+      heading: Votre commande
+      reference: Référence %{reference}
+    summary:
+      title: Récapitulatif
+      farm: Ferme
+      product: Produit
+      quantity: Quantité
+      unit_price: Prix unitaire
+      total: Total
+      needed_on: Pour le
+      fulfillment: Retrait ou livraison
+      pickup_hours: Horaires de retrait
+    status:
+      pending:
+        title: Et maintenant ?
+        text: La ferme a reçu votre commande. Dès qu'elle l'accepte, vous recevez une notification et le bon de commande par e-mail.
+      # Story 6 (V03) : les boutons de la ferme (orders/status/_seller_actions).
+      seller_actions:
+        title: Nouvelle commande
+        text: "%{buyer} vous a envoyé cette commande. En l'acceptant, votre stock baisse et l'acheteur est prévenu."
+        accept: Accepter la commande
+
+  # Outil de démo (demo/_acceptance_button), affiché seulement si DEMO_MODE est défini.
+  demo:
+    acceptance_button:
+      simulate: Simuler la réponse de la ferme
+
   activerecord:
     models:
       company: Entreprise
@@ -88,3 +125,9 @@ fr:
         order_accepted: Commande acceptée
         order_declined: Commande refusée
         need_matched: Un acheteur cherche un produit que vous proposez
+    # Story 6 : pourquoi une acceptation est refusée (Order#accept!).
+    errors:
+      models:
+        order:
+          not_pending: Cette commande n'est plus en attente.
+          out_of_stock: Le stock de l'offre ne suffit plus pour cette commande.
