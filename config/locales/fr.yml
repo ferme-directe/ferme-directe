@@ -42,6 +42,11 @@ fr:
     flashes:
       close: Fermer
 
+  # Story 6 : le message après l'acceptation (OrdersController#accept, t(".success")).
+  orders:
+    accept:
+      success: Commande acceptée. L'acheteur est prévenu.
+
   activerecord:
     models:
       company: Entreprise
@@ -88,3 +93,9 @@ fr:
         order_accepted: Commande acceptée
         order_declined: Commande refusée
         need_matched: Un acheteur cherche un produit que vous proposez
+    # Story 6 : pourquoi une acceptation est refusée (Order#accept!).
+    errors:
+      models:
+        order:
+          not_pending: Cette commande n'est plus en attente.
+          out_of_stock: Le stock de l'offre ne suffit plus pour cette commande.

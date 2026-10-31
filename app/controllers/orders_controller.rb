@@ -14,6 +14,13 @@ class OrdersController < ApplicationController
   # Story 6 (V03) : la ferme accepte, le stock baisse.
   # controles: ok route member du cadrage (bloc 2)
   def accept
+    @order = Order.find(params[:id])
+    authorize @order
+
+    @order.accept!
+    redirect_to order_path(@order), notice: t(".success")
+  rescue ActiveRecord::RecordInvalid
+    redirect_to order_path(@order), alert: @order.errors.full_messages.to_sentence
   end
 
   # Story 10 (V03) : la ferme refuse.
