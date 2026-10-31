@@ -68,6 +68,16 @@ fr:
       pending:
         title: Et maintenant ?
         text: La ferme a reçu votre commande. Dès qu'elle l'accepte, vous recevez une notification et le bon de commande par e-mail.
+      # Story 6 (V03) : les boutons de la ferme (orders/status/_seller_actions).
+      seller_actions:
+        title: Nouvelle commande
+        text: "%{buyer} vous a envoyé cette commande. En l'acceptant, votre stock baisse et l'acheteur est prévenu."
+        accept: Accepter la commande
+
+  # Outil de démo (demo/_acceptance_button), affiché seulement si DEMO_MODE est défini.
+  demo:
+    acceptance_button:
+      simulate: Simuler la réponse de la ferme
 
   activerecord:
     models:

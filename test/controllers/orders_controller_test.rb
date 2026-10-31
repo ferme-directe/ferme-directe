@@ -110,4 +110,16 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
   test "sans DEMO_MODE, la route de démo n'existe pas" do
     assert_not Rails.application.routes.url_helpers.method_defined?(:demo_order_acceptance_path)
   end
+
+  test "la ferme voit le bouton Accepter, l'acheteur non" do
+    sign_in users(:farmer)
+    get order_path(@order)
+    assert_dom "form[action='#{accept_order_path(@order)}'] button", text: "Accepter la commande"
+
+    sign_out :user
+    sign_in users(:buyer)
+    get order_path(@order)
+    assert_dom "form[action='#{accept_order_path(@order)}']", count: 0
+    assert_dom ".card-title", text: "Et maintenant ?"
+  end
 end

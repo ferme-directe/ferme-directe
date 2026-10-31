@@ -1,7 +1,14 @@
-<%# Story 5 (A04) : la commande attend la réponse de la ferme. Reçoit order: une commande. %>
-<section class="card">
-  <div class="card-body">
-    <h2 class="h5 card-title"><%= t("orders.status.pending.title") %></h2>
-    <p class="card-text mb-0"><%= t("orders.status.pending.text") %></p>
-  </div>
-</section>
+<%# Story 5 (A04) : la commande attend la réponse de la ferme. Reçoit order: une commande.
+    La ferme voit ses boutons (story 6) ; l'acheteur voit ce qui se passe ensuite,
+    et en démo le bouton qui simule la réponse de la ferme. %>
+<% if policy(order).accept? %>
+  <%= render "orders/status/seller_actions", order: order %>
+<% else %>
+  <section class="card">
+    <div class="card-body">
+      <h2 class="h5 card-title"><%= t("orders.status.pending.title") %></h2>
+      <p class="card-text"><%= t("orders.status.pending.text") %></p>
+      <%= render "demo/acceptance_button", order: order if ENV["DEMO_MODE"].present? %>
+    </div>
+  </section>
+<% end %>
