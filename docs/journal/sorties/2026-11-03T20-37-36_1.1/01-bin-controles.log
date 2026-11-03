@@ -1,0 +1,46 @@
+Vues
+  ✓ Aucun style= ni <style> dans les vues (mailers exclus)
+  ✓ Aucun gestionnaire JS inline (onclick…)
+  ✓ Aucun html_safe / raw
+  ✓ Aucune variable @ dans un partial
+  ✓ Textes visibles via t() uniquement (une ligne par texte)
+Ruby
+  ✓ Time.current plutôt que Time.now
+  ◦ Méthodes de même nom dans modèles, helpers, lib (logique réécrite ?)
+            2 max_price
+Sass
+  ✓ Aucune couleur hexadécimale hors des fichiers de variables
+  ✓ Aucun !important
+  ✓ Compilation Sass
+  ◦ Bootstrap : sélecteurs du framework redéfinis hors des variables (variable à utiliser, ou exception justifiée)
+Stimulus
+  ✓ Contrôleurs de 30 lignes de code au plus (hors commentaires et lignes vides)
+Contrôleurs
+  ◦ Paramètres autorisés (à relire un par un)
+      app/controllers/needs_controller.rb:37:    params.expect(listing: [:product_id, :label, :quantity, :unit, :needed_on, :address_id, :radius_km,
+  ✓ Aucune valeur interpolée dans une requête (injection SQL)
+  ◦ Relations parcourues sans borne (.all / .each sur une relation : pagination, limit ou find_each ?)
+      app/views/shared/_footer.html.erb:19:           legal: %i[legal_notice terms privacy cookies mediation] }.each do |title, items| %>
+      app/views/shared/_footer.html.erb:23:            <% items.each do |item| %>
+      app/views/devise/shared/_links.html.erb:22:  <%- resource_class.omniauth_providers.each do |provider| %>
+      app/views/devise/shared/_error_messages.html.erb:10:      <% resource.errors.full_messages.each do |message| %>
+      app/views/needs/new.html.erb:38:        <% Listing::PRIORITIES.each do |priority| %>
+  ✓ Aucune méthode publique hors des sept actions CRUD
+Robustesse
+  ✓ Aucune erreur avalée (rescue sans classe, rescue Exception, rescue nil)
+  ✓ Aucun raccourci qui saute les validations (update_attribute, update_column, save(validate: false), skip_callback)
+  ◦ has_many sans dependent (que deviennent les enfants à la suppression ?)
+  ◦ Callbacks de modèle à effet de bord (mailer, job, service, autre modèle : à relire)
+Autorisation (Pundit)
+  ✓ verify_authorized dans ApplicationController (after_action)
+  ✓ verify_policy_scoped dans ApplicationController (after_action)
+  ◦ Contrôleurs de ressource sans authorize ni policy_scope (à relire : chacun doit en avoir un, ou être exempté par skip_… justifié)
+      app/controllers/orders_controller.rb
+      app/controllers/demo/acceptances_controller.rb
+      app/controllers/notifications_controller.rb
+      app/controllers/matches_controller.rb
+      app/controllers/sales_controller.rb
+Tests
+  ◦ Tests ignorés (skip) sans commentaire daté
+
+16 OK, 0 à traiter
