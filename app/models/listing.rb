@@ -42,6 +42,18 @@ class Listing < ApplicationRecord
     validates :needed_on, presence: true
   end
 
+  # Getter pour convertir le montant stocké en centimes en euros
+  def max_price
+    return unless max_price_cents
+
+    max_price_cents.to_d / 100
+  end
+
+  # Setter pour modifier la valeur
+  def max_price=(value)
+    self.max_price_cents = value.present? ? (value.to_d * 100).round : nil
+  end
+
   private
 
   def priorities_in_list

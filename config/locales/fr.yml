@@ -88,3 +88,31 @@ fr:
         order_accepted: Commande acceptée
         order_declined: Commande refusée
         need_matched: Un acheteur cherche un produit que vous proposez
+
+  simple_form:
+    labels:
+      listing:
+        new:
+          product: Produit
+          unit: Unité
+          quantity: Quantité
+          needed_on: Pour le
+          address_id: Livraison ou Retrait
+          radius_km: Dans un rayon de (km)
+          max_price: Prix maximum par pièce (facultatif)
+        create:
+          needed_on: Pour le
+          address_id: Livraison ou Retrait
+          radius_km: Dans un rayon de (km)
+          max_price: Prix maximum par pièce (facultatif)
+    prompts:
+      listing:
+        label: Peu importe
+        address_id: Choisir une addresse
+
+  needs:
+    new:
+      title: De quoi avez-vous besoin ?
+      subtitle: Décrivez ce que vous cherchez. Les fermes qui peuvent le fournir seront prévenues.
+      max_price_text: Les fermes au-dessus ne seront pas prévenues.
+      button_see_farm: Voir les fermes
