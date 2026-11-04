@@ -1,0 +1,22 @@
+<%# Le cadre de la page commande (A04, story 5), partagé par les stories 5, 7, 10 et 11.
+    Ne pas modifier pour une story : chacune remplit son partial dans orders/status/,
+    choisi ci-dessous selon le statut. Le message « commande envoyée » est le flash
+    posé par le contrôleur, affiché par le gabarit. %>
+<% content_for :title, t(".title", reference: @order.reference) %>
+
+<div class="container">
+  <div class="d-flex flex-wrap align-items-center gap-3 mb-1">
+    <h1 class="mb-0"><%= t(".heading") %></h1>
+    <%= render "shared/status_tag", record: @order %>
+  </div>
+  <p class="text-muted mb-4"><%= t(".reference", reference: @order.reference) %></p>
+
+  <div class="row g-4">
+    <div class="col-12 col-lg-7">
+      <%= render "orders/summary", order: @order %>
+    </div>
+    <div class="col-12 col-lg-5">
+      <%= render "orders/status/#{@order.status}", order: @order %>
+    </div>
+  </div>
+</div>
