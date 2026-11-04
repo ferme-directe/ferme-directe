@@ -12,5 +12,5 @@ test:
   <<: *default
 
 production:
-  database: cache
   <<: *default
+  # Pas de `database: cache` : les entrées vont dans la base principale (décision 0003).

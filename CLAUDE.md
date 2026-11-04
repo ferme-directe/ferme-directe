@@ -67,7 +67,8 @@ Principe : gratuit, européen ou natif Rails d'abord. Avant tout service payant 
 - **Géocodage** : API Adresse de l'État (BAN), sans clé (`config/initializers/geocoder.rb`).
   En test, Geocoder est en mode `:test` (`test/test_helper.rb`) : aucun appel réseau.
 - **E-mail** : Brevo (français), en SMTP, sans gem. En développement : `letter_opener`.
-- **Hébergement** : Scalingo. **Domaine** : Infomaniak.
+- **Hébergement** : Scalingo, app `ferme-directe` (osc-fr1), déployée à chaque fusion sur `main` ; une seule base
+  PostgreSQL pour tout (`docs/decisions/0003-mise-en-ligne-scalingo.md`). **Domaine** : Infomaniak.
 
 ## Modèle de données
 
