@@ -7,3 +7,5 @@ Ce qu'on repère en cours de story et qu'on ne traite pas tout de suite. Une lig
 - 28 oct. · charte · Barre du haut : « Annonces », « Mes commandes » et « Fermes favorites » sont grisées faute de page dans la démo ; « Mes besoins » mène au formulaire de besoin. À brancher quand ces pages existeront.
 - 31 oct. · story 5 · `Order.build_from` calcule le total sans remise par quantité (`discount_tiers`). À brancher sur le calcul de la story 4 quand il existera.
 - 31 oct. · déploiement · `config/environments/production.rb` : l'hôte des e-mails est l'adresse Scalingo ; le remplacer par notre domaine Infomaniak quand il sera branché. Activer alors `force_ssl` et `assume_ssl` (commentés par le template).
+- 31 oct. · story 6 · `Order#accept!` ne lance pas encore l'e-mail du bon de commande : à ajouter avec la story 8 (`deliver_later` après la transaction).
+- 31 oct. · story 6 · `Demo::AcceptancesController` n'a pas de test d'intégration : sa route n'existe que si `DEMO_MODE` est défini au démarrage. Sa règle d'accès (`demo_accept?`) est testée dans la policy.

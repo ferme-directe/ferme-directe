@@ -1,0 +1,3 @@
+<%# Outil de démo : « Simuler la réponse de la ferme » (A04). Reçoit order: une commande.
+    Affiché seulement si DEMO_MODE est défini (voir orders/status/_pending) : sans lui, la route n'existe pas. %>
+<%= button_to t(".simulate"), demo_order_acceptance_path(order), class: "btn btn-order" %>
