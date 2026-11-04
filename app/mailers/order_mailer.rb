@@ -2,6 +2,9 @@
 # CHOIX : locale :fr ici, parce que la tâche de fond ne reprend pas la langue de la requête.
 # À retirer quand la locale par défaut sera :fr (issue #20).
 class OrderMailer < ApplicationMailer
+  # format_price dans les deux corps (HTML et texte) : le même affichage que les pages.
+  helper ApplicationHelper
+
   # Adresse d'expéditeur tant que l'envoi Brevo n'est pas branché.
   default from: "Ferme Directe <bonjour@ferme-directe.test>"
 

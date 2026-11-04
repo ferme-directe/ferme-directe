@@ -30,4 +30,22 @@ class OrderMailerTest < ActionMailer::TestCase
       assert attachment.body.decoded.start_with?("%PDF")
     end
   end
+
+  test "le corps HTML et le texte décrivent la commande" do
+    perform_enqueued_jobs { @order.deliver_confirmations }
+
+    mail = ActionMailer::Base.deliveries.first
+    stamped_at = I18n.l(@order.created_at, format: "%d/%m/%Y %H:%M")
+
+    [mail.text_part.body.decoded, mail.html_part.body.decoded].each do |body|
+      assert_includes body, @order.reference
+      assert_includes body, stamped_at
+      assert_includes body, "Épicerie du Moulin"
+      assert_includes body, "Ferme des Tilleuls"
+      assert_includes body, "Œufs"
+      assert_includes body, "0,36 €"
+      assert_includes body, "108 €"
+      assert_includes body, "Le fichier PDF est joint à ce message."
+    end
+  end
 end

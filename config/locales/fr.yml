@@ -108,7 +108,16 @@ fr:
   order_mailer:
     confirmation:
       subject: "Bon de commande %{reference}"
-      body: "Le bon de commande %{reference} est joint à ce message."
+      intro: "Le bon de commande %{reference} est confirmé."
+      date: Date
+      buyer: Acheteur
+      seller: Ferme
+      product: Produit
+      quantity: Quantité
+      quantity_value: "%{quantity} %{unit}"
+      unit_price: Prix
+      total: Total
+      attachment: Le fichier PDF est joint à ce message.
   number:
     currency:
       format:
