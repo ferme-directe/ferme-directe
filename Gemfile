@@ -74,7 +74,8 @@ end
 # Gems du projet : leur rôle et leur story sont dans CLAUDE.md
 gem "pundit", "~> 2.5"          # qui a le droit de faire quoi
 gem "geocoder", "~> 1.8"        # adresse → coordonnées, distance, rayon
-gem "prawn", "~> 2.4"           # bon de commande en PDF
+gem "matrix", "~> 0.4" # requise par prawn 2.4, absente de sa liste de dépendances
+gem "prawn", "~> 2.4" # bon de commande en PDF
 gem "prawn-table", "~> 0.2.2"
 
 gem "letter_opener", "~> 1.10", group: :development # ouvre les e-mails dans le navigateur
