@@ -4,6 +4,8 @@
   <div class="need-form col-md-8">
     <%= simple_form_for @need, url: needs_path do |f| %>
       <%= f.association :product,
+        as: :grouped_select,
+        group_method: :last,
         collection: @products.group_by(&:category).transform_values { |products|
         products.map { |p| [p.name, p.id]}
         } %>
