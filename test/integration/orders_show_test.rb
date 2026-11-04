@@ -7,24 +7,34 @@ class OrdersShowTest < ActionDispatch::IntegrationTest
     @order = orders(:eggs_order)
   end
 
-  test "l'acheteur voit la référence, l'horodatage et le détail" do
+  test "l'acheteur voit la référence et le récapitulatif tant que la commande est en attente" do
     sign_in users(:buyer)
 
     get order_path(@order)
 
     assert_response :success
     assert_includes response.body, @order.reference
-    assert_includes response.body, I18n.l(@order.created_at, format: "%d/%m/%Y %H:%M", locale: :fr)
-    assert_includes response.body, "Œufs"
-    assert_includes response.body, "Épicerie du Moulin"
+    assert_includes response.body, "Œufs · Plein air · Gros"
     assert_includes response.body, "Ferme des Tilleuls"
     assert_includes response.body, "300 pièce"
     assert_includes response.body, "0,36 €"
-    assert_includes response.body, "108,00 €"
+    assert_includes response.body, "108 €"
     assert_includes response.body, "Retrait à la ferme"
-    assert_includes response.body, "En attente"
-    assert_includes response.body, "2 route de Dourdan"
-    assert_select "a[href=?]", order_path(@order, format: :pdf), text: "Télécharger le bon de commande"
+    assert_equal 1, response.body.scan("En attente").size
+    assert_select "a[href=?]", order_path(@order, format: :pdf), count: 0
+  end
+
+  test "une commande acceptée propose le bon de commande, sans répéter le statut" do
+    sign_in users(:buyer)
+    accepted_at = Time.zone.local(2026, 11, 3, 14, 30)
+    @order.update!(status: :accepted, accepted_at: accepted_at)
+
+    get order_path(@order)
+
+    assert_response :success
+    assert_includes response.body, I18n.l(accepted_at, format: "%d/%m/%Y %H:%M")
+    assert_select "a.btn.btn-primary.btn-lg[href=?]", order_path(@order, format: :pdf), text: "Télécharger le bon de commande"
+    assert_equal 1, response.body.scan("Acceptée").size
   end
 
   test "la ferme de la commande voit la référence" do

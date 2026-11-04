@@ -1,0 +1,10 @@
+<%# Story 7 (A05) : la commande est acceptée. L'étiquette « Acceptée » est déjà
+    dans le cadre (shared/status_tag) : ce panneau ne la répète pas.
+    Reçoit order: une commande. Textes : orders.status.accepted. %>
+<section class="card">
+  <div class="card-body">
+    <h2 class="h5 card-title"><%= t(".title") %></h2>
+    <p><%= t(".text", timestamp: l(order.accepted_at || order.created_at, format: "%d/%m/%Y %H:%M")) %></p>
+    <%= link_to t(".download"), order_path(order, format: :pdf), class: "btn btn-primary btn-lg" %>
+  </div>
+</section>

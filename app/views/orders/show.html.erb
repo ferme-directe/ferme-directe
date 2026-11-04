@@ -1,47 +1,22 @@
+<%# Le cadre de la page commande (A04, story 5), partagé par les stories 5, 7, 10 et 11.
+    Ne pas modifier pour une story : chacune remplit son partial dans orders/status/,
+    choisi ci-dessous selon le statut. Le message « commande envoyée » est le flash
+    posé par le contrôleur, affiché par le gabarit. %>
 <% content_for :title, t(".title", reference: @order.reference) %>
 
-<main class="container py-4">
-  <h1 class="h3"><%= t(".title", reference: @order.reference) %></h1>
-  <p><%= link_to t(".download"), order_path(@order, format: :pdf) %></p>
+<div class="container">
+  <div class="d-flex flex-wrap align-items-center gap-3 mb-1">
+    <h1 class="mb-0"><%= t(".heading") %></h1>
+    <%= render "shared/status_tag", record: @order %>
+  </div>
+  <p class="text-muted mb-4"><%= t(".reference", reference: @order.reference) %></p>
 
-  <dl class="row">
-    <dt class="col-sm-4"><%= t(".reference") %></dt>
-    <dd class="col-sm-8"><%= @order.reference %></dd>
-
-    <dt class="col-sm-4"><%= t(".timestamp") %></dt>
-    <dd class="col-sm-8"><%= l(@order.accepted_at || @order.created_at, format: "%d/%m/%Y %H:%M") %></dd>
-
-    <dt class="col-sm-4"><%= t(".buyer") %></dt>
-    <dd class="col-sm-8"><%= @order.buyer_company.name %></dd>
-
-    <dt class="col-sm-4"><%= t(".seller") %></dt>
-    <dd class="col-sm-8"><%= @order.seller_company.name %></dd>
-
-    <dt class="col-sm-4"><%= t(".product") %></dt>
-    <dd class="col-sm-8"><%= @order.product.name %></dd>
-
-    <dt class="col-sm-4"><%= t(".label") %></dt>
-    <dd class="col-sm-8"><%= @order.label %></dd>
-
-    <dt class="col-sm-4"><%= t(".quantity") %></dt>
-    <dd class="col-sm-8"><%= t(".quantity_value", quantity: @order.quantity, unit: @order.unit) %></dd>
-
-    <dt class="col-sm-4"><%= t(".unit_price") %></dt>
-    <dd class="col-sm-8"><%= number_to_currency(BigDecimal(@order.unit_price_cents) / 100) %></dd>
-
-    <dt class="col-sm-4"><%= t(".total") %></dt>
-    <dd class="col-sm-8"><%= number_to_currency(BigDecimal(@order.total_cents) / 100) %></dd>
-
-    <dt class="col-sm-4"><%= t(".fulfillment") %></dt>
-    <dd class="col-sm-8"><%= @order.human_enum(:fulfillment) %></dd>
-
-    <dt class="col-sm-4"><%= t(".status") %></dt>
-    <dd class="col-sm-8"><%= @order.human_enum(:status) %></dd>
-
-    <dt class="col-sm-4"><%= t(".address") %></dt>
-    <dd class="col-sm-8">
-      <%= @order.address.street %><br>
-      <%= @order.address.postcode %> <%= @order.address.city %>
-    </dd>
-  </dl>
-</main>
+  <div class="row g-4">
+    <div class="col-12 col-lg-7">
+      <%= render "orders/summary", order: @order %>
+    </div>
+    <div class="col-12 col-lg-5">
+      <%= render "orders/status/#{@order.status}", order: @order %>
+    </div>
+  </div>
+</div>

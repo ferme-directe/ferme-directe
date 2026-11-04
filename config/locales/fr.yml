@@ -91,8 +91,9 @@ fr:
   orders:
     show:
       title: "Commande %{reference}"
-      download: Télécharger le bon de commande
-      reference: Référence
+      heading: Votre commande
+      reference: "Référence %{reference}"
+      # Libellés encore lus par le PDF (sous-étape 9.2).
       timestamp: Horodatage
       buyer: Acheteur
       seller: Ferme
@@ -105,6 +106,24 @@ fr:
       fulfillment: Modalité
       status: Statut
       address: Adresse
+    summary:
+      title: Récapitulatif
+      farm: Ferme
+      product: Produit
+      quantity: Quantité
+      unit_price: Prix unitaire
+      total: Total
+      needed_on: Pour le
+      fulfillment: Retrait ou livraison
+      pickup_hours: Horaires de retrait
+    status:
+      pending:
+        title: Et maintenant ?
+        text: La ferme a reçu votre commande. Dès qu'elle l'accepte, vous recevez une notification et le bon de commande par e-mail.
+      accepted:
+        title: Bon de commande
+        text: "Confirmée le %{timestamp}."
+        download: Télécharger le bon de commande
   number:
     currency:
       format:
