@@ -1,0 +1,50 @@
+Running 42 tests in a single process (parallelization threshold is 50)
+Run options: -v --seed 61152
+
+# Running:
+
+NotificationTest#test_unread_:_celles_dont_read_at_est_vide = 0.15 s = .
+NotificationTest#test_pointe_vers_une_commande_ou_vers_un_besoin = 0.02 s = .
+ApplicationHelperTest#test_user_initials_prend_le_prénom_et_le_nom,_sinon_l'e-mail = 0.02 s = .
+ApplicationHelperTest#test_nav_link_to_grise_une_rubrique_qui_n'a_pas_encore_de_page = 0.00 s = .
+ApplicationHelperTest#test_status_tone_lève_une_erreur_sur_un_statut_absent_de_la_table = 0.00 s = .
+ApplicationHelperTest#test_status_tone_donne_la_variante_de_l'étiquette_selon_le_statut = 0.00 s = .
+ApplicationHelperTest#test_format_price_affiche_des_euros_au_format_français = 0.01 s = .
+AddressTest#test_une_nouvelle_adresse_sans_coordonnées_est_géocodée_(stub_de_test,_aucun_appel_réseau) = 0.01 s = .
+AddressTest#test_le_code_postal_garde_son_zéro_et_fait_5_chiffres = 0.00 s = .
+LayoutTest#test_un_utilisateur_connecté_voit_les_rubriques,_la_bascule_et_ses_initiales = 0.10 s = .
+LayoutTest#test_un_visiteur_ne_voit_que_le_logo_dans_la_barre = 0.03 s = .
+LayoutTest#test_le_pied_de_page_est_sur_chaque_page = 0.01 s = .
+NeedsControllerTest#test_l'entreprise_envoyée_dans_le_formulaire_est_ignorée = 0.02 s = .
+NeedsControllerTest#test_un_besoin_incomplet_n'est_pas_enregistré = 0.04 s = .
+NeedsControllerTest#test_une_ferme_qui_n'achète_pas_est_refusée = 0.01 s = .
+NeedsControllerTest#test_un_visiteur_est_renvoyé_vers_la_connexion = 0.00 s = .
+NeedsControllerTest#test_un_acheteur_voit_le_formulaire = 0.01 s = .
+NeedsControllerTest#test_un_besoin_complet_est_enregistré_pour_l'entreprise_de_l'acheteur = 0.01 s = .
+NeedsControllerTest#test_l'adresse_d'une_autre_entreprise_est_refusée = 0.01 s = .
+PagesTest#test_la_page_de_connexion_s'affiche = 0.01 s = .
+PagesTest#test_la_page_d'accueil_s'affiche_(à_adapter_avec_la_story_14) = 0.00 s = .
+ListingTest#test_une_offre_exige_un_prix_et_une_date_de_fin = 0.00 s = .
+ListingTest#test_le_label_vient_de_la_liste_fermée = 0.00 s = .
+ListingTest#test_un_besoin_exige_une_date = 0.00 s = .
+ListingTest#test_les_fixtures_sont_valides = 0.00 s = .
+ListingTest#test_l'adresse_doit_appartenir_à_l'entreprise_qui_publie = 0.00 s = .
+FavoriteTest#test_une_entreprise_ne_se_met_pas_elle-même_en_favori = 0.00 s = .
+FavoriteTest#test_pas_de_doublon = 0.00 s = .
+EnumsTest#test_listings.kind = 0.00 s = .
+EnumsTest#test_notifications.kind = 0.00 s = .
+EnumsTest#test_listings.status = 0.00 s = .
+EnumsTest#test_chaque_valeur_a_son_libellé_français = 0.00 s = .
+EnumsTest#test_orders.status = 0.00 s = .
+EnumsTest#test_une_valeur_inconnue_est_refusée_par_la_validation,_sans_exception = 0.00 s = .
+EnumsTest#test_listings.nature_et_listings.storage_(optionnels,_hors_démo) = 0.00 s = .
+EnumsTest#test_orders.fulfillment = 0.00 s = .
+EnumsTest#test_human_enum_lit_le_libellé_français = 0.00 s = .
+EnumsTest#test_addresses.kind = 0.00 s = .
+ListingPolicyTest#test_un_compte_sans_entreprise_ne_peut_pas_publier_un_besoin = 0.00 s = .
+ListingPolicyTest#test_une_ferme_qui_n'achète_pas_ne_peut_pas_publier_un_besoin = 0.00 s = .
+ListingPolicyTest#test_un_acheteur_peut_publier_un_besoin = 0.00 s = .
+StatusTagTest#test_une_commande_en_attente_:_variante_waiting,_mot_en_français = 0.00 s = .
+
+Finished in 0.520787s, 80.6472 runs/s, 201.6179 assertions/s.
+42 runs, 105 assertions, 0 failures, 0 errors, 0 skips

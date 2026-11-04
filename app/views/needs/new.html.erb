@@ -1,0 +1,56 @@
+<div class="container col-md-12">
+  <h1><%= t(".title") %></h1>
+  <p><%= t(".subtitle") %></p>
+  <div class="need-form col-md-8">
+    <%= simple_form_for @need, url: needs_path do |f| %>
+      <%= f.association :product,
+        as: :grouped_select,
+        group_method: :last,
+        collection: @products.group_by(&:category).transform_values { |products|
+        products.map { |p| [p.name, p.id]}
+        } %>
+      <%= f.input :label,
+        collection: Listing::LABELS %>
+      <%= f.input :quantity,
+          min: 1,
+          step: 1,
+          required: true %>
+      <%= f.input :unit,
+          collection: Listing::UNITS,
+          required: true %>
+      <%= f.input :needed_on,
+          as: :string,
+          input_html: {
+            type: "date",
+            min: Date.current
+          } %>
+      <%= f.input :address_id,
+          collection: @addresses,
+          label_method: :full_address,
+          value_method: :id %>
+      <%= f.input :radius_km,
+          input_html: {min: 5, max: 50, step: 5} %>
+      <div class="form-group">
+        <%= f.input :max_price,
+            input_html: {min: 0.01, step: 0.01},
+            required: false %>
+        <p class="small text-body-secondary"><%= t(".max_price_text") %></p>
+      </div>
+      <div class="tag" role="group" aria-label="Priorités">
+        <% Listing::PRIORITIES.each do |priority| %>
+            <input type="checkbox"
+              class="btn-check"
+              name="listing[priorities][]"
+              value="<%= priority %>"
+              id="priority_<%= priority %>"
+              autocomplete="off">
+            <label class="btn btn-outline-primary" for="priority_<%= priority %>">
+              <%= priority.capitalize %>
+            </label>
+
+    <% end %>
+    </div>
+  </div>
+    <%= f.button :submit, t(".button_see_farm"), class: "btn btn-primary btn-lg" %>
+    <% end %>
+</div>
