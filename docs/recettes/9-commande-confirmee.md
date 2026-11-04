@@ -6,7 +6,7 @@ Le back est déjà sur cette branche (page `show` et `PurchaseOrderPdf`). Le fro
 
 ## Sous-étapes
 
-- [ ] 9.1 — Panneau « acceptée » et lien PDF
+- [x] 9.1 — Panneau « acceptée » et lien PDF
   - Fichiers : `app/views/orders/status/_accepted.html.erb`, `config/locales/fr.yml` (`orders.status.accepted.*`), `test/integration/orders_show_test.rb`
   - Technologie : le cadre de la page (`orders/show`) et le récapitulatif (`orders/_summary`) viennent de la story 5. Ce partial ne fait qu'afficher le texte et le bouton. Le statut « Acceptée » reste dans `shared/status_tag`, déjà posé par le cadre.
   - Bouton : `link_to t(".download"), order_path(order, format: :pdf), class: "btn btn-primary btn-lg"`. Prix via `format_price` s'il apparaît ici ; aucun calcul dans la vue.

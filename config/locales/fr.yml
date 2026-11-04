@@ -93,19 +93,16 @@ fr:
       title: "Commande %{reference}"
       heading: Votre commande
       reference: "Référence %{reference}"
-      # Libellés encore lus par le PDF (sous-étape 9.2).
-      timestamp: Horodatage
+    purchase_order:
+      reference: "Référence %{reference}"
+      date: Date
       buyer: Acheteur
       seller: Ferme
       product: Produit
-      label: Label
       quantity: Quantité
       quantity_value: "%{quantity} %{unit}"
-      unit_price: Prix unitaire
+      unit_price: Prix
       total: Total
-      fulfillment: Modalité
-      status: Statut
-      address: Adresse
     summary:
       title: Récapitulatif
       farm: Ferme
