@@ -4,26 +4,37 @@ class OrdersController < ApplicationController
   end
 
   # Story 5 (A03 → A04) : crée la commande en pending et notifie la ferme.
+  # find lève une erreur 404 si le besoin ou l'offre n'existe pas (ou si l'offre n'est plus active).
   def create
-  end
-
-  # Story 7 (A05, BC) : la page et le bon de commande PDF. Rien n'est écrit en base.
-  def show
-    # CHOIX : la langue par défaut reste :en tant que l'issue #20 n'a pas ajouté rails-i18n.
-    # Cette page lit fr.yml. À retirer quand la locale par défaut sera :fr.
-    I18n.locale = :fr
-    @order = Order.includes(:buyer_company, :seller_company, :product, :address).find(params[:id])
+    need = Listing.need.find(params[:need_id])
+    offer = Listing.offer.active.find(order_params[:offer_id])
+    @order = Order.build_from(need: need, offer: offer, quantity: order_params[:quantity] || need.quantity)
     authorize @order
 
-    respond_to do |format|
-      format.html
-      format.pdf { send_purchase_order }
+    if @order.place
+      redirect_to order_path(@order), notice: t(".success")
+    else
+      redirect_to need_matches_path(need), alert: t(".failure")
     end
+  end
+
+  # Story 7 (A05, BC) : la commande et son bon de commande (format PDF).
+  # Story 5 (A04) : la page de la commande ; la story 7 y ajoutera le PDF.
+  def show
+    @order = Order.find(params[:id])
+    authorize @order
   end
 
   # Story 6 (V03) : la ferme accepte, le stock baisse.
   # controles: ok route member du cadrage (bloc 2)
   def accept
+    @order = Order.find(params[:id])
+    authorize @order
+
+    @order.accept!
+    redirect_to order_path(@order), notice: t(".success")
+  rescue ActiveRecord::RecordInvalid
+    redirect_to order_path(@order), alert: @order.errors.full_messages.to_sentence
   end
 
   # Story 10 (V03) : la ferme refuse.
@@ -38,10 +49,8 @@ class OrdersController < ApplicationController
 
   private
 
-  def send_purchase_order
-    send_data PurchaseOrderPdf.new(@order).render,
-              filename: "#{@order.reference}.pdf",
-              type: "application/pdf",
-              disposition: "attachment"
+  # Ce que le formulaire de la story 4 envoie : l'offre choisie et la quantité.
+  def order_params
+    params.expect(order: %i[offer_id quantity])
   end
 end

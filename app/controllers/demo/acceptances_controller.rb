@@ -4,6 +4,13 @@
 module Demo
   class AcceptancesController < ApplicationController
     def create
+      @order = Order.find(params[:order_id])
+      authorize @order, :demo_accept?
+
+      @order.accept!
+      redirect_to order_path(@order), notice: t("orders.accept.success")
+    rescue ActiveRecord::RecordInvalid
+      redirect_to order_path(@order), alert: @order.errors.full_messages.to_sentence
     end
   end
 end

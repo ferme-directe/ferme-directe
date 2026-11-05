@@ -8,6 +8,14 @@ class OrderMailerTest < ActionMailer::TestCase
     ActionMailer::Base.deliveries.clear
   end
 
+  test "accepter la commande met les deux e-mails en file, après l'enregistrement" do
+    assert_enqueued_jobs 2, only: ActionMailer::MailDeliveryJob do
+      @order.accept!
+    end
+
+    assert @order.reload.accepted?
+  end
+
   test "deux e-mails sont mis en file pour l'acheteur et la ferme" do
     assert_enqueued_jobs 2, only: ActionMailer::MailDeliveryJob do
       @order.deliver_confirmations
