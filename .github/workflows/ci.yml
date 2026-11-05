@@ -9,7 +9,9 @@ on:
 
 jobs:
   ci:
-    runs-on: ubuntu-latest
+    # ubuntu-latest est passé à 26.04. setup-ruby n'y publie que le dernier
+    # correctif de chaque série (3.3.13), pas le 3.3.5 du projet.
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
 
     services:
