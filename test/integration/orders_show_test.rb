@@ -33,7 +33,9 @@ class OrdersShowTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_includes response.body, I18n.l(accepted_at, format: "%d/%m/%Y %H:%M")
-    assert_select "a.btn.btn-primary.btn-lg[href=?]", order_path(@order, format: :pdf), text: "Télécharger le bon de commande"
+    assert_select "a.btn.btn-primary.btn-lg[href=?]",
+                  order_path(@order, format: :pdf),
+                  text: "Télécharger le bon de commande"
     assert_equal 1, response.body.scan("Acceptée").size
   end
 
@@ -46,8 +48,19 @@ class OrdersShowTest < ActionDispatch::IntegrationTest
     assert_includes response.body, @order.reference
   end
 
+  test "une commande en attente ne donne pas le bon de commande" do
+    sign_in users(:buyer)
+
+    get order_path(@order, format: :pdf)
+
+    assert_redirected_to root_path
+    assert_equal "Vous n'avez pas accès à cette page.", flash[:alert]
+    assert_not response.body.start_with?("%PDF")
+  end
+
   test "l'acheteur télécharge le bon de commande" do
     sign_in users(:buyer)
+    @order.update!(status: :accepted, accepted_at: Time.current)
 
     get order_path(@order, format: :pdf)
 
@@ -56,6 +69,7 @@ class OrdersShowTest < ActionDispatch::IntegrationTest
 
   test "la ferme télécharge le bon de commande" do
     sign_in users(:farmer)
+    @order.update!(status: :accepted, accepted_at: Time.current)
 
     get order_path(@order, format: :pdf)
 

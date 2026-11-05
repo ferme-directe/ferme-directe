@@ -85,20 +85,8 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  primary: &primary_production
-    <<: *default
-    database: ferme_directe_production
-    username: ferme_directe
-    password: <%= ENV["FERME_DIRECTE_DATABASE_PASSWORD"] %>
-  cache:
-    <<: *primary_production
-    database: ferme_directe_production_cache
-    migrations_paths: db/cache_migrate
-  queue:
-    <<: *primary_production
-    database: ferme_directe_production_queue
-    migrations_paths: db/queue_migrate
-  cable:
-    <<: *primary_production
-    database: ferme_directe_production_cable
-    migrations_paths: db/cable_migrate
+  <<: *default
+  # Sur Scalingo, l'addon PostgreSQL fournit DATABASE_URL ; Rails la lit sans qu'on l'écrive ici
+  # et elle l'emporte sur ce qui suit. Une seule base pour tout : les tables de l'application
+  # et celles de Solid Queue, Solid Cache et Solid Cable (décision 0003).
+  database: ferme_directe_production

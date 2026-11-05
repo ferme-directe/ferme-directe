@@ -24,7 +24,9 @@ class Listing < ApplicationRecord
   # prefix : « frozen » donnerait frozen?, déjà défini par Ruby. Méthodes : storage_fresh?, storage_frozen?…
   enum :storage, { fresh: 0, dry: 1, frozen: 2 }, prefix: true, validate: { allow_nil: true }
 
-  validates :quantity, numericality: { only_integer: true, greater_than: 0 }
+  # Un besoin demande au moins 1 ; le stock d'une offre peut tomber à 0 quand la ferme accepte (story 6).
+  validates :quantity, numericality: { only_integer: true, greater_than: 0 }, if: :need?
+  validates :quantity, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, if: :offer?
   validates :unit, inclusion: { in: UNITS }
   validates :label, inclusion: { in: LABELS }, allow_blank: true
   validates :size, inclusion: { in: SIZES }, allow_blank: true
@@ -40,6 +42,18 @@ class Listing < ApplicationRecord
 
   with_options if: :need? do
     validates :needed_on, presence: true
+  end
+
+  # Getter pour convertir le montant stocké en centimes en euros
+  def max_price
+    return unless max_price_cents
+
+    max_price_cents.to_d / 100
+  end
+
+  # Setter pour modifier la valeur
+  def max_price=(value)
+    self.max_price_cents = value.present? ? (value.to_d * 100).round : nil
   end
 
   private
