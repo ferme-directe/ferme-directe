@@ -159,3 +159,7 @@ fr:
       subtitle: Décrivez ce que vous cherchez. Les fermes qui peuvent le fournir seront prévenues.
       max_price_text: Les fermes au-dessus ne seront pas prévenues.
       button_see_farm: Voir les fermes
+
+  matches:
+    index:
+      title: Les fermes trouvées

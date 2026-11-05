@@ -15,7 +15,7 @@ class MatchesController < ApplicationController
     @need_address = @need.address
 
     # On doit géocoder maintenant en comparant l'address de l'utilisateur avec les Address des fermes en base de données
-    @near_address = Address.near(@need_address, 40)
+    @near_address = Address.near(@need_address, @need.radius_km)
     # On compare toutes nos offres pour voir si les offres matchs en utilsant .include? comme méthode.
     @listings = @listings.select { |listing| @near_address.include?(listing.address) }
   end
