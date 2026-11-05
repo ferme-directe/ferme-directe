@@ -11,3 +11,10 @@ buyer:
   first_name: Paul
   last_name: Durand
   company: shop
+
+stranger:
+  email: autre@ferme-directe.test
+  encrypted_password: <%= Devise::Encryptor.digest(User, "motdepasse") %>
+  first_name: Claire
+  last_name: Petit
+  company: other

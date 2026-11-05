@@ -10,3 +10,10 @@ shop:
   siret: "98765432100022"
   can_buy: true
   can_sell: false
+
+# Ni acheteur ni vendeur de la commande de test : sert au refus d'accès.
+other:
+  name: Boulangerie du Pont
+  siret: "55555555500055"
+  can_buy: true
+  can_sell: false

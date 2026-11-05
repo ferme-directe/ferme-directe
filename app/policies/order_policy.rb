@@ -5,6 +5,11 @@ class OrderPolicy < ApplicationPolicy
     member_of?(record.buyer_company_id) || member_of?(record.seller_company_id)
   end
 
+  # Story 7 : le PDF seulement une fois la commande acceptée, et seulement pour ces deux-là.
+  def purchase_order?
+    show? && record.accepted?
+  end
+
   # Story 5 : seul quelqu'un de l'entreprise qui a publié le besoin peut commander.
   def create?
     member_of?(record.need.company_id)
