@@ -24,6 +24,9 @@ La méthode est dans les skills du dépôt, lus automatiquement par Claude Code 
   elle ne remplace pas la compréhension : chacun doit pouvoir expliquer chaque ligne de sa PR.
 - **Claude propose, l'humain valide.** Claude n'exécute pas de commit, de push ni de fusion sans
   validation explicite, et ne touche jamais aux secrets.
+- **La branche d'une story appartient à son auteur.** Conflit, correction de relecture : c'est lui qui
+  pousse. Quelqu'un d'autre (ou son IA) n'y touche qu'après avoir dit quoi et pourquoi, avec l'accord du
+  lead, qui prévient l'auteur avant. Détail dans le skill `rails-methode`, section « En équipe ».
 - Commits : Conventional Commits en français (`feat: …`, `fix: …`, `test: …`, `chore: …`, `docs: …`).
 - Fin de sous-étape : `bin/controles`, puis `bin/ci` avant d'ouvrir la PR.
 - Décisions d'architecture : une note par décision dans `docs/decisions/` (format ADR court).

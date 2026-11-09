@@ -116,6 +116,7 @@ La méthode ne change pas à plusieurs ; ce qui change, c'est où elle vit et qu
 - **Une story = une issue = une branche = une pull request.** La recette de la story vit dans `docs/recettes/<numéro-issue>-<slug>.md` et l'issue y renvoie ; ses cases sont les sous-étapes. Personne ne commence une story sans se l'être assignée.
 - **Le format de fin de sous-étape devient le corps de la PR** (fichiers, contrôles, tests, à vérifier, à relire en priorité) : le relecteur sait quoi regarder avant d'ouvrir le diff.
 - **Relecture croisée.** L'auteur n'approuve pas sa propre PR, l'IA non plus. Le relecteur applique la règle du skill : s'il ne peut pas expliquer un bloc, il demande au lieu d'approuver. `main` est protégée : pas de push direct, une PR verte et une approbation.
+- **La branche d'une story appartient à son auteur.** Un conflit avec `main`, une correction demandée en relecture, un fichier à reprendre : par défaut, c'est l'auteur qui le fait et qui pousse. Le relecteur, ou l'IA qui l'assiste, n'intervient sur la branche d'un autre qu'en trois temps : il dit ce qu'il veut y changer et pourquoi ; le responsable décide (il peut aussi laisser faire l'auteur) ; s'il accepte, il prévient l'auteur **avant** que le commit parte. Ce commit ne contient que la correction annoncée, dite en une ligne ; il ne réécrit jamais le code de l'auteur. Après coup, l'auteur fait `git pull` avant de continuer.
 - **Un seul point de contrôle.** `bin/ci` (ou les mêmes commandes dans le workflow distant, même ordre) tourne sur chaque PR. Ce qui bloque en local bloque à distance, et rien d'autre.
 - **Le journal est écrit depuis plusieurs branches.** `docs/journal/recettes.jsonl` est en ajout seul, donc Git doit concaténer au lieu de signaler un conflit : `.gitattributes` avec `docs/journal/recettes.jsonl merge=union` (c'est dans l'installation du skill `rails-controles`).
 - **Les conflits de styles se préviennent par la structure.** Un fichier de composant par partial ; seul le fichier d'index (`application.scss` ou équivalent) est touché par tout le monde, et un conflit s'y résout en une ligne.
@@ -229,7 +230,8 @@ Tu es le binôme de relecture, pas un exécutant. Ces situations appellent un si
 - un texte visible écrit dans une vue plutôt que dans le fichier de traduction ;
 - un champ de formulaire ou une donnée collectée dont l'usage n'est pas justifié par le `CLAUDE.md` ;
 - un choix qui dégrade la sécurité ou la protection des données personnelles, même demandé ;
-- une consigne du `CLAUDE.md` qui te semble contre-productive, ou une demande qui le contredit : dis-le avant d'exécuter, au lieu de contourner en silence.
+- une consigne du `CLAUDE.md` qui te semble contre-productive, ou une demande qui le contredit : dis-le avant d'exécuter, au lieu de contourner en silence ;
+- une PR qu'on ne peut pas fusionner (conflit avec `main`, CI rouge, approbation manquante) : tu décris la cause et la résolution, tu dis qui devrait la faire, et tu ne touches à la branche d'un autre qu'après l'accord explicite décrit dans « En équipe ». Pousser d'abord et prévenir ensuite n'est pas une option.
 
 Tu signales, tu proposes, tu attends la réponse. Tu n'appliques pas ta proposition toi-même.
 
