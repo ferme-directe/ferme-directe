@@ -53,29 +53,44 @@ class Order < ApplicationRecord
     "FD-#{Time.current.strftime('%Y%m%d')}-#{SecureRandom.hex(3).upcase}"
   end
 
-  # Story 6 : la ferme accepte la commande.
-  # Tout ou rien, dans une transaction :
+  # Story 6, puis l'e-mail de la story 8.
+  # L'e-mail est hors de la transaction : un échec d'envoi n'annule pas l'acceptation déjà enregistrée.
+  def accept!
+    transaction { accept_and_notify! }
+    deliver_confirmations
+  end
+
+  # Story 8 : un e-mail par destinataire, acheteur et ferme, avec le PDF joint.
+  def deliver_confirmations
+    confirmation_recipients.each do |recipient|
+      OrderMailer.confirmation(self, recipient).deliver_later
+    end
+  end
+
+  private
+
+  # Tout ou rien :
   #   1. verrouiller la commande et l'offre (lock!, with_lock) : deux clics en même temps n'acceptent pas
   #      deux fois, et ne vendent pas deux fois le même stock ;
   #   2. refuser si la commande n'est plus en attente ou si le stock ne suffit plus ;
   #   3. baisser le stock (l'offre se ferme à zéro), passer la commande en accepted ;
   #   4. prévenir chaque compte de l'acheteur.
   # Lève ActiveRecord::RecordInvalid en cas de refus : le message est dans order.errors.
-  def accept!
-    transaction do
-      lock!
-      offer.with_lock do
-        refuse!(:not_pending) unless pending?
-        refuse!(:out_of_stock) if offer.quantity < quantity
+  def accept_and_notify!
+    lock!
+    offer.with_lock do
+      refuse!(:not_pending) unless pending?
+      refuse!(:out_of_stock) if offer.quantity < quantity
 
-        take_from_offer_stock!
-        update!(status: :accepted, accepted_at: Time.current)
-      end
-      buyer_company.users.each { |user| notifications.create!(user: user, kind: :order_accepted) }
+      take_from_offer_stock!
+      update!(status: :accepted, accepted_at: Time.current)
     end
+    buyer_company.users.each { |user| notifications.create!(user: user, kind: :order_accepted) }
   end
 
-  private
+  def confirmation_recipients
+    buyer_company.users + seller_company.users
+  end
 
   # Le stock baisse de la quantité commandée ; à zéro, l'offre se ferme.
   def take_from_offer_stock!

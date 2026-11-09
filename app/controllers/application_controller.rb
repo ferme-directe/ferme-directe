@@ -11,7 +11,15 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+  # Le compteur de la barre du haut (story 9) : visible par les vues comme current_user.
+  # La requête vit ici, pas dans le partial, et elle n'est faite qu'une fois par page.
+  helper_method :unread_notifications_count
+
   private
+
+  def unread_notifications_count
+    @unread_notifications_count ||= current_user.notifications.unread.count
+  end
 
   def verify_pundit_authorization
     if action_name == "index"

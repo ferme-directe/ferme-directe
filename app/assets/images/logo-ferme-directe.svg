@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Logo Ferme Directe (charte, 9 nov. 2026) : une ferme au toit de deux feuilles,
+     une poule et une bêche. Couleurs de la charte recopiées une fois ici (un SVG ne lit
+     pas le SCSS) : blé #D9B44A, sapin #2E463A, terre #6E5443, papier #FBF8F1.
+     Version complète, pour 48 px et plus. En dessous : logo-ferme-directe-toit.svg. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-labelledby="t">
+  <title id="t">Ferme Directe</title>
+  <path d="M60 20 C40 22 18 40 10 70 C34 70 54 52 60 20 Z" fill="#D9B44A"/>
+  <path d="M60 20 C80 22 102 40 110 70 C86 70 66 52 60 20 Z" fill="#2E463A"/>
+  <path d="M58 26 C48 42 34 56 18 66" stroke="#FBF8F1" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M62 26 C72 42 86 56 102 66" stroke="#FBF8F1" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M20 104 V74 M100 104 V74" stroke="#6E5443" stroke-width="4" stroke-linecap="round"/>
+  <path d="M48 104 V84 a12 12 0 0 1 24 0 V104 Z" fill="#6E5443"/>
+  <path d="M14 104 H106" stroke="#2E463A" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <g transform="translate(24.8 77.6) scale(0.3)">
+  <path d="M14 70 C14 56 22 48 33 48 C35 40 40 35 47 36 C53 37 55 43 53 48 L60 50 L53 54 C56 64 52 78 38 80 L26 80 C18 80 14 76 14 70 Z" fill="#D9B44A"/>
+  <path d="M15 68 C8 60 8 50 13 44 C15 54 19 60 22 62 Z" fill="#D9B44A"/>
+  <circle cx="46" cy="33" r="3.2" fill="#D9B44A"/>
+  <circle cx="51" cy="34" r="3" fill="#D9B44A"/>
+  <circle cx="47" cy="44" r="2.2" fill="#FBF8F1"/>
+  <path d="M30 80 v8 M36 80 v8" stroke="#D9B44A" stroke-width="3.4" stroke-linecap="round" fill="none"/>
+  </g>
+  <path d="M81.5 80.5 H88.5" stroke="#2E463A" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M85 80.5 V95" stroke="#2E463A" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M81.5 94.5 H88.5 L88 101.5 Q85 104 82 101.5 Z" fill="#2E463A"/>
+</svg>

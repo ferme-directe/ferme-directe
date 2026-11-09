@@ -24,11 +24,18 @@ class OrdersController < ApplicationController
     end
   end
 
-  # Story 7 (A05, BC) : la commande et son bon de commande (format PDF).
-  # Story 5 (A04) : la page de la commande ; la story 7 y ajoutera le PDF.
+  # Story 5 (A04) : le cadre de la page. Story 7 (A05) : le PDF, seulement si la commande est acceptée.
   def show
-    @order = Order.find(params[:id])
+    @order = Order.includes(:buyer_company, :seller_company, :product, :address).find(params[:id])
     authorize @order
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        authorize @order, :purchase_order?
+        send_purchase_order
+      end
+    end
   end
 
   # Story 6 (V03) : la ferme accepte, le stock baisse.
@@ -54,6 +61,13 @@ class OrdersController < ApplicationController
   end
 
   private
+
+  def send_purchase_order
+    send_data PurchaseOrderPdf.new(@order).render,
+              filename: "#{@order.reference}.pdf",
+              type: "application/pdf",
+              disposition: "attachment"
+  end
 
   # Ce que le formulaire de la story 4 envoie : l'offre choisie et la quantité.
   def order_params

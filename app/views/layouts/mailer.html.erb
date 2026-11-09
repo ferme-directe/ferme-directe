@@ -1,13 +1,13 @@
+<%# Cadre commun des e-mails. Les clients mail ignorent les feuilles du site :
+    le style est inline. sapin #2E463A, texte et titre
+    (app/assets/stylesheets/config/_colors.scss). %>
 <!DOCTYPE html>
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <style>
-      /* Email styles need to be inline */
-    </style>
   </head>
-
-  <body>
+  <body style="margin:0; padding:24px; font-family:sans-serif; color:#2E463A; background-color:white;">
+    <p style="margin:0 0 16px; font-size:20px;"><%= t("app_name") %></p>
     <%= yield %>
   </body>
 </html>
