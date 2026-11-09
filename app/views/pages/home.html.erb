@@ -1,2 +1,60 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<%# Page d'accueil après connexion (story 14, maquette « Accueil Ferme Directe » du 9 nov.).
+    Ce qu'est le service, en trois étapes, puis deux portes : « J'achète » et « Je vends ».
+    Aucune donnée du compte ici : des textes (fr.yml, pages.home.*) et des liens.
+    Styles propres à la page : pages/_home.scss (classes home-*). %>
+<% content_for :title, "#{t('.title')} · #{t('app_name')}" %>
+
+<div class="container home">
+  <%# L'accroche : le logo et la promesse. %>
+  <section class="home__hero">
+    <%= image_tag "logo-ferme-directe.svg", alt: t(".logo_alt"), class: "home__logo", width: 128, height: 128 %>
+    <div>
+      <p class="home__eyebrow"><%= t(".eyebrow") %></p>
+      <h1 class="home__title"><%= t(".title") %></h1>
+      <p class="home__lead"><%= t(".lead") %></p>
+    </div>
+  </section>
+
+  <%# Les trois étapes, dans l'ordre du parcours de la démo. %>
+  <ol class="home__steps" aria-label="<%= t(".steps.label") %>">
+    <% %w[describe choose order].each do |step| %>
+      <li class="home__step">
+        <div>
+          <strong><%= t(".steps.#{step}.title") %></strong>
+          <span class="text-body-secondary"><%= t(".steps.#{step}.text") %></span>
+        </div>
+      </li>
+    <% end %>
+  </ol>
+
+  <%# Les deux portes. Une seule action principale par écran (btn-primary) : acheter,
+      le cœur de la démo. « Je vends » a la même cible que la bascule de la barre. %>
+  <div class="row g-4">
+    <div class="col-lg-6">
+      <section class="card h-100 home__door">
+        <div class="card-body d-flex flex-column gap-3">
+          <p class="home__eyebrow mb-0"><%= t(".buy.eyebrow") %></p>
+          <h2 class="h4 mb-0"><%= t(".buy.title") %></h2>
+          <p class="text-body-secondary mb-0"><%= t(".buy.text") %></p>
+          <%= link_to t(".buy.button"), new_need_path, class: "btn btn-primary btn-lg align-self-start mt-auto" %>
+        </div>
+      </section>
+    </div>
+    <div class="col-lg-6">
+      <section class="card h-100 home__door home__door--sell">
+        <div class="card-body d-flex flex-column gap-3">
+          <p class="home__eyebrow mb-0"><%= t(".sell.eyebrow") %></p>
+          <h2 class="h4 mb-0"><%= t(".sell.title") %></h2>
+          <p class="text-body-secondary mb-0"><%= t(".sell.text") %></p>
+          <%= link_to t(".sell.button"), sales_path, class: "btn btn-outline-secondary btn-lg align-self-start mt-auto" %>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <%# Un compte, deux rôles : la bascule en haut à droite. %>
+  <p class="home__note">
+    <strong><%= t(".roles.title") %></strong>
+    <%= t(".roles.text") %>
+  </p>
+</div>
