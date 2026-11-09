@@ -41,7 +41,8 @@ class LayoutTest < ActionDispatch::IntegrationTest
 
     assert_dom "h1", text: "Connexion"
     assert_dom "input.btn.btn-primary.btn-lg[value=?]", "Connexion"
-    assert_dom "a[href=?]", new_user_password_path, text: "Mot de passe oublié ?"
+    # Le texte vient de devise-i18n (espace insécable avant « ? ») : on compare à la clé, pas à une copie.
+    assert_dom "a[href=?]", new_user_password_path, text: I18n.t("devise.shared.links.forgot_your_password")
     assert_dom "a[href=?]", "/users/sign_up", count: 0
   end
 
