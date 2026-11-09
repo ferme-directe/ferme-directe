@@ -50,6 +50,7 @@ class NotificationsTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_dom "li.list-group-item", count: 0
-    assert_includes response.body, "Aucune notification pour l'instant"
+    # assert_dom lit le texte décodé (l'apostrophe est échappée dans le HTML brut).
+    assert_dom "p.text-body-secondary", text: I18n.t("notifications.index.empty")
   end
 end
