@@ -54,18 +54,16 @@ fr:
       title: Commande %{reference}
       heading: Votre commande
       reference: Référence %{reference}
-      timestamp: Horodatage
+    purchase_order:
+      reference: "Référence %{reference}"
+      date: Date
       buyer: Acheteur
       seller: Ferme
       product: Produit
-      label: Label
       quantity: Quantité
       quantity_value: "%{quantity} %{unit}"
-      unit_price: Prix unitaire
+      unit_price: Prix
       total: Total
-      fulfillment: Modalité
-      status: Statut
-      address: Adresse
     summary:
       title: Récapitulatif
       farm: Ferme
@@ -80,6 +78,10 @@ fr:
       pending:
         title: Et maintenant ?
         text: La ferme a reçu votre commande. Dès qu'elle l'accepte, vous recevez une notification et le bon de commande par e-mail.
+      accepted:
+        title: Bon de commande
+        text: "Confirmée le %{timestamp}."
+        download: Télécharger le bon de commande
       # Story 6 (V03) : les boutons de la ferme (orders/status/_seller_actions).
       seller_actions:
         title: Nouvelle commande
@@ -185,6 +187,10 @@ fr:
       unit_price: Prix
       total: Total
       attachment: Le fichier PDF est joint à ce message.
+
+  matches:
+    index:
+      title: Les fermes trouvées
 
   number:
     currency:

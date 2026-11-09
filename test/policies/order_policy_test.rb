@@ -45,6 +45,14 @@ class OrderPolicyTest < ActiveSupport::TestCase
     assert_not OrderPolicy.new(user, @order).accept?
   end
 
+  test "le bon de commande est refusé tant que la commande est en attente" do
+    assert_not OrderPolicy.new(users(:buyer), @order).purchase_order?
+
+    @order.status = :accepted
+
+    assert OrderPolicy.new(users(:buyer), @order).purchase_order?
+  end
+
   test "en démo, seul l'acheteur de la commande simule la réponse de la ferme" do
     assert OrderPolicy.new(users(:buyer), @order).demo_accept?
     assert_not OrderPolicy.new(users(:farmer), @order).demo_accept?
