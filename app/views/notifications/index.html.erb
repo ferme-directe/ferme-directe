@@ -1,0 +1,20 @@
+<%# Les notifications de l'utilisateur (story 9). Le contrôleur a déjà filtré (policy_scope),
+    borné (50) et marqué lues ; @new_ids dit lesquelles viennent de l'être, pour l'étiquette
+    « Nouvelle ». Mise en page : list-group de Bootstrap, pas de style propre. %>
+<% content_for :title, "#{t('.title')} · #{t('app_name')}" %>
+
+<div class="container">
+  <div class="col-lg-8 mx-auto">
+    <h1 class="mb-4"><%= t(".title") %></h1>
+
+    <% if @notifications.empty? %>
+      <p class="text-body-secondary"><%= t(".empty") %></p>
+    <% else %>
+      <ul class="list-group">
+        <% @notifications.each do |notification| %>
+          <%= render "notifications/notification", notification: notification, new: @new_ids.include?(notification.id) %>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+</div>

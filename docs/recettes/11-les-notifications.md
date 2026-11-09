@@ -6,14 +6,14 @@ Les notifications sont déjà créées par les stories 5 et 6 (`Order#place`, `O
 
 ## Sous-étapes
 
-- [ ] 9.1 — Qui voit quoi, et la liste côté serveur
+- [x] 9.1 — Qui voit quoi, et la liste côté serveur
   - Fichiers : `app/policies/notification_policy.rb` (nouveau), `app/controllers/notifications_controller.rb`, `app/controllers/application_controller.rb` (compteur), `app/models/notification.rb` (`unread?`), `app/helpers/notifications_helper.rb` (nouveau), `test/policies/notification_policy_test.rb`, `test/helpers/notifications_helper_test.rb`, `test/fixtures/notifications.yml`
   - Technologie : `policy_scope(Notification)` passe par `NotificationPolicy::Scope#resolve`, qui ne garde que les lignes de l'utilisateur connecté (`where(user: user)`) ; c'est ce que `verify_policy_scoped` exige sur `index`. La liste est bornée (`.limit(50)`, les plus récentes d'abord). Marquer lues : une seule instruction SQL (`unread.update_all(read_at: Time.current)`), après avoir noté lesquelles étaient nouvelles pour les distinguer à l'écran. Le compteur de la barre est un `helper_method` d'`ApplicationController` (`unread_notifications_count`, mémorisé par requête) : la requête vit dans le contrôleur, pas dans le partial. Le lien vers la commande ou les fermes se construit depuis `notifiable_type` et `notifiable_id`, sans charger l'objet : aucune requête par ligne (Bullet n'a rien à dire).
   - Tests : la Scope rend les notifications de l'utilisateur et aucune autre ; un compte sans notification a une liste vide ; le helper donne `/orders/:id` pour une commande et `/needs/:id/matches` pour un besoin.
   - Vérification : `bin/rails runner 'p NotificationPolicy::Scope.new(User.first, Notification).resolve.count'`.
   - Estimation : ~70 lignes
 
-- [ ] 9.2 — La liste et le compteur
+- [x] 9.2 — La liste et le compteur
   - Fichiers : `app/views/notifications/index.html.erb`, `app/views/notifications/_notification.html.erb`, `app/views/notifications/_counter.html.erb`, `config/locales/fr.yml` (`notifications.index.*`, `notifications.notification.*`), `test/integration/notifications_test.rb`
   - Technologie : Bootstrap `list-group` pour les lignes, pas de SCSS propre. Le libellé de chaque notification vient de l'enum (`notification.human_enum(:kind)`), la date de `l(created_at, format: :short)` (rails-i18n). Une notification qui vient d'être marquée lue porte l'étiquette « Nouvelle » (`tag tag--neutral`, charte). Le compteur : `<span class="site-navbar__counter">` (style déjà prêt), rien si zéro.
   - Tests : un visiteur est renvoyé vers la connexion ; la ferme voit sa « Commande reçue » et pas la notification de l'acheteur ; le compteur affiche « 1 » avant la visite et disparaît après ; la notification est marquée lue en base ; un compte sans notification voit le texte « Aucune notification ».
