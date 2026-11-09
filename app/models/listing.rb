@@ -4,7 +4,7 @@ class Listing < ApplicationRecord
   # Les listes fermées du cadrage. Une seule source : formulaires, validations et seeds lisent ces constantes.
   LABELS = ["Bio", "Label Rouge", "Plein air"].freeze
   SIZES = ["Gros", "Moyen", "Petit", "T65", "T80", "T110"].freeze
-  UNITS = ["pièce", "kilo", "litre", "botte"].freeze
+  UNITS = ["pièce(s)", "kilo(s)", "litre(s)", "botte(s)"].freeze
   PRIORITIES = %w[label distance price].freeze
 
   belongs_to :company
