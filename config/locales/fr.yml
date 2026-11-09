@@ -54,6 +54,16 @@ fr:
       title: Commande %{reference}
       heading: Votre commande
       reference: Référence %{reference}
+    purchase_order:
+      reference: "Référence %{reference}"
+      date: Date
+      buyer: Acheteur
+      seller: Ferme
+      product: Produit
+      quantity: Quantité
+      quantity_value: "%{quantity} %{unit}"
+      unit_price: Prix
+      total: Total
     summary:
       title: Récapitulatif
       farm: Ferme
@@ -68,6 +78,10 @@ fr:
       pending:
         title: Et maintenant ?
         text: La ferme a reçu votre commande. Dès qu'elle l'accepte, vous recevez une notification et le bon de commande par e-mail.
+      accepted:
+        title: Bon de commande
+        text: "Confirmée le %{timestamp}."
+        download: Télécharger le bon de commande
       # Story 6 (V03) : les boutons de la ferme (orders/status/_seller_actions).
       seller_actions:
         title: Nouvelle commande
@@ -125,7 +139,7 @@ fr:
         order_accepted: Commande acceptée
         order_declined: Commande refusée
         need_matched: Un acheteur cherche un produit que vous proposez
-   # Story 6 : pourquoi une acceptation est refusée (Order#accept!).
+    # Story 6 : pourquoi une acceptation est refusée (Order#accept!).
     errors:
       models:
         order:
@@ -163,3 +177,12 @@ fr:
   matches:
     index:
       title: Les fermes trouvées
+
+  number:
+    currency:
+      format:
+        unit: "€"
+        delimiter: " "
+        separator: ","
+        precision: 2
+        format: "%n %u"
