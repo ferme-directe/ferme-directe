@@ -1,7 +1,7 @@
 # Données de démo de Ferme Directe.
 #
 # Des fermes FICTIVES (noms inventés) dans des communes RÉELLES autour de Sermaise (91530),
-# entre 4 et 42 km : la distance calculée est vraie, et le rayon de recherche se démontre.
+# entre 4 et 46 km : la distance calculée est vraie, et le rayon de recherche se démontre.
 # Aucune vraie ferme n'est citée : on ne prête ni prix ni offre à une entreprise réelle.
 #
 # Coordonnées : centre approximatif de chaque commune, donné en dur pour ne pas appeler
@@ -120,6 +120,46 @@ farms_data = [
   ["Ferme de l'Œuf", "Pithiviers", "45300", 48.1719, 2.2519, [
     ["Œufs", 29, 3000, nil, "Moyen", { 1000 => 5 }],
     ["Miel", 1450, 40, nil, nil, {}]
+  ]],
+  # Ajoutées le 9 nov. (fermes 16 à 24) : combler les trous de distance (32–45 km) et de
+  # produits (apiculteurs, pommes de terre), pour que les recherches de la démo
+  # (docs/demo-recherches.md) rendent chacune plusieurs fermes, dont des favorites.
+  ["Les Ruchers du Hurepoix", "Forges-les-Bains", "91470", 48.6300, 2.1000, [
+    ["Miel", 1500, 50, nil, nil, { 10 => 5 }]
+  ]],
+  ["Le Potager d'Auvers", "Auvers-Saint-Georges", "91580", 48.5006, 2.2242, [
+    ["Pommes de terre", 115, 1500, "Bio", nil, { 300 => 5 }],
+    ["Courges", 170, 400, "Bio", nil, {}],
+    ["Oignons", 120, 600, "Bio", nil, {}]
+  ]],
+  ["Ferme de la Vallée de Chevreuse", "Chevreuse", "78460", 48.7064, 2.0383, [
+    ["Œufs", 37, 700, "Plein air", "Gros", {}],
+    ["Fromage de chèvre", 340, 90, nil, nil, {}]
+  ]],
+  ["Ferme des Quatre Vents", "Gallardon", "28320", 48.5267, 1.6942, [
+    ["Œufs", 34, 1800, "Plein air", "Gros", { 600 => 5 }],
+    ["Pommes de terre", 110, 2000, nil, nil, { 500 => 5 }],
+    ["Miel", 1550, 40, nil, nil, {}]
+  ]],
+  ["Ferme de la Plaine de Bière", "Perthes", "77930", 48.4803, 2.5567, [
+    ["Œufs", 41, 600, "Bio", "Moyen", {}],
+    ["Pommes", 210, 600, "Bio", nil, { 100 => 5 }]
+  ]],
+  ["Rucher de l'Eure", "Maintenon", "28130", 48.5867, 1.5786, [
+    ["Miel", 1400, 80, nil, nil, { 20 => 5 }]
+  ]],
+  ["Ferme de la Plaine de Toury", "Toury", "28310", 48.1947, 1.9347, [
+    ["Pommes de terre", 98, 3000, nil, nil, { 1000 => 6 }],
+    ["Carottes", 105, 800, nil, nil, {}],
+    ["Oignons", 92, 1000, nil, nil, {}]
+  ]],
+  ["Ferme des Bords de l'Eure", "Nogent-le-Roi", "28210", 48.6464, 1.5283, [
+    ["Œufs", 30, 2500, "Plein air", "Moyen", { 1000 => 5 }],
+    ["Lait cru", 110, 600, nil, nil, {}]
+  ]],
+  ["Volailles du Pays Houdanais", "Houdan", "78550", 48.7906, 1.6017, [
+    ["Poulet entier", 1390, 50, "Plein air", nil, { 20 => 5 }],
+    ["Œufs", 35, 900, "Plein air", "Gros", {}]
   ]]
 ].freeze
 
@@ -146,8 +186,16 @@ farms = farms_data.each_with_index.map do |(name, city, postcode, lat, lng, offe
   farm
 end
 
+# Les fermes favorites de l'acheteur de démo : deux proches et deux plus loin, pour que
+# l'encart « Vos fermes favorites » (maquette A02, story 3) se voie quand on cherche des œufs,
+# des pommes de terre ou du miel dans 30 km (docs/demo-recherches.md).
+# La liste fait foi : une favorite qui n'y est plus est retirée, pour que toutes les bases
+# (chaque poste, la production) convergent vers le même état après bin/rails db:seed.
 puts "Fermes favorites de l'acheteur…"
-farms.first(2).each { |farm| shop.favorites.find_or_create_by!(favorite_company: farm) }
+favorite_names = ["Ferme des Tilleuls", "Ferme du Coteau", "Rucher de l'Essonne", "Ferme des Quatre Vents"].freeze
+favorite_farms = farms.select { |farm| favorite_names.include?(farm.name) }
+shop.favorites.where.not(favorite_company: favorite_farms).destroy_all
+favorite_farms.each { |farm| shop.favorites.find_or_create_by!(favorite_company: farm) }
 
 puts "Terminé : #{Company.count} entreprises, #{Listing.offer.count} offres, #{Product.count} produits."
 puts "Comptes : acheteur@ferme-directe.test, ferme1@ … ferme#{farms_data.size}@ferme-directe.test"

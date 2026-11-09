@@ -1,0 +1,39 @@
+<%# Corps HTML du bon de commande. terre #6E5443 pour les libellés,
+    trait #E4DDD0 pour les filets. sapin est posé par le cadre. %>
+<% label_style = "padding:4px 16px 4px 0; border-bottom:1px solid #E4DDD0; text-align:left; font-weight:normal; color:#6E5443;" %>
+<% value_style = "padding:4px 0; border-bottom:1px solid #E4DDD0; text-align:left;" %>
+
+<p style="margin:0 0 16px;"><%= t(".intro", reference: @order.reference) %></p>
+
+<table style="border-collapse:collapse;">
+  <tr>
+    <th style="<%= label_style %>"><%= t(".date") %></th>
+    <td style="<%= value_style %>"><%= l(@order.accepted_at || @order.created_at, format: "%d/%m/%Y %H:%M") %></td>
+  </tr>
+  <tr>
+    <th style="<%= label_style %>"><%= t(".buyer") %></th>
+    <td style="<%= value_style %>"><%= @order.buyer_company.name %></td>
+  </tr>
+  <tr>
+    <th style="<%= label_style %>"><%= t(".seller") %></th>
+    <td style="<%= value_style %>"><%= @order.seller_company.name %></td>
+  </tr>
+  <tr>
+    <th style="<%= label_style %>"><%= t(".product") %></th>
+    <td style="<%= value_style %>"><%= @order.product.name %></td>
+  </tr>
+  <tr>
+    <th style="<%= label_style %>"><%= t(".quantity") %></th>
+    <td style="<%= value_style %>"><%= t(".quantity_value", quantity: @order.quantity, unit: @order.unit) %></td>
+  </tr>
+  <tr>
+    <th style="<%= label_style %>"><%= t(".unit_price") %></th>
+    <td style="<%= value_style %>"><%= format_price(@order.unit_price_cents) %></td>
+  </tr>
+  <tr>
+    <th style="<%= label_style %>"><%= t(".total") %></th>
+    <td style="<%= value_style %>"><%= format_price(@order.total_cents) %></td>
+  </tr>
+</table>
+
+<p style="margin:16px 0 0;"><%= t(".attachment") %></p>

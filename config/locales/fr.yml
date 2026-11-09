@@ -216,6 +216,20 @@ fr:
       text: "Cette partie est en préparation. Les producteurs, eux, sont déjà là : commencez par décrire votre besoin."
       back: Retour à l'accueil
 
+  order_mailer:
+    confirmation:
+      subject: "Bon de commande %{reference}"
+      intro: "Le bon de commande %{reference} est confirmé."
+      date: Date
+      buyer: Acheteur
+      seller: Ferme
+      product: Produit
+      quantity: Quantité
+      quantity_value: "%{quantity} %{unit}"
+      unit_price: Prix
+      total: Total
+      attachment: Le fichier PDF est joint à ce message.
+
   matches:
     index:
       title: Les fermes trouvées

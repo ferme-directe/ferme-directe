@@ -156,6 +156,7 @@ dans `.env.example`.
 
 ## Données de démo
 
-`bin/rails db:seed` : 15 produits, 15 fermes **fictives** dans des communes **réelles** autour de
-Sermaise (4 à 42 km), un acheteur à Sermaise. Idempotent. Comptes : `acheteur@ferme-directe.test`,
-`ferme1@…` à `ferme15@ferme-directe.test`, mot de passe `SEED_PASSWORD` (par défaut `motdepasse`, en local).
+`bin/rails db:seed` : 15 produits, 24 fermes **fictives** dans des communes **réelles** autour de
+Sermaise (4 à 46 km), un acheteur à Sermaise avec 4 fermes favorites. Idempotent. Comptes :
+`acheteur@ferme-directe.test`, `ferme1@…` à `ferme24@ferme-directe.test`, mot de passe `SEED_PASSWORD`
+(par défaut `motdepasse`, en local). Les recherches attendues pendant la démo : `docs/demo-recherches.md`.
