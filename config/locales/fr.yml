@@ -216,6 +216,21 @@ fr:
       text: "Cette partie est en préparation. Les producteurs, eux, sont déjà là : commencez par décrire votre besoin."
       back: Retour à l'accueil
 
+  # Les notifications (story 9, app/views/notifications/).
+  notifications:
+    index:
+      title: Notifications
+      empty: Aucune notification pour l'instant. Vous serez prévenu ici dès qu'une commande bouge.
+    notification:
+      new: Nouvelle
+      open:
+        order: Voir la commande
+        listing: Voir les fermes
+    counter:
+      unread:
+        one: "%{count} notification non lue"
+        other: "%{count} notifications non lues"
+
   order_mailer:
     confirmation:
       subject: "Bon de commande %{reference}"
