@@ -8,4 +8,12 @@ class PagesController < ApplicationController
   # controles: ok page d'accueil (pages#home), hors CRUD par décision du socle
   def home
   end
+
+  # « Pas encore ouvert » : la page des parties qui ne sont pas encore construites (story 12
+  # aujourd'hui). Un contrôleur sans story rend cette vue au lieu de planter ; le jour où la
+  # story arrive, il la remplace par la sienne. Textes : pages.soon.* (clés absolues, pour que
+  # la vue se rende depuis n'importe quel contrôleur).
+  # controles: ok page « bientôt » (pages#soon), hors CRUD par décision du 9 nov.
+  def soon
+  end
 end

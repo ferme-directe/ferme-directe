@@ -32,6 +32,20 @@ class PagesTest < ActionDispatch::IntegrationTest
     assert_dom "img[alt=?]", I18n.t("pages.home.logo_alt")
   end
 
+  test "une partie pas encore construite affiche « Pas encore ouvert » au lieu de planter" do
+    sign_in users(:buyer)
+    get sales_path
+
+    assert_response :success
+    assert_dom "h1", text: I18n.t("pages.soon.title")
+    assert_dom "a.btn[href=?]", root_path, text: I18n.t("pages.soon.back")
+  end
+
+  test "la page « bientôt » est réservée aux connectés" do
+    get soon_path
+    assert_redirected_to new_user_session_path
+  end
+
   test "l'inscription n'existe plus" do
     # Sans :registerable, Devise ne déclare ni la route ni son helper. En test,
     # une route inconnue répond 404 (show_exceptions = :rescuable), elle ne lève pas.

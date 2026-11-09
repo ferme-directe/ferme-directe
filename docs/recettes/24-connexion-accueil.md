@@ -37,6 +37,6 @@ Changement de décision (9 nov.) : la décision du 28 oct. envoyait l'utilisateu
 
 ## Points ouverts
 
-- « Je vends » mène à `sales_path` (story 12, action encore vide → erreur Pundit tant qu'elle n'est pas écrite), comme la bascule de la barre aujourd'hui. Pour la démo du 21, soit la story 12 existe, soit on dirige ce bouton ailleurs : à trancher avec l'équipe. → option retenue : `sales_path`, une seule cible pour « Je vends » dans toute l'application.
+- « Je vends » mène à `sales_path` (story 12, pas encore écrite), comme la bascule de la barre. Décision du 9 nov. : une page générique « Pas encore ouvert » (`pages#soon`, route `/bientot`, vue `pages/soon`, clés `pages.soon.*`) est rendue par `SalesController#index` (`skip_policy_scope` + `render "pages/soon"`) au lieu d'une erreur. Toute partie non construite peut la rendre de la même façon ; quand la story arrive, elle remplace ces deux lignes par les siennes. Testé : `/sales` connecté → 200 et le titre ; `/bientot` déconnecté → connexion.
 - Le slogan du pied de page (« De nouveaux débouchés pour les fermes françaises ») ne parle qu'aux fermes ; la maquette propose « Moins de démarches pour les professionnels, des débouchés au juste prix pour les producteurs ». Non tranché : la clé `shared.footer.tagline` n'est pas touchée ici.
 - `bin/ci` ne peut pas tourner dans l'environnement de préparation (pas d'accès à rubygems) : les tests sont écrits et relus, mais le premier `bin/ci` vert sera celui de la machine de Silvère, avant d'ouvrir la PR.

@@ -211,6 +211,10 @@ fr:
       roles:
         title: Un seul compte, deux rôles.
         text: Un producteur peut aussi acheter, une épicerie peut aussi vendre. Vous passez de l'un à l'autre en haut à droite, sans créer de second compte.
+    soon:
+      title: Pas encore ouvert.
+      text: "Cette partie est en préparation. Les producteurs, eux, sont déjà là : commencez par décrire votre besoin."
+      back: Retour à l'accueil
 
   matches:
     index:

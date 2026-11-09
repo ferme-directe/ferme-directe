@@ -1,0 +1,12 @@
+<%# « Pas encore ouvert » (décision du 9 nov.) : la page rendue à la place d'une partie pas
+    encore construite, aujourd'hui « Mes ventes » (story 12, SalesController#index).
+    Clés absolues (pages.soon.*) : la vue est rendue depuis d'autres contrôleurs que pages.
+    Bootstrap seul, pas de SCSS propre : c'est une page de passage. %>
+<% content_for :title, "#{t('pages.soon.title')} · #{t('app_name')}" %>
+
+<div class="container py-5 text-center">
+  <%= image_tag "logo-ferme-directe-toit.svg", alt: "", class: "mb-4", width: 106, height: 80 %>
+  <h1 class="h2"><%= t("pages.soon.title") %></h1>
+  <p class="lead text-body-secondary mx-auto col-lg-6"><%= t("pages.soon.text") %></p>
+  <%= link_to t("pages.soon.back"), root_path, class: "btn btn-outline-secondary mt-3" %>
+</div>
