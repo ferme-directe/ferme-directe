@@ -21,6 +21,9 @@ fr:
       buy: J'achète
       sell: Je vends
       account: Mon compte
+    # Le menu du compte (story 14, app/views/shared/_sign_out_link.html.erb).
+    sign_out_link:
+      sign_out: Se déconnecter
     footer:
       tagline: De nouveaux débouchés pour les fermes françaises.
       platform: La plateforme
@@ -173,6 +176,45 @@ fr:
       subtitle: Décrivez ce que vous cherchez. Les fermes qui peuvent le fournir seront prévenues.
       max_price_text: Les fermes au-dessus ne seront pas prévenues.
       button_see_farm: Voir les fermes
+
+  # Page d'accueil après connexion (story 14, app/views/pages/home.html.erb).
+  pages:
+    home:
+      title: Commander à un producteur, aussi simple que chez le grossiste.
+      eyebrow: La plateforme des professionnels de l'alimentation
+      lead: >-
+        Restaurateurs, boulangers, pâtissiers, primeurs, épiciers : le producteur qui a la viande,
+        les œufs, les légumes ou la farine qu'il vous faut est peut-être tout près. Décrivez votre
+        besoin, comparez les producteurs et leur prix, commandez. Sans un appel, sans un SMS.
+      logo_alt: Ferme Directe, une ferme au toit de deux feuilles
+      steps:
+        label: Comment ça marche
+        describe:
+          title: Vous décrivez votre besoin
+          text: Produit, quantité, date, rayon.
+        choose:
+          title: Vous choisissez un producteur
+          text: Au prix qu'il fixe, sans négocier.
+        order:
+          title: Le bon de commande part tout seul
+          text: En PDF, par e-mail, à vous et au producteur.
+      buy:
+        eyebrow: J'achète
+        title: Je m'approvisionne
+        text: Des produits bruts ou transformés, auprès des producteurs proches de chez vous. Une commande claire, un document, pas d'aller-retour.
+        button: Décrire mon besoin
+      sell:
+        eyebrow: Je vends
+        title: Je trouve des débouchés
+        text: Les professionnels autour de vous vous trouvent, au prix que vous fixez. Vous acceptez la commande en un clic, le bon de commande est fait.
+        button: Voir mes ventes
+      roles:
+        title: Un seul compte, deux rôles.
+        text: Un producteur peut aussi acheter, une épicerie peut aussi vendre. Vous passez de l'un à l'autre en haut à droite, sans créer de second compte.
+    soon:
+      title: Pas encore ouvert.
+      text: "Cette partie est en préparation. Les producteurs, eux, sont déjà là : commencez par décrire votre besoin."
+      back: Retour à l'accueil
 
   # Les notifications (story 9, app/views/notifications/).
   notifications:

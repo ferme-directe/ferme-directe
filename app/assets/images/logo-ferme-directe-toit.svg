@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Logo Ferme Directe, version réduite : le toit seul, pour la barre du haut (fond blé)
+     et les petites tailles. Même dessin que logo-ferme-directe.svg sans la poule ni la bêche,
+     qui deviendraient des points. Couleurs de la charte : papier #FBF8F1, sapin #2E463A,
+     blé #D9B44A (nervure), terre #6E5443 (porte). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 20 120 90" aria-hidden="true" focusable="false">
+  <path d="M60 20 C40 22 18 40 10 70 C34 70 54 52 60 20 Z" fill="#FBF8F1"/>
+  <path d="M60 20 C80 22 102 40 110 70 C86 70 66 52 60 20 Z" fill="#2E463A"/>
+  <path d="M58 26 C48 42 34 56 18 66" stroke="#D9B44A" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M62 26 C72 42 86 56 102 66" stroke="#D9B44A" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M20 104 V74 M100 104 V74" stroke="#6E5443" stroke-width="4" stroke-linecap="round"/>
+  <path d="M48 104 V84 a12 12 0 0 1 24 0 V104 Z" fill="#6E5443"/>
+  <path d="M14 104 H106" stroke="#2E463A" stroke-width="3" stroke-linecap="round" fill="none"/>
+</svg>

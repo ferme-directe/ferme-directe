@@ -1,11 +1,13 @@
 // =============================================================================
-// Logo texte : « ● Ferme Directe »
+// Logo : le toit de la ferme puis « Ferme Directe » (barre du haut), ou la pastille
+// puis le nom (pied de page, pages de connexion)
 // =============================================================================
-// Le même logo dans la barre du haut (terre sur blé) et dans le pied de page
-// (blanc sur sapin, pastille blé). Un seul bloc, une variante pour le fond sombre.
+// Un seul bloc. Dans la barre, l'image logo-ferme-directe-toit.svg (story 14) précède
+// le texte : en dessous de 48 px, le logo se réduit au toit seul (règle de la maquette).
+// Sur fond sombre, le pied de page garde la pastille blé devant le texte ; le toit en
+// clair sur sapin viendra avec l'icône du site (docs/a-faire-plus-tard.md).
 
 .site-brand {
-  @include dot(0.875rem);
   display: inline-flex;
   align-items: center;
   gap: 0.625rem;
@@ -13,6 +15,13 @@
   font-size: 1.1875rem; // 19 px, comme la maquette
   font-weight: 700;
   text-decoration: none;
+}
+
+// L'image du toit dans la barre : 40 px de haut, la largeur suit (viewBox 120 × 90).
+.site-brand__logo {
+  flex-shrink: 0;
+  height: 2.5rem;
+  width: auto;
 }
 
 // Sur fond sombre : texte blanc, pastille blé.

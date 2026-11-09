@@ -1,0 +1,7 @@
+<%# En-tête des pages Devise (connexion, mot de passe) : le logo et le nom du site, centrés.
+    Reçoit title: le titre de la page (déjà traduit par devise-i18n). %>
+<header class="text-center mb-4">
+  <%= image_tag "logo-ferme-directe.svg", alt: t("pages.home.logo_alt"), width: 96, height: 96, class: "mb-3" %>
+  <p class="site-brand justify-content-center mb-2"><%= t("app_name") %></p>
+  <h1 class="h3"><%= title %></h1>
+</header>
