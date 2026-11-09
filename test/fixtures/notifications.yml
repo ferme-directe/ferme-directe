@@ -8,3 +8,10 @@ need_matched:
   user: farmer
   notifiable: eggs_need (Listing)
   kind: need_matched
+
+# Déjà lue, pour l'acheteur : elle n'entre pas dans le compteur.
+order_accepted_read:
+  user: buyer
+  notifiable: eggs_order (Order)
+  kind: order_accepted
+  read_at: <%= 2.days.ago %>
