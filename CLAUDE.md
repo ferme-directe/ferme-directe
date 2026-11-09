@@ -27,6 +27,10 @@ La méthode est dans les skills du dépôt, lus automatiquement par Claude Code 
 - **La branche d'une story appartient à son auteur.** Conflit, correction de relecture : c'est lui qui
   pousse. Quelqu'un d'autre (ou son IA) n'y touche qu'après avoir dit quoi et pourquoi, avec l'accord du
   lead, qui prévient l'auteur avant. Détail dans le skill `rails-methode`, section « En équipe ».
+- **Demander une correction ou une modification à un coéquipier commence par deux relectures** : l'existant
+  à l'instant (`git fetch`, sa branche, sa PR, la CI, jamais de mémoire), puis l'historique (cadrage,
+  maquette, issue, décisions). Ce qui était écrit et livré est un acquis ; si c'est le cadrage qui change,
+  on le dit et on le reporte dans le cadrage et l'issue avant de demander.
 - Commits : Conventional Commits en français (`feat: …`, `fix: …`, `test: …`, `chore: …`, `docs: …`).
 - Fin de sous-étape : `bin/controles`, puis `bin/ci` avant d'ouvrir la PR.
 - Décisions d'architecture : une note par décision dans `docs/decisions/` (format ADR court).
