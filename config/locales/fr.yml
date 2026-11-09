@@ -189,6 +189,20 @@ fr:
         one: "%{count} notification non lue"
         other: "%{count} notifications non lues"
 
+  order_mailer:
+    confirmation:
+      subject: "Bon de commande %{reference}"
+      intro: "Le bon de commande %{reference} est confirmé."
+      date: Date
+      buyer: Acheteur
+      seller: Ferme
+      product: Produit
+      quantity: Quantité
+      quantity_value: "%{quantity} %{unit}"
+      unit_price: Prix
+      total: Total
+      attachment: Le fichier PDF est joint à ce message.
+
   matches:
     index:
       title: Les fermes trouvées
