@@ -1,0 +1,104 @@
+// =============================================================================
+// Page d'accueil (app/views/pages/home.html.erb, story 14)
+// =============================================================================
+// Ce que Bootstrap ne donne pas tout seul : l'accroche avec le logo, la liste des
+// trois étapes numérotées en blé, et la carte « je vends » sur fond blé pâle.
+// Les couleurs sont des variables de la charte (config/_colors.scss).
+
+.home {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  padding-block: 2rem;
+}
+
+.home__hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+
+  > div {
+    flex: 1 1 24rem;
+    min-width: 0;
+  }
+}
+
+.home__logo {
+  flex-shrink: 0;
+  width: 8rem;
+  height: 8rem;
+}
+
+// Le sur-titre en petites capitales terre, repris en tête de chaque carte.
+.home__eyebrow {
+  margin-bottom: 0.5rem;
+  color: $terre;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.home__title {
+  max-width: 26ch;
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.home__lead {
+  max-width: 62ch;
+  margin-bottom: 0;
+  color: $gris-chaud;
+  font-size: 1.0625rem;
+}
+
+// Les trois étapes : une liste numérotée dont les numéros sont des pastilles blé.
+.home__steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 1.5rem 0;
+  border-top: 1px solid $trait;
+  border-bottom: 1px solid $trait;
+  list-style: none;
+  counter-reset: step;
+}
+
+.home__step {
+  display: flex;
+  gap: 0.875rem;
+  counter-increment: step;
+
+  &::before {
+    content: counter(step);
+    display: inline-grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: $ble;
+    color: $encre;
+    font-weight: 800;
+  }
+
+  strong {
+    display: block;
+  }
+}
+
+// La porte « je vends » se distingue par le fond blé pâle de la charte.
+.home__door--sell {
+  background-color: $ble-pale;
+}
+
+.home__note {
+  margin: 0;
+  padding: 1rem 1.5rem;
+  border: 1px dashed $terre;
+  border-radius: $border-radius-lg;
+  background-color: $blanc;
+}

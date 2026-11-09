@@ -1,0 +1,16 @@
+<%# Une ligne de la liste des notifications (story 9).
+    Reçoit notification: une Notification, new: vrai si elle n'avait pas encore été lue.
+    Le libellé vient de l'enum (fr.yml, notification/kind), le lien du helper
+    notification_target_path (la commande, ou les fermes du besoin). %>
+<li class="list-group-item d-flex flex-wrap justify-content-between align-items-center gap-2">
+  <div class="d-flex align-items-center gap-2">
+    <% if new %>
+      <span class="tag tag--neutral"><%= t(".new") %></span>
+    <% end %>
+    <span>
+      <strong><%= notification.human_enum(:kind) %></strong>
+      <span class="text-body-secondary small ms-2"><%= l(notification.created_at, format: :short) %></span>
+    </span>
+  </div>
+  <%= link_to t(".open.#{notification.notifiable_type.underscore}"), notification_target_path(notification) %>
+</li>
