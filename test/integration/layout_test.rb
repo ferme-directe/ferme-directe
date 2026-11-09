@@ -25,6 +25,26 @@ class LayoutTest < ActionDispatch::IntegrationTest
     assert_dom ".site-navbar__avatar", text: "PD"
   end
 
+  test "le menu du compte propose de se déconnecter, en DELETE" do
+    sign_in users(:buyer)
+    get root_path
+
+    # button_to produit un formulaire : la méthode DELETE est portée par un champ caché _method.
+    assert_dom "form.button_to[action=?]", destroy_user_session_path do
+      assert_dom "input[name=_method][value=delete]"
+      assert_dom "button.dropdown-item", text: "Se déconnecter"
+    end
+  end
+
+  test "la page de connexion est en français, sur la charte" do
+    get new_user_session_path
+
+    assert_dom "h1", text: "Connexion"
+    assert_dom "input.btn.btn-primary.btn-lg[value=?]", "Connexion"
+    assert_dom "a[href=?]", new_user_password_path, text: "Mot de passe oublié ?"
+    assert_dom "a[href=?]", "/users/sign_up", count: 0
+  end
+
   test "le pied de page est sur chaque page" do
     get new_user_session_path
 

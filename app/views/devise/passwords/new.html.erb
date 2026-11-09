@@ -1,18 +1,26 @@
-<h2>Forgot your password?</h2>
+<%# Mot de passe oublié (story 14) : on saisit son e-mail, Devise envoie le lien de
+    réinitialisation. Textes par devise-i18n (devise.passwords.new.*). %>
+<% content_for :title, "#{t('.forgot_your_password')} · #{t('app_name')}" %>
 
-<%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= f.error_notification %>
+<div class="container">
+  <div class="col-md-8 col-lg-5 col-xl-4 mx-auto">
+    <%= render "devise/shared/auth_header", title: t(".forgot_your_password") %>
 
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "email" } %>
+    <div class="card">
+      <div class="card-body p-4">
+        <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+          <%= f.error_notification %>
+
+          <%= f.input :email,
+                      required: true,
+                      autofocus: true,
+                      input_html: { autocomplete: "email" } %>
+
+          <%= f.button :submit, t(".send_me_reset_password_instructions"), class: "btn btn-primary btn-lg w-100 mt-2" %>
+        <% end %>
+      </div>
+    </div>
+
+    <%= render "devise/shared/links" %>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Send me password reset instructions" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
