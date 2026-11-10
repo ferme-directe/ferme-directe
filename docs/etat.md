@@ -76,7 +76,12 @@ En ligne : https://ferme-directe.osc-fr1.scalingo.io (déploiement automatique �
    `DEMO_FARM_EMAIL`), jamais en dur. L'e-mail part à chaque compte de l'entreprise.
 3. Vérifier sur Scalingo : `DEMO_MODE` et `SOLID_QUEUE_IN_PUMA` définis
    (`scalingo --app ferme-directe --region osc-fr1 env | grep -E "DEMO|SOLID"`).
-4. Vendredi 13 : si la story 4 n'a pas de PR, en parler avec Marine avant toute autre décision.
+4. **Aucune page indexée** avant que le produit soit fini, le domaine `ferme-directe.fr` arrivant sur
+   Scalingo : en-tête `X-Robots-Tag: noindex, nofollow` sur toutes les réponses
+   (`config.action_dispatch.default_headers`, pages et PDF compris), balise `<meta name="robots">` dans
+   le gabarit, `public/robots.txt` en `Disallow: /`, et un test qui vérifie l'en-tête et la balise.
+   Dans la même PR que Brevo.
+5. Vendredi 13 : si la story 4 n'a pas de PR, en parler avec Marine avant toute autre décision.
 
 ## Points ouverts
 
