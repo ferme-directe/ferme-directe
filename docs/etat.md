@@ -1,12 +1,24 @@
 # Où en est Ferme Directe
 
-**Mis à jour le 10 novembre 2026, 10 h 30.** Ce fichier est réécrit à chaque fin de session de
+**Mis à jour le 10 novembre 2026, 10 h 50.** Ce fichier est réécrit à chaque fin de session de
 coordination ; il dit l'état d'aujourd'hui, pas l'histoire. Le pourquoi des décisions est dans
 `docs/decisions/` et dans l'historique du cadrage ; le détail de chaque story, dans `docs/recettes/`.
 
-Demo Day : samedi 21 novembre. Parcours de démo : connexion → accueil → décrire un besoin → voir les
-fermes → récapitulatif → commander → réponse de la ferme (simulée) → notification → bon de commande PDF
-par e-mail.
+Demo Day : samedi 21 novembre.
+
+## Le parcours de démo, étape par étape
+
+| Étape | Story | Qui | État |
+|---|---|---|---|
+| Connexion → page d'accueil | 14 | Silvère | en ligne |
+| Décrire le besoin | 1 | Marine | en ligne ; retouches en cours (adresse, bouton) |
+| Voir les fermes | 2, 3 | Aurélien | 2 en ligne (minimale) ; finition et favorites en tête en cours |
+| **Récapitulatif avant commande** | **4** | **Marine** | **pas commencée : la seule étape manquante** |
+| Commander → page « en attente » | 5 | Kahina | en ligne |
+| « Simuler la réponse de la ferme » → acceptée | 6 + outil démo | Kahina | en ligne (`DEMO_MODE` à vérifier sur Scalingo) |
+| Notification « commande acceptée » | 9 | Silvère | en ligne |
+| Bon de commande PDF | 7 | Marcio | en ligne |
+| E-mail aux deux, PDF joint | 8 | Marcio (code) · **Silvère (envoi)** | code en ligne ; **l'envoi n'est pas branché** (voir ci-dessous) |
 
 ## Qui fait quoi
 
@@ -49,9 +61,25 @@ En ligne : https://ferme-directe.osc-fr1.scalingo.io (déploiement automatique �
 - 9 nov. : panneau « Mes besoins en cours » retiré de A02, gardé sur A01 comme rappel (v15).
 - 9 nov. : seeds à 24 fermes, fiche des recherches de démo dans `docs/demo-recherches.md` (v12).
 
+## Prochaines étapes de Silvère (cette semaine)
+
+1. **Brancher l'envoi d'e-mails** (story 8, côté exploitation). Aujourd'hui `production.rb` n'a pas de
+   `smtp_settings` (bloc commenté), l'expéditeur est `bonjour@ferme-directe.test`, les variables
+   `BREVO_SMTP_*` de `.env.example` ne sont lues nulle part : en production, `deliver_later` met l'e-mail
+   en file et il ne part pas. À faire : compte Brevo, adresse d'expéditeur validée (`@ferme-directe.fr`,
+   domaine Infomaniak), `delivery_method :smtp` vers `smtp-relay.brevo.com:587` avec identifiants en
+   `ENV`, `raise_delivery_errors = true`, variables sur Scalingo, un envoi réel de test (`rails runner`).
+   Marcio : rien à configurer ; le prévenir du nouvel expéditeur.
+2. **Destinataires de démo** : les comptes des seeds ont des adresses fictives (`.test`), personne ne
+   reçoit rien. Ne pas changer l'e-mail de `acheteur@…` (c'est le login) : ajouter un **second compte**
+   à l'Épicerie du Moulin et un à la Ferme des Tilleuls, adresses lues dans `ENV` (`DEMO_BUYER_EMAIL`,
+   `DEMO_FARM_EMAIL`), jamais en dur. L'e-mail part à chaque compte de l'entreprise.
+3. Vérifier sur Scalingo : `DEMO_MODE` et `SOLID_QUEUE_IN_PUMA` définis
+   (`scalingo --app ferme-directe --region osc-fr1 env | grep -E "DEMO|SOLID"`).
+4. Vendredi 13 : si la story 4 n'a pas de PR, en parler avec Marine avant toute autre décision.
+
 ## Points ouverts
 
-- Vérifier sur Scalingo que `SOLID_QUEUE_IN_PUMA` est défini, sinon les e-mails (`deliver_later`) ne partent pas.
 - Panneau « Mes besoins en cours » sur A01 : à attribuer.
 - Avertissement `libvips` au lancement en production : sans effet, à faire taire plus tard.
 - Besoin de test n° 53 (Œufs, 300) créé en production le 9 nov. : à purger avant le 21.
