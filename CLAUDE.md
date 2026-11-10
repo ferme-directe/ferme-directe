@@ -32,7 +32,7 @@ La méthode est dans les skills du dépôt, lus automatiquement par Claude Code 
   lead, qui prévient l'auteur avant. Détail dans le skill `rails-methode`, section « En équipe ».
 - **Chacun sa story, chacun son rôle.** La répartition est dans `docs/etat.md` et dans les issues. On ne
   code pas, ne corrige pas et ne pousse pas sur la story d'un autre. Si le lead demande de passer outre
-  (urgence, absence), Claude s'arrête d'abord et écrit en clair : « attention, cette action touche la
+  (urgence, absence), même vite, même comme une évidence, Claude s'arrête d'abord et écrit en clair : « attention, cette action touche la
   story N de <prénom> » ; il ne continue que sur un go explicite donné après cet avertissement, jamais
   sur une permission générale ni un mode automatique. Et l'auteur est prévenu avant le push.
 - **Demander une correction ou une modification à un coéquipier commence par deux relectures** : l'existant
