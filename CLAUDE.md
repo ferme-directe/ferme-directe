@@ -12,6 +12,9 @@ https://claude.ai/artifact/TzGPKQYCzh2EyUZ6D8mjt8
 Chaque story y a son trajet (route → contrôleur → modèle → tables), recopié dans son issue GitHub.
 Une modification de story se fait dans le cadrage ET dans l'issue, jamais dans un seul des deux.
 
+**Avant de commencer une session, lire `docs/etat.md`** : où en est le projet, qui fait quoi, les décisions
+récentes, les points ouverts. Il est réécrit à chaque fin de session de coordination.
+
 ## Comment on travaille
 
 La méthode est dans les skills du dépôt, lus automatiquement par Claude Code :
@@ -27,6 +30,11 @@ La méthode est dans les skills du dépôt, lus automatiquement par Claude Code 
 - **La branche d'une story appartient à son auteur.** Conflit, correction de relecture : c'est lui qui
   pousse. Quelqu'un d'autre (ou son IA) n'y touche qu'après avoir dit quoi et pourquoi, avec l'accord du
   lead, qui prévient l'auteur avant. Détail dans le skill `rails-methode`, section « En équipe ».
+- **Chacun sa story, chacun son rôle.** La répartition est dans `docs/etat.md` et dans les issues. On ne
+  code pas, ne corrige pas et ne pousse pas sur la story d'un autre. Si le lead demande de passer outre
+  (urgence, absence), Claude s'arrête d'abord et écrit en clair : « attention, cette action touche la
+  story N de <prénom> » ; il ne continue que sur un go explicite donné après cet avertissement, jamais
+  sur une permission générale ni un mode automatique. Et l'auteur est prévenu avant le push.
 - **Demander une correction ou une modification à un coéquipier commence par deux relectures** : l'existant
   à l'instant (`git fetch`, sa branche, sa PR, la CI, jamais de mémoire), puis l'historique (cadrage,
   maquette, issue, décisions). Ce qui était écrit et livré est un acquis ; si c'est le cadrage qui change,
