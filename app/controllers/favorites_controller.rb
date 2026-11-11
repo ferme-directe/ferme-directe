@@ -10,7 +10,7 @@ class FavoritesController < ApplicationController
     authorize @favorite
     # On doit pouvoir sauvegader notre favoris
     @favorite.save
-    redirect_to need_matches_path(:need_id), notice: "ajouté aux favoris"
+    redirect_to need_matches_path(:need_id), notice: t(".success")
   end
 
   def index
@@ -23,7 +23,7 @@ class FavoritesController < ApplicationController
     # cette ligne uniquement est proposée par L'ia car je ne connais pas authorize
     authorize @favorite
     @favorite.destroy
-    redirect_to need_matches_path(:need_id), notice: " Favoris supprimé"
+    redirect_to need_matches_path(:need_id), notice: t(".supprimer")
   end
 end
 # On doit pouvoir afficher nos fermes
