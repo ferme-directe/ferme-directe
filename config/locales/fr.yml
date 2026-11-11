@@ -45,14 +45,13 @@ fr:
     flashes:
       close: Fermer
 
-  # Stories 5 et 6 : les messages après l'envoi (create) et l'acceptation (accept) d'une commande.
+  # Stories 2 et 3 : les messages pour ajout aux favoris
   favorites:
     create:
       success: ajouté aux favoris
     destroy:
       supprimer: supprimer des favoris
-
-
+  # Stories 5 et 6 : les messages après l'envoi (create) et l'acceptation (accept) d'une commande.
   orders:
     accept:
       success: Commande acceptée. L'acheteur est prévenu.
