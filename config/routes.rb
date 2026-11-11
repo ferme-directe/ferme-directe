@@ -12,6 +12,9 @@ Rails.application.routes.draw do
     resources :orders, only: %i[new create]          # GET /needs/:need_id/orders/new, POST /needs/:need_id/orders
   end
 
+  # Route pour les favoris
+  resources :favorites, only: [:create, :index, :destroy]
+
   # Stories 7, 6, 10, 11 : la commande et ses changements d'état (member : une action sur UNE commande).
   resources :orders, only: :show do
     member do
