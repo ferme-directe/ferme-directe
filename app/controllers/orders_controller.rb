@@ -14,7 +14,7 @@ class OrdersController < ApplicationController
   def create
     need = Listing.need.find(params[:need_id])
     offer = Listing.offer.active.find(order_params[:offer_id])
-    @order = Order.build_from(need: need, offer: offer, quantity: need.quantity)
+    @order = Order.build_from(need: need, offer: offer, quantity: order_params[:quantity] || need.quantity)
     authorize @order
 
     if @order.place
