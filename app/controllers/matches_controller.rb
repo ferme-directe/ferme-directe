@@ -18,5 +18,15 @@ class MatchesController < ApplicationController
     @near_address = Address.near(@need_address, 40)
     # On compare toutes nos offres pour voir si les offres matchs en utilsant .include? comme méthode.
     @listings = @listings.select { |listing| @near_address.include?(listing.address) }
+
+    # On doit récupèrer les favoris de notre utilisateur
+    @favorites = current_user.company.favorites
+    # on récupère les ids de nos favoris les parcourant et les sotckants avec la méthode .map (crée un nouveau tableau)
+    @favorites_ids = @favorites.map { |favorite| favorite.favorite_company_id }
+    # On doit comparer les ids pour voir si l'id de la company est présentre dans notre tableau
+    # On utilise la méthode partition qui nous permet de retourner deux tableaux(les favoris et les autres)
+    @favorites_trie, @listing_trie = @listings.partition { |listing| @favorites_ids.include?(listing.company_id) }
+    # on réunit nos deux tableaux en un tableau avec nos favoris en premier
+    @listing_with_favoris = @favorites_trie + @listing_trie
   end
 end
