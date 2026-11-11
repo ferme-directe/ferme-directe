@@ -41,3 +41,7 @@ Style/EmptyMethod:
   Enabled: false
 Bundler/OrderedGems:
   Enabled: false
+# Décision d'équipe du 11 nov. 2026 : 10 lignes (défaut du Wagon) est trop court pour une action
+# de contrôleur qui cherche puis trie ; 20 garde l'esprit (une méthode = une chose) sans bloquer.
+Metrics/MethodLength:
+  Max: 20
