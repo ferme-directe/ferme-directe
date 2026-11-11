@@ -47,10 +47,11 @@
             <label class="btn btn-outline-primary" for="priority_<%= priority %>">
               <%= priority.capitalize %>
             </label>
-
     <% end %>
     </div>
-      <%= f.button :submit, t(".button_see_farm"), class: "btn btn-primary btn-lg" %>
-      <% end %>
+      <div>
+        <%= f.button :submit, t(".button_see_farm"), class: "btn btn-primary btn-lg" %>
+        <% end %>
+      </div>
     </div>
 </div>

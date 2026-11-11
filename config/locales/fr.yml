@@ -93,8 +93,17 @@ fr:
     # Story 4 (A03) : la page de récap du besoin avant envoi
     new:
       title: Votre commande chez %{seller_company}
-      subtitle: Elle sera seulement envoyée à cette ferme. Rien ne part ailleurs.
-
+      subtitle: Elle sera seulement envoyée à cette ferme.
+      product: Produit
+      quantity: Quantité
+      quantity_value: "%{quantity} %{unit}"
+      unit_price: Prix unitaire
+      total: Total
+      needed_on: Pour le
+      next-step-title: Ce qui se passe ensuite...
+      next-step: La ferme reçoit votre commande et vous répond. Tant qu'elle n'a pas accepté, rien n'est engagé. Si elle refuse, nous vous proposerons d'autres fermes.
+      send-order: Envoyer ma commande
+      modify-order: Modifier
   # Outil de démo (demo/_acceptance_button), affiché seulement si DEMO_MODE est défini.
   demo:
     acceptance_button:

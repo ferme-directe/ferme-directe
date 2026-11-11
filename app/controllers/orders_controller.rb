@@ -2,10 +2,10 @@ class OrdersController < ApplicationController
   # Story 4 (A03) : le récapitulatif avant envoi. Rien n'est écrit en base.
   def new
     # je vais chercher en base l'annonce qui correspond à la commande
-    @need = Listing.need(params[:need_id])
+    @need = Listing.need.find(params[:need_id])
     # je vais chercher en base l'offre qui correspond à la commande
-    @offer = Listing.offer.active.find(order_params[:offer_id])
-    @order = Order.build_from(@need, @offer)
+    @offer = Listing.offer.active.find(params[:offer_id])
+    @order = Order.build_from(need: @need, offer: @offer, quantity: @need.quantity)
     authorize @order
   end
 
@@ -14,7 +14,7 @@ class OrdersController < ApplicationController
   def create
     need = Listing.need.find(params[:need_id])
     offer = Listing.offer.active.find(order_params[:offer_id])
-    @order = Order.build_from(need: need, offer: offer, quantity: order_params[:quantity] || need.quantity)
+    @order = Order.build_from(need: need, offer: offer, quantity: need.quantity)
     authorize @order
 
     if @order.place

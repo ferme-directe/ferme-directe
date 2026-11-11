@@ -1,0 +1,29 @@
+.order-summary {
+  margin: 0;
+  padding: 1rem 1.5rem;
+  border: 1px solid $ble-pale;
+  border-radius: $border-radius-lg;
+  background-color: $blanc;
+
+  dt, dd {
+    padding: 1rem 0;
+    margin-bottom: 0;
+    border-bottom: 1px solid $trait;
+  }
+
+  dt:last-of-type, dd:last-of-type {
+    border-bottom: none;
+  }
+}
+
+.order-summary> div:last-child {
+  border-bottom: none;
+}
+
+.order-next-step {
+  margin: 0;
+  padding: 1rem 1.5rem;
+  border: 1px dashed $terre;
+  border-radius: $border-radius-lg;
+  background-color: $blanc;
+}

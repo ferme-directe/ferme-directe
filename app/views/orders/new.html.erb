@@ -1,5 +1,36 @@
-<div class="container col-lg-12">
-  <h1><%= t(".title") %></h1>
-  <p><%= t(".subtitle") %></p>
+<div class="container home col-lg-12 mb-0">
+  <h1><%= t(".title", seller_company: @offer.company.name) %></h1>
+  <p class="mt-0 mb-0"><%= t(".subtitle") %></p>
+  <section class="order-summary col-lg-8">
+    <dl class="row mb-0">
+      <dt class="col-sm-3"><%= t(".product") %></dt>
+      <dd class="col-sm-9">
+        <%= @order.product.name%><%= @order.label%>
+      </dd>
 
+      <dt class="col-sm-3"><%= t(".quantity") %></dt>
+      <dd class="col-sm-9"><%= t(".quantity_value",
+                                quantity: @order.quantity,
+                                unit: @offer.unit) %>
+      </dd>
+
+      <dt class="col-sm-3"><%= t(".unit_price") %></dt>
+      <dd class="col-sm-9">
+        <%= number_to_currency(@offer.unit_price_cents / 100) %>
+      </dd>
+
+      <dt class="col-sm-3"><%= t(".total") %></dt>
+      <dd class="col-sm-9">
+        <%= number_to_currency(@order.total_cents / 100)%>
+      </dd>
+    </dl>
+  </section>
+  <div class="order-next-step col-lg-8">
+    <h3><%= t(".next-step-title") %></h3>
+    <p><%= t(".next-step") %></p>
+  </div>
+  <div class="order-button-section col-lg-8">
+    <%= link_to t(".send-order"), order_path(@order[:offer_id]), class:"btn btn-primary btn-lg" %>
+    <%= link_to t(".modify-order"),  need_matches_path(@need), class:"btn btn-outline-secondary btn-lg" %>
+  </div>
 </div>
