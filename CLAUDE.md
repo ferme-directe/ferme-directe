@@ -47,7 +47,8 @@ Lire `Gemfile.lock` avant d'écrire du code : il fait foi.
   le CSS à chaque enregistrement d'un `.scss`. Le CSS compilé (`app/assets/builds/`) n'est pas dans Git.
   Une erreur de SCSS s'affiche dans le terminal (ligne `css |`), pas dans le navigateur.
 - Tests : **Minitest et fixtures** (défaut Rails). Pas de RSpec.
-- Style : le `.rubocop.yml` du Wagon fait foi. Analyse : Brakeman, bundler-audit.
+- Style : `rubocop-rails-omakase`, la configuration officielle de Rails, sans règle ajoutée (décision du 11 nov. :
+  remplace le `.rubocop.yml` du Wagon). Analyse : Brakeman, bundler-audit.
 - Hébergement : Scalingo. Fuseau : `Paris`.
 
 ### Les gems du projet, et pourquoi
