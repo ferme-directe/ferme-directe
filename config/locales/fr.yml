@@ -46,6 +46,13 @@ fr:
       close: Fermer
 
   # Stories 5 et 6 : les messages après l'envoi (create) et l'acceptation (accept) d'une commande.
+  favorites:
+    create:
+      success: ajouté aux favoris
+    destroy:
+      supprimer: supprimer des favoris
+
+
   orders:
     accept:
       success: Commande acceptée. L'acheteur est prévenu.
@@ -248,6 +255,19 @@ fr:
   matches:
     index:
       title: Les fermes trouvées
+      text: Les fermes qui peuvent fournir vos
+      paragraphe: Vos fermes favorites d'abord. Dépliez une annonce pour en savoir plus ou commander directement.
+      unit_distance: km
+      favorit: ★favorite
+      prix: prix
+      distance: distance
+      quantité: quantité
+      euros: euros pour
+      details: details
+      commander: commander
+
+
+
 
   number:
     currency:
