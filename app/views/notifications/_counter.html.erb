@@ -1,4 +1,7 @@
-<%# Emplacement de la story 9, dans la barre du haut, à côté de « Notifications ».
-    À écrire ici : le nombre de notifications non lues de l'utilisateur connecté,
-    dans un <span class="site-navbar__counter">, et rien du tout s'il est à zéro.
-    Le style du compteur est déjà prêt (components/_navbar.scss). %>
+<%# Le nombre de notifications non lues, à côté de « Notifications » dans la barre (story 9).
+    Rien si zéro : le rond n'apparaît que lorsqu'il y a quelque chose à voir.
+    unread_notifications_count est un helper_method d'ApplicationController : la requête
+    est faite là, une fois par page, pas ici. Style : components/_navbar.scss. %>
+<% if unread_notifications_count.positive? %>
+  <span class="site-navbar__counter" aria-label="<%= t(".unread", count: unread_notifications_count) %>"><%= unread_notifications_count %></span>
+<% end %>

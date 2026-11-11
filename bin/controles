@@ -69,7 +69,7 @@ check "Aucun html_safe / raw"                    "grep -rnE '\.html_safe|(^|[^.[
 check "Aucune variable @ dans un partial"        "grep -rnE '<%[^%]*(^|[^[:alnum:]_.\"'\''])@[a-z_]' app/views/ --include='_*'"
 # Le contrôle des textes en dur n'a de sens que si le projet traduit ses vues.
 if grep -rqE '\bt\(' app/views/ 2>/dev/null; then
-  check_pcre "Textes visibles via t() uniquement (une ligne par texte)" "grep -rnP '>\s*\p{Lu}[\p{Ll}\s,’'\''-]{12,}[.!?…]?\s*<' app/views/ --exclude-dir=devise | grep -vE '(^|[^A-Za-z_.])t\('"
+  check_pcre "Textes visibles via t() uniquement (une ligne par texte)" "grep -rnP '>\s*\p{Lu}[\p{Ll}\s,’'\''-]{12,}[.!?…]?\s*<' app/views/ | grep -vE '(^|[^A-Za-z_.])t\('"
 fi
 
 echo "Ruby"

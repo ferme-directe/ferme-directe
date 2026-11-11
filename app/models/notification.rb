@@ -7,4 +7,9 @@ class Notification < ApplicationRecord
   enum :kind, { order_received: 0, order_accepted: 1, order_declined: 2, need_matched: 3 }, validate: true
 
   scope :unread, -> { where(read_at: nil) }
+
+  # Pas encore ouverte dans la liste des notifications (story 9).
+  def unread?
+    read_at.nil?
+  end
 end

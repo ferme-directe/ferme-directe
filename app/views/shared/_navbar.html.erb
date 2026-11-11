@@ -6,7 +6,11 @@
     Chaque story qui crée une de ces pages remplace nil par sa route. %>
 <nav class="navbar navbar-expand-lg site-navbar">
   <div class="container-fluid px-4">
-    <%= link_to t("app_name"), root_path, class: "navbar-brand site-brand" %>
+    <%# Le logo (story 14) : le toit seul, version réduite du logo, puis le nom du site. %>
+    <%= link_to root_path, class: "navbar-brand site-brand" do %>
+      <%= image_tag "logo-ferme-directe-toit.svg", alt: "", class: "site-brand__logo", width: 53, height: 40 %>
+      <%= t("app_name") %>
+    <% end %>
 
     <% if user_signed_in? %>
       <%# Sur petit écran, Bootstrap replie les rubriques derrière ce bouton

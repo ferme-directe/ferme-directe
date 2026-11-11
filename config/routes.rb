@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: "pages#home"
+  get "bientot", to: "pages#soon", as: :soon           # les parties pas encore construites
 
   # Le routage complet du cadrage (bloc 2, « Le trajet de chaque story »).
   # Les contrôleurs existent, leurs actions sont vides : chaque story les remplit.
