@@ -80,6 +80,7 @@ Le contrôle ne voit que l'hexadécimal (`#RGB` à `#RRGGBBAA`) ; `rgb()`, `hsl(
 - **Méthode publique hors des sept actions CRUD** : toute méthode définie avant `private` qui n'est pas `index show new create edit update destroy` est soit une action hors CRUD (donc une ressource qui manque, ou une route `member` décidée dans le `CLAUDE.md`, à marquer `controles: ok route member, <décision>` sur la ligne du `def`), soit une méthode utilitaire devenue accessible par URL.
 - **Valeur interpolée dans une requête** : `where("… #{…}")`, `order(params[…])`, `find_by_sql` avec interpolation : chaque occurrence est une injection SQL possible. Les paramètres de requête (`?`, `where(colonne: valeur)`) remplacent l'interpolation ; un tri demandé par l'URL passe par une liste blanche.
 - **Relation parcourue sans borne** (`◦`) : la liste des `.all` et des `.each` sur une relation dans les contrôleurs et les vues, à relire : chaque liste affichée a une pagination ou un `limit`, chaque traitement de masse un `find_each`.
+- **Filtre en Ruby dans un contrôleur** (`◦`) : la liste des `select`, `reject`, `find`, `partition`, `sort_by`… avec un bloc dans `app/controllers/`. Sur une relation, chacun charge toute la table avant de trier en mémoire : le filtre va dans la requête (`where`, scopes, `order`, `pluck`), la borne (`limit`, pagination) vient après. Sur un tableau déjà petit et borné, marquer la ligne `controles: ok <raison>`.
 
 ### Robustesse
 
