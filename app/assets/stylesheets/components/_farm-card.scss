@@ -1,0 +1,17 @@
+.farm-card {
+  margin: 20px 0;
+  padding: 1em;
+  background: white;
+  border-radius: 1em;
+  border: 1px solid $gray-400;
+
+  .card-header{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .element-droite {
+    text-align: right;
+  }
+
+}
