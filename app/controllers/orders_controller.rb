@@ -1,6 +1,12 @@
 class OrdersController < ApplicationController
   # Story 4 (A03) : le récapitulatif avant envoi. Rien n'est écrit en base.
   def new
+    # je vais chercher en base l'annonce qui correspond à la commande
+    @need = Listing.need.find(params[:need_id])
+    # je vais chercher en base l'offre qui correspond à la commande
+    @offer = Listing.offer.active.find(params[:offer_id])
+    @order = Order.build_from(need: @need, offer: @offer, quantity: @need.quantity)
+    authorize @order
   end
 
   # Story 5 (A03 → A04) : crée la commande en pending et notifie la ferme.

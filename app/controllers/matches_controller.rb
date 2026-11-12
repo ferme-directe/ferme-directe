@@ -7,13 +7,14 @@ class MatchesController < ApplicationController
     @listings = policy_scope(Listing)
 
     # On filtre listing pour récupérer uniquement les offres
-    @listings = @listings.select { |listing| listing.kind == "offer" }
+    # @listings = @listings.select { |listing| listing.kind == "offer" }
 
     # On récupère le besoin de l'utilisateur par son id
     @need = Listing.find(params[:need_id])
 
     # on filtre une nouvelle fois et on compare les produits et les besoins
-    @listings = @listings.select { |listing| listing.product == @need.product }
+    # @listings = @listings.select { |listing| listing.product == @need.product }
+    @listings = @listings.select { |listing| listing.kind == "offer" && listing.product == @need.product }
 
     # On récupère l'addresse de l'utilsateur
     @need_address = @need.address
@@ -28,7 +29,7 @@ class MatchesController < ApplicationController
     @favorites = current_user.company.favorites
 
     # on récupère les ids de nos favoris les parcourant et les sotckants avec la méthode .map (crée un nouveau tableau)
-    @favorites_ids = @favorites.map { |favorite| favorite.favorite_company_id }
+    @favorites_ids = @favorites.map(&:favorite_company_id)
 
     # On doit comparer les ids pour voir si l'id de la company est présentre dans notre tableau
     # On utilise la méthode partition qui nous permet de retourner deux tableaux(les favoris et les autres)
