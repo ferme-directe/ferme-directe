@@ -27,7 +27,9 @@
       <%= f.input :address_id,
           collection: @addresses,
           label_method: :full_address,
-          value_method: :id %>
+          value_method: :id,
+          selected: current_user.company.addresses.first&.id,
+          include_blank: false%>
       <%= f.input :radius_km,
           input_html: {min: 5, max: 50, step: 5} %>
       <div class="form-group">
