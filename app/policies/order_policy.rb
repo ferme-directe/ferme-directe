@@ -1,5 +1,10 @@
 # Qui a le droit de faire quoi sur une commande.
 class OrderPolicy < ApplicationPolicy
+  # Story 4 : la commande se voit uniquement par l'entreprise qui l'a publié
+  def new?
+    member_of?(record.need.company_id)
+  end
+
   # Story 5 : la commande se voit par l'acheteur et par la ferme, personne d'autre.
   def show?
     member_of?(record.buyer_company_id) || member_of?(record.seller_company_id)

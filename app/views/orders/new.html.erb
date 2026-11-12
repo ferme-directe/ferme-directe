@@ -1,0 +1,19 @@
+<div class="container home col-lg-12 mb-0">
+  <h1><%= t(".title", seller_company: @offer.company.name) %></h1>
+  <p class="mt-0 mb-0"><%= t(".subtitle") %></p>
+
+  <%= simple_form_for @order, url: need_orders_path(@need) do |f| %>
+    <section class="order-summary col-lg-8 mb-4">
+      <%= render "orders/summary", order: @order%>
+  </section>
+    <div class="order-next-step col-lg-8 mb-4">
+      <h3><%= t(".next-step-title") %></h3>
+      <p><%= t(".next-step") %></p>
+    </div>
+    <div class="order-button-section col-lg-8">
+      <%= f.hidden_field :offer_id, value: @offer.id %>
+      <%= f.submit t(".send-order"), class:"btn btn-primary btn-lg" %>
+      <%= link_to t(".modify-order"),  need_matches_path(@need), class:"btn btn-outline-secondary btn-lg" %>
+    </div>
+  <% end %>
+</div>
