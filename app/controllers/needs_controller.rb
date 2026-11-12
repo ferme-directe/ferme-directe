@@ -2,7 +2,7 @@
 class NeedsController < ApplicationController
   # Story 1 (A01) : affiche le formulaire. Lit products et les adresses de l'entreprise.
   def new
-    @need = Listing.new(kind: :need, radius_km: 30)
+    @need = Listing.new(kind: :need, address_id: current_user.company.addresses, radius_km: 30)
     authorize @need
     form_options
   end
