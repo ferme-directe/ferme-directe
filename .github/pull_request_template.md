@@ -12,4 +12,6 @@ Closes #
 - [ ] Chaque action appelle `authorize` ou `policy_scope`, et sa policy a un test
 - [ ] Aucun texte en dur : `t()` et `config/locales/fr.yml`
 - [ ] Je peux expliquer chaque ligne de cette PR
+- [ ] Fichiers d'une autre story touchés : aucun, ou lesquels, et l'auteur a été prévenu avant le push
+- [ ] Des tests ajoutés ou complétés pour ce que la PR change (un fichier généré vide ne compte pas)
 - [ ] Si la story a changé : cadrage et issue mis à jour ensemble
