@@ -45,14 +45,13 @@ fr:
     flashes:
       close: Fermer
 
-  # Stories 5 et 6 : les messages après l'envoi (create) et l'acceptation (accept) d'une commande.
+  # Stories 2 et 3 : les messages pour ajout aux favoris
   favorites:
     create:
       success: ajouté aux favoris
     destroy:
       supprimer: supprimer des favoris
-
-
+  # Stories 5 et 6 : les messages après l'envoi (create) et l'acceptation (accept) d'une commande.
   orders:
     accept:
       success: Commande acceptée. L'acheteur est prévenu.
@@ -97,7 +96,14 @@ fr:
         title: Nouvelle commande
         text: "%{buyer} vous a envoyé cette commande. En l'acceptant, votre stock baisse et l'acheteur est prévenu."
         accept: Accepter la commande
-
+    # Story 4 (A03) : la page de récap du besoin avant envoi
+    new:
+      title: Votre commande chez %{seller_company}
+      subtitle: Elle sera seulement envoyée à cette ferme.
+      next-step-title: Ce qui se passe ensuite...
+      next-step: La ferme reçoit votre commande et vous répond. Tant qu'elle n'a pas accepté, rien n'est engagé. Si elle refuse, nous vous proposerons d'autres fermes.
+      send-order: Envoyer ma commande
+      modify-order: Modifier
   # Outil de démo (demo/_acceptance_button), affiché seulement si DEMO_MODE est défini.
   demo:
     acceptance_button:
@@ -155,7 +161,7 @@ fr:
         order:
           not_pending: Cette commande n'est plus en attente.
           out_of_stock: Le stock de l'offre ne suffit plus pour cette commande.
-
+  # Story 1 : formulaire de définition du besoin
   simple_form:
     labels:
       listing:
@@ -164,19 +170,19 @@ fr:
           unit: Unité
           quantity: Quantité
           needed_on: Pour le
-          address_id: Livraison ou Retrait
+          address_id: Chercher autour de
           radius_km: Dans un rayon de (km)
           max_price: Prix maximum par pièce (facultatif)
         create:
           needed_on: Pour le
-          address_id: Livraison ou Retrait
+          address_id: Chercher autour de
           radius_km: Dans un rayon de (km)
           max_price: Prix maximum par pièce (facultatif)
     prompts:
       listing:
         label: Peu importe
         address_id: Choisir une addresse
-
+  # Story 1 : Element de la page new need
   needs:
     new:
       title: De quoi avez-vous besoin ?
