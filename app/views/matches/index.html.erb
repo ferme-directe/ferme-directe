@@ -10,24 +10,18 @@
 
   <% @listing_with_favoris.each do |listing| %>
 
-
-
-
-  <%# on ajoute notre target pour stimulus>
-  <%# On ajoute un attribut (data-price) pour stocker le prix et le filtrer plus simplement%>
-  <%# on fait la meme chose avec data-distance%>
+    <%# on ajoute notre target pour stimulus>
+    <%# On ajoute un attribut (data-price) pour stocker le prix et le filtrer plus simplement%>
+    <%# on fait la meme chose avec data-distance%>
     <div class="farm-card" data-filter-target="card" data-price="<%=listing.unit_price_cents%>" data-distance="<%=@need.address.distance_to(listing.address)%>">
 
         <div class="card-header">
 
-
-
           <div class="element-gauche">
             <h4><%= listing.company.name %></h4>
-               <% if @favorites_ids.include?listing.company_id %>
-
-  <span class="tag tag--favorite"> <%=t(".favorit")%></span>
-<% end %>
+              <% if @favorites_ids.include?listing.company_id %>
+                 <span class="tag tag--favorite"> <%=t(".favorit")%></span>
+              <% end %>
             <%# la méthode distance_to est communiquée par geocoder pour calculer la distance entre deux éléments%>
             <%# la méthode .round permet d'obtenir uniquement deux chiffres après la virgule %>
             <p><%= listing.address.city %> <%=@need.address.distance_to(listing.address).round(2)%> <%= t(".unit_distance")%>  </p>
@@ -38,15 +32,10 @@
             <%# On crée notre button qui envoie les paramétres avec la méthod post à notre controller favorites%>
             <%# point important dans params on passe une action clé valeur. La clé nous permet d'utiliser l'info dans le controller%>
             <% if @favorites_ids.include?listing.company_id%>
-           <%= button_to "❤️" , favorite_path(@favorites.find { |favorite| favorite.favorite_company_id == listing.company_id }), method: :delete %>
-           <%else %>
-            <%= button_to "♥" , favorites_path, params: {favorite_company_id: listing.company_id}, method: :post %>
-  <%end%>
-
-
-
-
-
+              <%= button_to "❤️" , favorite_path(@favorites.find { |favorite| favorite.favorite_company_id == listing.company_id }), method: :delete %>
+            <%else %>
+              <%= button_to "♥" , favorites_path, params: {favorite_company_id: listing.company_id}, method: :post %>
+            <%end%>
 
             <h4><%= listing.unit_price_cents / 100.0 %> € <%=listing.unit%></h4>
 
@@ -58,16 +47,10 @@
           </div>
 
         </div>
-<details>
-  <summary><%=t(".details")%></summary>
-  <%= listing.company.description %>
-</details>
-
-
-
-
-
+      <details>
+       <summary><%=t(".details")%></summary>
+        <%= listing.company.description %>
+      </details>
     </div>
   <% end %>
-
 </div>
