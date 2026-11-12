@@ -41,7 +41,11 @@ Style/EmptyMethod:
   Enabled: false
 Bundler/OrderedGems:
   Enabled: false
-# Décision d'équipe du 11 nov. 2026 : pas de limite de longueur des méthodes. La limite de 10 lignes
-# (défaut de RuboCop) bloquait du code lisible ; rubocop-rails-omakase, visé après le 21 nov., n'en a pas.
+# Décision d'équipe du 12 nov. 2026 : la longueur des méthodes est un signal, pas un blocage.
+# Au-delà de 12 lignes, RuboCop le signale (éditeur, journal de la CI) sans faire échouer la CI :
+# les remarques de niveau info ne changent pas le code de sortie. À relire : la méthode fait-elle
+# plusieurs choses ? Un filtre qui devrait être dans la requête ? Le repère de 10 lignes vient du
+# guide de style Ruby ; la config officielle de Rails (rubocop-rails-omakase) ne l'active pas.
 Metrics/MethodLength:
-  Enabled: false
+  Max: 12
+  Severity: info
