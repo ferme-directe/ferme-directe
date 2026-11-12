@@ -66,8 +66,29 @@ check "Aucun gestionnaire JS inline (onclick…)"  "grep -rnE '\son[a-z]+=' app/
 check "Aucun html_safe / raw"                    "grep -rnE '\.html_safe|(^|[^.[:alnum:]_])raw[ (]' app/views/ app/helpers/"
 check "Aucune variable @ dans un partial"        "grep -rnE '<%[^%]*(^|[^[:alnum:]_.\"'\''])@[a-z_]' app/views/ --include='_*'"
 # Le contrôle des textes en dur n'a de sens que si le projet traduit ses vues.
+# Méthode : dans chaque vue HTML, on retire l'ERB (<% … %>), les commentaires, <script>/<style>,
+# les balises avec leurs attributs et les entités (&nbsp;) ; tout mot de deux lettres ou plus
+# qui reste est un texte visible écrit en dur (« Prix : », « km », « Envoyer »).
+# La ligne affichée est la ligne d'origine : le marqueur « controles: ok » y reste lisible.
+textes_en_dur() {
+  find app/views -name '*.html.erb' -print0 | xargs -0 -r perl -CSD -Mutf8 -0777 -ne '
+    my @orig = split /\n/, $_, -1;
+    my $k = sub { (my $x = shift) =~ s/[^\n]//g; $x };
+    s/(<%.*?%>)/$k->($1)/gse;
+    s/(<!--.*?-->)/$k->($1)/gse;
+    s/(<(script|style)\b.*?<\/\2>)/$k->($1)/gsei;
+    s/(<[A-Za-z\/!](?:"[^"]*"|\x27[^\x27]*\x27|[^>"\x27])*>)/$k->($1)/gse;
+    s/&[#\w]+;//g;
+    my $n = 0;
+    for my $l (split /\n/, $_, -1) { $n++; print "$ARGV:$n:$orig[$n-1]\n" if $l =~ /\p{L}{2,}/ }'
+}
+export -f textes_en_dur
 if grep -rqE '\bt\(' app/views/ 2>/dev/null; then
-  check_pcre "Textes visibles via t() uniquement (une ligne par texte)" "grep -rnP '>\s*\p{Lu}[\p{Ll}\s,’'\''-]{12,}[.!?…]?\s*<' app/views/ | grep -vE '(^|[^A-Za-z_.])t\('"
+  if command -v perl >/dev/null 2>&1; then
+    list  "Textes visibles via t() uniquement (aucun mot hors ERB et balises ; à relire ; bloquant quand main n'en contient plus)" "textes_en_dur | grep -v '$MARQUEUR'"
+  else
+    printf '  ◦ %s — non exécuté (perl indisponible)\n' "Textes visibles via t() uniquement"
+  fi
 fi
 
 echo "Ruby"
@@ -112,6 +133,7 @@ if find app/controllers -name '*_controller.rb' 2>/dev/null | grep -q .; then
   check "Aucune valeur interpolée dans une requête (injection SQL)" "grep -rnE '(where|order|group|having|select|joins|find_by_sql|pluck)\\(\\s*[\"'\''][^\"'\'']*#\\{|order\\(\\s*params' app/ lib/ 2>/dev/null"
   list  "Relations parcourues sans borne (.all / .each sur une relation : pagination, limit ou find_each ?)" "grep -rnE '\\.all\\b|\\.each\\b' app/controllers/ app/views/ 2>/dev/null | grep -vE 'find_each|in_batches|\\.limit\\(|\\.page\\(|\\.first\\(|\\.last\\('"
   list  "Filtres en Ruby dans les contrôleurs (select, reject, find, partition, sort_by… avec un bloc : where, order, pluck ?)" "grep -rnE '\\.(select|reject|filter|find|detect|partition|sort_by|group_by|min_by|max_by)[[:space:]]*(\\{|do\\b)' app/controllers/ 2>/dev/null | grep -v '$MARQUEUR'"
+  list  "Nom de paramètre passé à un chemin à la place d'une valeur (need_matches_path(:need_id) ; à relire ; bloquant quand main n'en contient plus)" "grep -rnE '\\b[a-z_]+_(path|url)\\(\\s*:[a-z_]+' app/ 2>/dev/null | grep -v '$MARQUEUR'"
   check "Aucune méthode publique hors des sept actions CRUD" "find app/controllers -name '*_controller.rb' ! -name 'application_controller.rb' -exec awk '/^[[:space:]]*(private|protected)([[:space:]]|$)/{p=1} /controles: ok/{mk=1; next} /^[[:space:]]*def / && !p && !mk { m=\$2; sub(/[(;].*/,\"\",m); if (m !~ /^(index|show|new|create|edit|update|destroy)\$/) print FILENAME\": \"m } {mk=0}' {} \;"
 fi
 
