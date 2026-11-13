@@ -1,7 +1,7 @@
-<div class="container col-md-12">
+<div class="container col-lg-12">
   <h1><%= t(".title") %></h1>
   <p><%= t(".subtitle") %></p>
-  <div class="need-form col-md-8">
+  <div class="need-form col-lg-8">
     <%= simple_form_for @need, url: needs_path do |f| %>
       <%= f.association :product,
         as: :grouped_select,
@@ -27,7 +27,9 @@
       <%= f.input :address_id,
           collection: @addresses,
           label_method: :full_address,
-          value_method: :id %>
+          value_method: :id,
+          selected: current_user.company.addresses.first&.id,
+          include_blank: false%>
       <%= f.input :radius_km,
           input_html: {min: 5, max: 50, step: 5} %>
       <div class="form-group">
@@ -47,10 +49,11 @@
             <label class="btn btn-outline-primary" for="priority_<%= priority %>">
               <%= priority.capitalize %>
             </label>
-
     <% end %>
     </div>
-  </div>
-    <%= f.button :submit, t(".button_see_farm"), class: "btn btn-primary btn-lg" %>
-    <% end %>
+      <div>
+        <%= f.button :submit, t(".button_see_farm"), class: "btn btn-primary btn-lg" %>
+        <% end %>
+      </div>
+    </div>
 </div>
