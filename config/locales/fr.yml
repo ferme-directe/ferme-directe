@@ -52,6 +52,13 @@ fr:
     destroy:
       supprimer: supprimer des favoris
   # Stories 5 et 6 : les messages après l'envoi (create) et l'acceptation (accept) d'une commande.
+  favorites:
+    create:
+      success: ajouté aux favoris
+    destroy:
+      supprimer: supprimer des favoris
+
+
   orders:
     accept:
       success: Commande acceptée. L'acheteur est prévenu.
