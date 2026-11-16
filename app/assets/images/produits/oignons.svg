@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+  <!-- Oignon : bulbe cuivré, pousse sauge. -->
+  <path d="M32 16 C31 11 33 7 36 5" stroke="#7A9A5B" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M32 16 C36 22 48 28 48 40 C48 50 41 55 32 55 C23 55 16 50 16 40 C16 28 28 22 32 16 Z" fill="#C9824A" stroke="#6E5443" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M32 19 C27 30 25 44 29 54 M32 19 C37 30 39 44 35 54" stroke="#8F5A33" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M28 55 L26 59 M32 55.5 V59.5 M36 55 L38 59" stroke="#6E5443" stroke-width="1.6" stroke-linecap="round"/>
+  <path d="M21 36 C22 31 24 28 27 26" stroke="#E3AE80" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+</svg>

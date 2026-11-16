@@ -47,11 +47,12 @@
                         class: ["site-navbar__role", ("active" if controller_name == "sales")] %>
           </div>
 
-          <%# Le compte : un rond avec les initiales, qui ouvre un menu (dropdown de Bootstrap). %>
+          <%# Le compte : un rond avec l'avatar de l'entreprise (VisualsHelper#account_avatar),
+              qui ouvre un menu (dropdown de Bootstrap). %>
           <div class="dropdown">
             <button class="site-navbar__avatar" type="button" data-bs-toggle="dropdown" aria-expanded="false"
                     aria-label="<%= t(".account") %>">
-              <%= user_initials(current_user) %>
+              <%= account_avatar(current_user) %>
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
               <li><span class="dropdown-item-text text-body-secondary small"><%= current_user.email %></span></li>

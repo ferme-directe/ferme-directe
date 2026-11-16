@@ -1,0 +1,25 @@
+// Les visuels de la charte (VisualsHelper) : icône d'un produit, avatar d'une entreprise.
+// Les tailles viennent des attributs width et height posés par le helper.
+
+// L'icône s'aligne sur le texte qu'elle accompagne (titre, ligne du récapitulatif).
+.product-icon {
+  display: inline-block;
+  vertical-align: -0.25em;
+  flex: none;
+}
+
+// Variante pastille : l'icône sur un rond blé pâle, pour un titre de page.
+.product-icon--badge {
+  box-sizing: content-box;
+  padding: 0.5rem;
+  border-radius: 50%;
+  background: $ble-pale;
+}
+
+// L'avatar d'une entreprise (dessin, plus tard photo), rond, à gauche de son nom.
+// object-fit : une photo, le jour où il y en aura, se recadre dans le rond sans se déformer.
+.company-avatar {
+  flex: none;
+  border-radius: 50%;
+  object-fit: cover;
+}

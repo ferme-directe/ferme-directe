@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+  <!-- Courge : potiron orangé à côtes, tige et feuille. -->
+  <path d="M33 21 C33 15 36 11 40 10 L41 13 C38 14 37 17 37 21 Z" fill="#7A6A3A" stroke="#6E5443" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M38 13 C42 8 49 8 52 10 C49 15 43 16 38 13 Z" fill="#7A9A5B" stroke="#6E5443" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M32 20 C46 18 56 26 56 38 C56 50 46 55 32 55 C18 55 8 50 8 38 C8 26 18 18 32 20 Z" fill="#D98A3D" stroke="#6E5443" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M32 21 C26 28 26 48 32 54 M32 21 C38 28 38 48 32 54 M21 22 C13 30 14 48 21 54 M43 22 C51 30 50 48 43 54" stroke="#A9622A" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+</svg>

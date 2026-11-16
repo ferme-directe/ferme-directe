@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+  <!-- Lait cru : bouteille de verre, lait blanc, capsule blé, étiquette blé pâle. -->
+  <path d="M26 12 H38 V17 C38 21 44 23 44 29 V52 C44 55 42 57 39 57 H25 C22 57 20 55 20 52 V29 C20 23 26 21 26 17 Z" fill="#E9EEE8"/>
+  <path d="M20 31 H44 V52 C44 55 42 57 39 57 H25 C22 57 20 55 20 52 Z" fill="#FFFFFF"/>
+  <rect x="20" y="38" width="24" height="10" fill="#F5EACB"/>
+  <path d="M32 40.5 C34 43 35 44.5 35 45.5 C35 47 33.7 48 32 48 C30.3 48 29 47 29 45.5 C29 44.5 30 43 32 40.5 Z" fill="#FFFFFF" stroke="#6E5443" stroke-width="1.2" transform="translate(0 -1.5)"/>
+  <path d="M20 38 H44 M20 48 H44" stroke="#6E5443" stroke-width="1.4"/>
+  <path d="M26 12 H38 V17 C38 21 44 23 44 29 V52 C44 55 42 57 39 57 H25 C22 57 20 55 20 52 V29 C20 23 26 21 26 17 Z" fill="none" stroke="#6E5443" stroke-width="2" stroke-linejoin="round"/>
+  <rect x="24.5" y="7" width="15" height="6" rx="2" fill="#D9B44A" stroke="#6E5443" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M24 30 V36" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"/>
+</svg>
