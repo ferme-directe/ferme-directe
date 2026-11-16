@@ -1,6 +1,6 @@
 
 <div class="container" data-controller="filter">
-  <h1><%= t(".text") %> <%= @need.quantity %> <%= unit_label(@need.unit, @need.quantity) %> <%= @need.product.name %> </h1>
+  <h1><%= product_icon(@need.product, size: 40, css: "product-icon--badge") %> <%= t(".text") %> <%= @need.quantity %> <%= unit_label(@need.unit, @need.quantity) %> <%= @need.product.name %> </h1>
   <p> <%= t(".paragraphe") %> </p>
 
  <button class="btn btn-order" data-action="click->filter#filter_prix"><%= t(".prix") %></button>
@@ -18,7 +18,10 @@
         <div class="card-header">
 
           <div class="element-gauche">
-            <h4><%= listing.company.name %></h4>
+            <div class="d-flex align-items-center gap-2">
+              <%= company_avatar(listing.company) %>
+              <h4 class="mb-0"><%= listing.company.name %></h4>
+            </div>
               <% if @favorites_ids.include?listing.company_id %>
                  <span class="tag tag--favorite"> <%= t(".favorit") %></span>
               <% end %>
