@@ -11,7 +11,7 @@
       <dd class="col-7"><%= [order.product.name, order.label, order.size].compact_blank.join(" · ") %></dd>
 
       <dt class="col-5"><%= t(".quantity") %></dt>
-      <dd class="col-7"><%= order.quantity %> <%= order.unit %></dd>
+      <dd class="col-7"><%= order.quantity %> <%= unit_label(order.unit, order.quantity) %></dd>
 
       <dt class="col-5"><%= t(".unit_price") %></dt>
       <dd class="col-7"><%= format_price(order.unit_price_cents) %></dd>
