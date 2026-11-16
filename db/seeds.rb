@@ -167,7 +167,7 @@ puts "#{farms_data.size} fermes et leurs offres…"
 farms = farms_data.each_with_index.map do |(name, city, postcode, lat, lng, offers), index|
   farm, pickup = seed_company(
     name: name, email: "ferme#{index + 1}@ferme-directe.test", siret: format("9990000001%04d", index + 1),
-    role: :farm, password: password, description: "Ferme fictive de démonstration, à #{city}.",
+    role: :farm, password: password,
     address: { label: "La ferme — #{city}", street: "Route de la ferme", postcode: postcode,
                city: city, latitude: lat, longitude: lng }
   )
@@ -184,6 +184,47 @@ farms = farms_data.each_with_index.map do |(name, city, postcode, lat, lng, offe
     end
   end
   farm
+end
+
+# Ce que la carte d'une ferme montre une fois dépliée (maquette A02) : qui elle est, comment on
+# récupère la marchandise, à partir de quel montant elle accepte une commande, et quand venir.
+# [description, retrait et livraison, minimum de commande en centimes, horaires de retrait] Fermes fictives :
+# les textes sont inventés, sans promesse de livraison (la remise se convient avec la ferme).
+# update! et non find_or_create_by! : relancer les seeds met à jour les fermes déjà en base.
+farm_profiles = {
+  "Ferme des Tilleuls" => ["Poules élevées en plein air sur dix hectares de prairie, nourries au grain de la ferme. Œufs ramassés chaque matin.", "Retrait à la ferme. Tournée le mardi sur Saint-Chéron et Dourdan, à convenir.", 6000, "Du lundi au samedi, 8 h – 12 h"],
+  "Les Poules de l'Orge" => ["Petit élevage bio en bord d'Orge, 600 poules en parcours herbeux. Œufs calibrés et datés le jour même.", "Retrait à la ferme, ou dépôt groupé le vendredi à Dourdan.", 4000, "Du mardi au samedi, 9 h – 12 h"],
+  "Moulin de la Rémarde" => ["Moulin à meules de pierre : blé et épeautre de la vallée, moulus à la demande.", "Retrait au moulin. Sacs de 5, 10 et 25 kg.", 5000, "Du lundi au vendredi, 8 h – 12 h et 14 h – 17 h"],
+  "Ferme du Coteau" => ["Polyculture-élevage : poules Label Rouge et pommes de terre de plein champ.", "Retrait à la ferme. Tournée le jeudi vers Breuillet et Arpajon, à convenir.", 8000, "Du lundi au samedi, 9 h – 12 h"],
+  "Les Jardins de la Juine" => ["Maraîchage diversifié sur sol sablonneux, récolte la veille de la remise.", "Retrait au jardin le mercredi et le samedi matin.", 3000, "Mercredi et samedi, 8 h – 12 h"],
+  "Ferme de la Prédecelle" => ["Chèvrerie de 80 chèvres alpines, lait cru et fromages fermiers affinés sur place.", "Retrait à la fromagerie. Chaîne du froid à prévoir.", 4000, "Du mardi au samedi, 10 h – 12 h et 16 h – 18 h"],
+  "Ferme des Grands Champs" => ["Grande exploitation céréalière avec un atelier de poules plein air.", "Retrait à la ferme du lundi au vendredi.", 10000, "Du lundi au vendredi, 8 h – 17 h"],
+  "Vergers d'Arpajon" => ["Verger familial : une vingtaine de variétés de pommes et de poires, cueillies à maturité.", "Retrait au verger. Cagettes de 10 kg.", 3000, "Du mercredi au samedi, 9 h – 12 h"],
+  "La Ferme d'Ablis" => ["Œufs de plein air et oignons de garde, sur une ferme de plaine.", "Retrait à la ferme. Tournée le lundi vers Ablis et Rambouillet, à convenir.", 5000, "Du lundi au samedi, 9 h – 12 h"],
+  "Rucher de l'Essonne" => ["Apiculteur installé depuis vingt ans : miels de printemps et de forêt, extraits à froid.", "Retrait au rucher, en pots de 500 g ou en seaux de 5 kg.", 5000, "Vendredi et samedi, 10 h – 12 h"],
+  "Ferme de la Forêt" => ["Volailles plein air élevées 110 jours en lisière de forêt, et pommes de terre.", "Retrait à la ferme le vendredi.", 8000, "Vendredi, 9 h – 18 h"],
+  "Les Blés de Beauce" => ["Céréaliers de Beauce : farine de blé T65 et lentilles vertes.", "Retrait à la ferme. Palettes ou sacs, au choix.", 10000, "Du lundi au vendredi, 8 h – 12 h"],
+  "Ferme de la Voise" => ["Carottes et oignons de plein champ, lavés et triés à la ferme.", "Retrait à la ferme du mardi au samedi.", 4000, "Du mardi au samedi, 9 h – 12 h"],
+  "Ferme du Gâtinais" => ["Ferme bio : poules pondeuses et chèvres, au cœur du Gâtinais.", "Retrait à la ferme, ou au marché de Milly-la-Forêt le jeudi.", 5000, "Du lundi au samedi, 9 h – 12 h"],
+  "Ferme de l'Œuf" => ["Grand élevage de poules au sol, avec quelques ruches en bordure de champs.", "Retrait à la ferme. Livraison en tournée possible, à convenir.", 12000, "Du lundi au samedi, 7 h – 12 h"],
+  "Les Ruchers du Hurepoix" => ["Rucher transhumant entre forêt et colza, miels crémeux et liquides.", "Retrait au rucher le samedi.", 4000, "Samedi, 9 h – 13 h"],
+  "Le Potager d'Auvers" => ["Légumes bio de saison, de la pomme de terre à la courge.", "Retrait au potager. Paniers professionnels sur commande.", 4000, "Mercredi et vendredi, 14 h – 18 h"],
+  "Ferme de la Vallée de Chevreuse" => ["Petite ferme de vallée : poules plein air et fromages de chèvre.", "Retrait à la ferme le mercredi et le samedi.", 4000, "Mercredi et samedi, 9 h – 12 h"],
+  "Ferme des Quatre Vents" => ["Ferme familiale : poules plein air, pommes de terre et quelques ruches.", "Retrait à la ferme. Tournée le mardi vers Gallardon et Épernon, à convenir.", 6000, "Du lundi au samedi, 8 h – 12 h"],
+  "Ferme de la Plaine de Bière" => ["Œufs bio et pommes de la plaine de Bière, en lisière de la forêt de Fontainebleau.", "Retrait à la ferme du lundi au samedi.", 4000, "Du lundi au samedi, 9 h – 12 h"],
+  "Rucher de l'Eure" => ["Miels de la vallée de l'Eure, récoltés en fin d'été.", "Retrait au rucher, en seaux de 5 et 10 kg.", 5000, "Samedi, 10 h – 12 h"],
+  "Ferme de la Plaine de Toury" => ["Légumes de plein champ en grande quantité, stockés en chambre froide.", "Retrait à la ferme. Palettes sur demande.", 15000, "Du lundi au vendredi, 7 h – 16 h"],
+  "Ferme des Bords de l'Eure" => ["Élevage mixte : poules plein air et vaches laitières, lait cru du jour.", "Retrait à la ferme le matin.", 5000, "Tous les jours, 8 h – 10 h"],
+  "Volailles du Pays Houdanais" => ["Volailles de race Houdan et œufs plein air, élevage traditionnel.", "Retrait à la ferme. Tournée le jeudi vers Houdan et Dreux, à convenir.", 8000, "Du mardi au samedi, 9 h – 12 h"]
+}.freeze
+
+puts "Fiches des fermes…"
+farms.each do |farm|
+  description, delivery_terms, min_order_cents, pickup_hours = farm_profiles.fetch(farm.name)
+  farm.update!(description: description)
+  farm.listings.offer.each do |offer|
+    offer.update!(delivery_terms: delivery_terms, min_order_cents: min_order_cents, pickup_hours: pickup_hours)
+  end
 end
 
 # Les fermes favorites de l'acheteur de démo : deux proches et deux plus loin, pour que
