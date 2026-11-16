@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+  <!-- Illustration de ferme (en attendant les photos) : grange et champ de blé. Même trait que les icônes produits. -->
+  <defs><clipPath id="c0"><circle cx="32" cy="32" r="31"/></clipPath></defs>
+  <g clip-path="url(#c0)">
+    <rect width="64" height="64" fill="#F5EACB"/>
+    <circle cx="50" cy="14" r="5" fill="#E8C766"/>
+    <path d="M-2 46 C14 40 30 41 46 43 C54 44 60 43 66 41 V66 H-2 Z" fill="#A7BD78" stroke="#6E5443" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M8 31 L20.0 20 L32 31 Z" fill="#6E5443" stroke="#6E5443" stroke-width="2" stroke-linejoin="round"/>
+    <rect x="10" y="30" width="20" height="15" fill="#B85C45" stroke="#6E5443" stroke-width="2" stroke-linejoin="round"/>
+    <rect x="16.0" y="35" width="8" height="9" fill="#F5EACB" stroke="#6E5443" stroke-width="1.5"/>
+    <path d="M16.0 35 L24.0 44 M24.0 35 L16.0 44" stroke="#6E5443" stroke-width="1.2"/>
+    <path d="M38 50 V40" stroke="#B8922F" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="38" cy="38" rx="1.8" ry="3.4" fill="#D9B44A" stroke="#6E5443" stroke-width="1"/>
+    <path d="M43 50 V40" stroke="#B8922F" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="43" cy="38" rx="1.8" ry="3.4" fill="#D9B44A" stroke="#6E5443" stroke-width="1"/>
+    <path d="M48 50 V40" stroke="#B8922F" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="48" cy="38" rx="1.8" ry="3.4" fill="#D9B44A" stroke="#6E5443" stroke-width="1"/>
+    <path d="M53 50 V40" stroke="#B8922F" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="53" cy="38" rx="1.8" ry="3.4" fill="#D9B44A" stroke="#6E5443" stroke-width="1"/>
+  </g>
+  <circle cx="32" cy="32" r="31" fill="none" stroke="#6E5443" stroke-width="2"/>
+</svg>

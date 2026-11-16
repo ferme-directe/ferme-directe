@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+  <!-- Dessin d'acheteur (en attendant sa photo) : épicerie. Même trait que les dessins de fermes. -->
+  <defs><clipPath id="a1"><circle cx="32" cy="32" r="31"/></clipPath></defs>
+  <g clip-path="url(#a1)">
+    <rect width="64" height="64" fill="#F5EACB"/>
+    <rect x="-2" y="50" width="68" height="16" fill="#E4DDD0" stroke="#6E5443" stroke-width="2"/>
+    <rect x="12" y="22" width="40" height="28" fill="#FBF3E4" stroke="#6E5443" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M10 22 H54 V28 C54 31 50 31 50 28 C50 31 45.6 31 45.6 28 C45.6 31 41.2 31 41.2 28 C41.2 31 36.8 31 36.8 28 C36.8 31 32.4 31 32.4 28 C32.4 31 28 31 28 28 C28 31 23.6 31 23.6 28 C23.6 31 19.2 31 19.2 28 C19.2 31 14.8 31 14.8 28 C14.8 31 10 31 10 28 Z" fill="#D9B44A" stroke="#6E5443" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M19.2 22 V28 M28 22 V28 M36.8 22 V28 M45.6 22 V28" stroke="#6E5443" stroke-width="1.4"/>
+    <rect x="16" y="34" width="16" height="11" fill="#FFFFFF" stroke="#6E5443" stroke-width="1.8"/>
+    <circle cx="20" cy="42" r="2.2" fill="#C9573F"/><circle cx="24.5" cy="42" r="2.2" fill="#E0A23A"/><circle cx="29" cy="42" r="2.2" fill="#7A9A5B"/>
+    <rect x="37" y="34" width="10" height="16" fill="#7A9A5B" stroke="#6E5443" stroke-width="1.8"/>
+    <circle cx="44.5" cy="42" r="0.9" fill="#6E5443"/>
+    <rect x="14" y="45" width="20" height="5" fill="#B85C45" stroke="#6E5443" stroke-width="1.6"/>
+  </g>
+  <circle cx="32" cy="32" r="31" fill="none" stroke="#6E5443" stroke-width="2"/>
+</svg>

@@ -15,14 +15,14 @@ class LayoutTest < ActionDispatch::IntegrationTest
     assert_dom ".site-navbar__link", count: 0
   end
 
-  test "un utilisateur connecté voit les rubriques, la bascule et ses initiales" do
+  test "un utilisateur connecté voit les rubriques, la bascule et l'avatar de son entreprise" do
     sign_in users(:buyer)
     get root_path
 
     assert_dom "a.site-navbar__link", text: "Notifications"
     assert_dom "span.site-navbar__link.disabled", text: "Annonces"
     assert_dom ".site-navbar__role.active", text: "J'achète"
-    assert_dom ".site-navbar__avatar", text: "PD"
+    assert_dom ".site-navbar__avatar img.company-avatar[src*='acheteurs/epicerie']"
   end
 
   test "le menu du compte propose de se déconnecter, en DELETE" do

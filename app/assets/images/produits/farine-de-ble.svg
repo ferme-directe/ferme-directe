@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+  <!-- Farine de blé : sac crème, épi blé. -->
+  <path d="M20 22 C22 16 26 12 32 12 C38 12 42 16 44 22 Z" fill="#F3E9D6" stroke="#6E5443" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M18 23 C15 32 14 44 16 52 C17 56 47 56 48 52 C50 44 49 32 46 23 Z" fill="#F3E9D6" stroke="#6E5443" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M19 23 H45" stroke="#6E5443" stroke-width="3" stroke-linecap="round"/>
+  <path d="M32 50 V30" stroke="#B8922F" stroke-width="2" stroke-linecap="round"/>
+  <g fill="#D9B44A" stroke="#6E5443" stroke-width="1.2">
+    <ellipse cx="29" cy="45" rx="2.2" ry="3.6" transform="rotate(-30 29 45)"/><ellipse cx="35" cy="45" rx="2.2" ry="3.6" transform="rotate(30 35 45)"/>
+    <ellipse cx="29" cy="39" rx="2.2" ry="3.6" transform="rotate(-30 29 39)"/><ellipse cx="35" cy="39" rx="2.2" ry="3.6" transform="rotate(30 35 39)"/>
+    <ellipse cx="29.5" cy="33" rx="2" ry="3.4" transform="rotate(-30 29.5 33)"/><ellipse cx="34.5" cy="33" rx="2" ry="3.4" transform="rotate(30 34.5 33)"/>
+    <ellipse cx="32" cy="28.5" rx="1.9" ry="3.2"/>
+  </g>
+</svg>

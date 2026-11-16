@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+  <!-- Poulet : poule crème, crête et barbillon rouge doux, bec blé (cousine de la poule du logo). -->
+  <path d="M42 18 C41 13 45 12 46 15 C47 11 51 12 50 16 C53 15 54 19 51 20 Z" fill="#C9573F" stroke="#6E5443" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M12 33 C12 25 18 21 24 25 C28 29 30 31 34 31 C34 23 38 18 44 18 C50 18 53 23 52 28 C51 33 50 36 52 40 C52 50 44 55 32 55 C20 55 12 45 12 33 Z" fill="#FBF3E4" stroke="#6E5443" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M52 25 L57.5 27.5 L52 30 Z" fill="#D9B44A" stroke="#6E5443" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M51 31 C54 33 53 37 50 35.5 Z" fill="#C9573F"/>
+  <circle cx="46.5" cy="24.5" r="1.7" fill="#6E5443"/>
+  <path d="M23 40 C27 35 36 36 38 42 C34 47 26 47 23 40 Z" fill="#EFDDBF" stroke="#6E5443" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M28 55 V60 M36 55 V60 M26 60 H30 M34 60 H38" stroke="#D9B44A" stroke-width="2.4" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+  <!-- Poireau : fût blanc, vert tendre, feuilles vert sauge. -->
+  <g transform="rotate(35 32 32)">
+    <path d="M27 26 C24 18 20 12 15 8 C22 9 28 14 31 24 Z" fill="#6F8F4D" stroke="#6E5443" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M37 26 C40 18 44 12 49 8 C42 9 36 14 33 24 Z" fill="#6F8F4D" stroke="#6E5443" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M30 26 C30 16 31 10 32 4 C33 10 34 16 34 26 Z" fill="#86A55F" stroke="#6E5443" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M27 24 H37 V36 H27 Z" fill="#B9CF8E"/>
+    <path d="M27 36 V52 C27 56 37 56 37 52 V36 Z" fill="#F4F0E3"/>
+    <path d="M27 24 V52 C27 56 37 56 37 52 V24" fill="none" stroke="#6E5443" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M29 56 L28 60 M32 56.5 V60.5 M35 56 L36 60" stroke="#6E5443" stroke-width="1.6" stroke-linecap="round"/>
+  </g>
+</svg>
