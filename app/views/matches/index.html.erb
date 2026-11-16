@@ -2,7 +2,7 @@
 <div class="container" data-controller="filter">
   <%# Visuels : l'icône du produit à gauche du titre (maquette A02). %>
   <div class="d-flex align-items-center gap-3">
-  <%= product_icon(@need.product, size: 56, css: "product-icon--badge") %>
+  <%= product_icon(@need.product, size: 52) %>
   <div>
   <h1><%= t(".text") %> <%= @need.quantity %> <%= unit_label(@need.unit, @need.quantity) %> <%= @need.product.name %> </h1>
   <p> <%= t(".paragraphe") %> </p>
@@ -26,7 +26,7 @@
           <div class="element-gauche">
             <%# Visuels : le dessin de la ferme à gauche, ses infos à droite (maquette A02). %>
             <div class="d-flex align-items-start gap-3">
-            <%= company_avatar(listing.company, size: 72) %>
+            <%= company_avatar(listing.company, size: 64) %>
             <div>
             <h4><%= listing.company.name %></h4>
               <% if @favorites_ids.include?listing.company_id %>
