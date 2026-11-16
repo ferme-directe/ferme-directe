@@ -6,7 +6,7 @@
 <%= t(".buyer") %> : <%= @order.buyer_company.name %>
 <%= t(".seller") %> : <%= @order.seller_company.name %>
 <%= t(".product") %> : <%= @order.product.name %>
-<%= t(".quantity") %> : <%= t(".quantity_value", quantity: @order.quantity, unit: @order.unit) %>
+<%= t(".quantity") %> : <%= t(".quantity_value", quantity: @order.quantity, unit: unit_label(@order.unit, @order.quantity)) %>
 <%= t(".unit_price") %> : <%= format_price(@order.unit_price_cents) %>
 <%= t(".total") %> : <%= format_price(@order.total_cents) %>
 

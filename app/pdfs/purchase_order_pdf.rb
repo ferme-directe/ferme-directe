@@ -82,7 +82,8 @@ class PurchaseOrderPdf
   end
 
   def quantity
-    I18n.t("orders.purchase_order.quantity_value", quantity: @order.quantity, unit: @order.unit)
+    unit = I18n.t("units.#{@order.unit}", count: @order.quantity)
+    I18n.t("orders.purchase_order.quantity_value", quantity: @order.quantity, unit: unit)
   end
 
   def line(key, value)

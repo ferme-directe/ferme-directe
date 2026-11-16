@@ -17,6 +17,7 @@
           required: true %>
       <%= f.input :unit,
           collection: Listing::UNITS,
+          label_method: ->(unit) { t("units.choice.#{unit}") },
           required: true %>
       <%= f.input :needed_on,
           as: :string,

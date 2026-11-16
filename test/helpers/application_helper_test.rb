@@ -33,4 +33,17 @@ class ApplicationHelperTest < ActionView::TestCase
       nav_link_to("Annonces", nil)
     )
   end
+
+  test "unit_label met l'unité au pluriel à partir de 2" do
+    assert_equal "pièce", unit_label("pièce", 1)
+    assert_equal "pièces", unit_label("pièce", 300)
+    assert_equal "kilos", unit_label("kilo", 50)
+  end
+
+  test "unit_label connaît chaque unité de Listing::UNITS" do
+    Listing::UNITS.each do |unit|
+      assert_predicate unit_label(unit, 2), :present?, unit
+      assert_predicate t("units.choice.#{unit}"), :present?, unit
+    end
+  end
 end

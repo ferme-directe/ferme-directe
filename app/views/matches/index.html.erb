@@ -1,6 +1,6 @@
 
 <div class="container" data-controller="filter">
-  <h1><%= t(".text") %> <%= @need.quantity %> <%= @need.unit %> <%= @need.product.name %> </h1>
+  <h1><%= t(".text") %> <%= @need.quantity %> <%= unit_label(@need.unit, @need.quantity) %> <%= @need.product.name %> </h1>
   <p> <%= t(".paragraphe") %> </p>
 
  <button class="btn btn-order" data-action="click->filter#filter_prix"><%= t(".prix") %></button>
@@ -25,7 +25,7 @@
             <%# la méthode distance_to est communiquée par geocoder pour calculer la distance entre deux éléments %>
             <%# la méthode .round permet d'obtenir uniquement deux chiffres après la virgule %>
             <p><%= listing.address.city %> <%= @need.address.distance_to(listing.address).round(2) %> <%= t(".unit_distance") %>  </p>
-            <p><%= t(".quantité") %> <%= listing.quantity %> <%= listing.unit %></p>
+            <p><%= t(".quantité") %> <%= listing.quantity %> <%= unit_label(listing.unit, listing.quantity) %></p>
           </div>
 
           <div class="element-droite">

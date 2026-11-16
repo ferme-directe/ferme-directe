@@ -24,7 +24,7 @@
   </tr>
   <tr>
     <th style="<%= label_style %>"><%= t(".quantity") %></th>
-    <td style="<%= value_style %>"><%= t(".quantity_value", quantity: @order.quantity, unit: @order.unit) %></td>
+    <td style="<%= value_style %>"><%= t(".quantity_value", quantity: @order.quantity, unit: unit_label(@order.unit, @order.quantity)) %></td>
   </tr>
   <tr>
     <th style="<%= label_style %>"><%= t(".unit_price") %></th>

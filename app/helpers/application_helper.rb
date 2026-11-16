@@ -14,6 +14,15 @@ module ApplicationHelper
     number_to_currency(cents / 100.0, precision: precision)
   end
 
+  # L'unité d'une quantité, au singulier ou au pluriel selon la quantité :
+  #   unit_label("pièce", 1)   # => "pièce"
+  #   unit_label("pièce", 300) # => "pièces"
+  # Les formes sont dans config/locales/fr.yml (units) ; la règle du français (rails-i18n)
+  # met au singulier 0 et 1. La valeur en base reste au singulier (Listing::UNITS).
+  def unit_label(unit, quantity)
+    t("units.#{unit}", count: quantity)
+  end
+
   # La variante de l'étiquette de statut (.tag--… dans components/_tag.scss),
   # selon le statut d'un enregistrement : une commande, une annonce.
   # Une seule table pour tous les modèles : un nouveau statut = une ligne ici.
