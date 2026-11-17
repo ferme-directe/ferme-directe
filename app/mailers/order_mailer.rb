@@ -5,8 +5,8 @@ class OrderMailer < ApplicationMailer
   # format_price dans les deux corps (HTML et texte) : le même affichage que les pages.
   helper ApplicationHelper
 
-  # Adresse d'expéditeur tant que l'envoi Brevo n'est pas branché.
-  default from: "Ferme Directe <bonjour@ferme-directe.test>"
+  # Adresse d'expéditeur : MAIL_FROM en production (l'adresse vérifiée chez Brevo), l'adresse de test ailleurs.
+  default from: ENV.fetch("MAIL_FROM", "Ferme Directe <bonjour@ferme-directe.test>")
 
   def confirmation(order, recipient)
     I18n.with_locale(:fr) { compose(order, recipient) }
