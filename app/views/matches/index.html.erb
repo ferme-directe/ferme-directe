@@ -1,7 +1,13 @@
 
 <div class="container" data-controller="filter">
+  <%# Visuels : l'icône du produit à gauche du titre (maquette A02). %>
+  <div class="d-flex align-items-center gap-3">
+  <%= product_icon(@need.product, size: 52) %>
+  <div>
   <h1><%= t(".text") %> <%= @need.quantity %> <%= unit_label(@need.unit, @need.quantity) %> <%= @need.product.name %> </h1>
   <p> <%= t(".paragraphe") %> </p>
+  </div>
+  </div>
 
  <button class="btn btn-order" data-action="click->filter#filter_prix"><%= t(".prix") %></button>
  <button class="btn btn-order" data-action="click->filter#filter_distance"><%= t(".distance") %></button>
@@ -18,6 +24,10 @@
         <div class="card-header">
 
           <div class="element-gauche">
+            <%# Visuels : le dessin de la ferme à gauche, ses infos à droite (maquette A02). %>
+            <div class="d-flex align-items-start gap-3">
+            <%= company_avatar(listing.company, size: 64) %>
+            <div>
             <h4><%= listing.company.name %></h4>
               <% if @favorites_ids.include?listing.company_id %>
                  <span class="tag tag--favorite"> <%= t(".favorit") %></span>
@@ -26,6 +36,8 @@
             <%# la méthode .round permet d'obtenir uniquement deux chiffres après la virgule %>
             <p><%= listing.address.city %> <%= @need.address.distance_to(listing.address).round(2) %> <%= t(".unit_distance") %>  </p>
             <p><%= t(".quantité") %> <%= listing.quantity %> <%= unit_label(listing.unit, listing.quantity) %></p>
+            </div>
+            </div>
           </div>
 
           <div class="element-droite">

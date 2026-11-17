@@ -3,7 +3,11 @@
 <section class="card">
   <div class="card-body">
     <h2 class="h5 card-title"><%= t(".title") %></h2>
+    <%# Visuels : le dessin de l'acheteur à gauche du texte (maquette). %>
+    <div class="d-flex align-items-start gap-3 mb-3">
+    <%= company_avatar(order.buyer_company, size: 40) %>
     <p class="card-text"><%= t(".text", buyer: order.buyer_company.name) %></p>
+    </div>
     <div class="d-flex flex-wrap gap-2">
       <%= button_to t(".accept"), accept_order_path(order), method: :patch, class: "btn btn-primary btn-lg" %>
       <%# Story 10 : le bouton « Je ne peux pas » (btn btn-outline-secondary) vient ici. %>
