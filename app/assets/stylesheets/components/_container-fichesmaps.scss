@@ -1,0 +1,21 @@
+.container-fichesmaps{
+padding: 10px;
+display: flex;
+flex-direction: row;
+
+gap: 20px;
+}
+
+.fiches{
+ flex-grow: 1;
+
+}
+.map{
+  width:50%;
+  margin: 0 auto;
+  padding: 25px;
+  position: sticky;
+  top: 0;
+  height: 5px;
+
+}

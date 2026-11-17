@@ -3,7 +3,12 @@
   padding: 1em;
   background: white;
   border-radius: 1em;
-  border: 1px solid $gray-400;
+  border: 1px solid $trait;
+
+  &:hover{
+    border: 1px solid $sapin;
+    box-shadow: 0 0 0 1px $sapin;
+  }
 
   .card-header{
     display: flex;
@@ -12,6 +17,11 @@
 
   .element-droite {
     text-align: right;
+  }
+
+  &.changementEtat{
+    border: 2px solid $sapin;
+    box-shadow: 0 0 0 1px $sapin;
   }
 
 }
