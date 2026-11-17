@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
-  static targets = [ "card" ]
+  static targets = [ "card", "fiches" ]
   filter_prix() {
     // On récupère toutes nos cartes grace à notre target dans le html
   let cards = this.cardTargets
@@ -14,7 +14,7 @@ export default class extends Controller {
       console.log(trie)
   // On doit parcourir de nouveau le tableau trie avec nos fiches dans le nouvelle ordre et les afficher
   trie.forEach((element) => {
-   this.element.appendChild(element)
+   this.fichesTarget.appendChild(element)
 })
   }
   filter_distance() {
@@ -25,7 +25,7 @@ export default class extends Controller {
     let trie_distance = cards.sort((a,b) => a.dataset.distance - b.dataset.distance);
     console.log(trie_distance)
     trie_distance.forEach((element) => {
-      this.element.appendChild(element)
+      this.fichesTarget.appendChild(element)
     })
   }
 }
