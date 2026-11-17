@@ -5,13 +5,13 @@
   <div class="card-body">
     <dl class="row mb-0">
       <dt class="col-5"><%= t(".farm") %></dt>
-      <dd class="col-7"><%= order.seller_company.name %></dd>
+      <dd class="col-7"><%= company_avatar(order.seller_company, size: 24) %> <%= order.seller_company.name %></dd>
 
       <dt class="col-5"><%= t(".product") %></dt>
-      <dd class="col-7"><%= [order.product.name, order.label, order.size].compact_blank.join(" · ") %></dd>
+      <dd class="col-7"><%= product_icon(order.product) %> <%= [order.product.name, order.label, order.size].compact_blank.join(" · ") %></dd>
 
       <dt class="col-5"><%= t(".quantity") %></dt>
-      <dd class="col-7"><%= order.quantity %> <%= order.unit %></dd>
+      <dd class="col-7"><%= order.quantity %> <%= unit_label(order.unit, order.quantity) %></dd>
 
       <dt class="col-5"><%= t(".unit_price") %></dt>
       <dd class="col-7"><%= format_price(order.unit_price_cents) %></dd>

@@ -3,6 +3,26 @@
 # jamais « En attente » écrit en dur.
 # Le français est la langue par défaut (config/application.rb, issue #20).
 fr:
+  # Les unités (Listing::UNITS), au singulier et au pluriel : unit_label(unit, quantité).
+  units:
+    # Dans la liste du formulaire de besoin, avant de connaître la quantité : « pièce(s) ».
+    choice:
+      pièce: pièce(s)
+      kilo: kilo(s)
+      litre: litre(s)
+      botte: botte(s)
+    pièce:
+      one: pièce
+      other: pièces
+    kilo:
+      one: kilo
+      other: kilos
+    litre:
+      one: litre
+      other: litres
+    botte:
+      one: botte
+      other: bottes
   # Le nom du site : titre de l'onglet, logo de la barre et du pied de page.
   app_name: Ferme Directe
 

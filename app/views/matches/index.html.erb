@@ -1,14 +1,19 @@
 
 <div class="container" data-controller="filter">
-  <h1><%= t(".text") %> <%= @need.quantity %> <%= @need.unit %> <%= @need.product.name %> </h1>
-  <p> <%= t(".paragraphe") %> </p>
+  <%# Visuels : l'icône du produit à gauche du titre (maquette A02). %>
+  <div class="d-flex align-items-center gap-3">
+    <%= product_icon(@need.product, size: 52) %>
+    <div>
+      <h1><%= t(".text") %> <%= @need.quantity %> <%= unit_label(@need.unit, @need.quantity) %> <%= @need.product.name %> </h1>
+      <p> <%= t(".paragraphe") %> </p>
+    </div>
+  </div>
 
- <button class="btn btn-order" data-action="click->filter#filter_prix"><%= t(".prix") %></button>
- <button class="btn btn-order" data-action="click->filter#filter_distance"><%= t(".distance") %></button>
+  <button class="btn btn-order" data-action="click->filter#filter_prix"><%= t(".prix") %></button>
+  <button class="btn btn-order" data-action="click->filter#filter_distance"><%= t(".distance") %></button>
 
   <div class="container-fichesmaps">
     <%# on parcours ce que l'on souhaite afficher avec une boucle each. %>
-
 
     <div class="fiches" data-filter-target="fiches">
 
@@ -20,65 +25,75 @@
         <%# data controller-info fait partie d'un ensemble permettant de rendre les fiches cliclables pour afficher des infos %>
         <div class="farm-card" data-controller="info" data-action="click->info#openInfo" data-filter-target="card" data-price="<%= listing.unit_price_cents %>" data-distance="<%= @need.address.distance_to(listing.address) %>">
 
-            <div class="card-header">
+          <div class="card-header">
 
-              <div class="element-gauche">
-                <h4><%= listing.company.name %></h4>
+            <div class="element-gauche">
+              <%# Visuels : le dessin de la ferme à gauche, ses infos à droite (maquette A02). %>
+              <div class="d-flex align-items-start gap-3">
+                <%= company_avatar(listing.company, size: 64) %>
+                <div>
+                  <h4><%= listing.company.name %></h4>
                   <% if @favorites_ids.include?listing.company_id %>
                     <span class="tag tag--favorite"> <%= t(".favorit") %></span>
                   <% end %>
-                <%# la méthode distance_to est communiquée par geocoder pour calculer la distance entre deux éléments %>
-                <%# la méthode .round permet d'obtenir uniquement deux chiffres après la virgule %>
-                <p><%= listing.address.city %> <%= @need.address.distance_to(listing.address).round(2) %> <%= t(".unit_distance") %>  </p>
-                <p><%= t(".quantité") %> <%= listing.quantity %> <%= listing.unit %></p>
-              </div>
 
-              <div class="element-droite">
-                <%# On crée notre button qui envoie les paramétres avec la méthod post à notre controller favorites %>
-                <%# point important dans params on passe une action clé valeur. La clé nous permet d'utiliser l'info dans le controller %>
-                <% if @favorites_ids.include?listing.company_id %>
-                  <%= button_to "❤️" , favorite_path(@favorites.find { |favorite| favorite.favorite_company_id == listing.company_id }), method: :delete, class:" btn-favoris", data:{action: "click->info#stop"} %>
-                <% else %>
-                  <%= button_to "♥", favorites_path, params: {favorite_company_id: listing.company_id}, method: :post, class:"btn-favoris", data:{action: "click->info#stop"} %>
-                <% end %>
-
-                <h4><%= listing.unit_price_cents / 100.0 %> € <%= listing.unit %></h4>
-
-                <p><%= @need.quantity * listing.unit_price_cents / 100.0 %> <%= t(".euros") %> <%= @need.quantity %> <%= @need.product.name %> </p>
-                <p>Label : <%= listing.label %></p>
-                <div class="btn-order">
-
-                  <%# je transmet le besoin au controller dans l'url %>
-                  <%# j'utilise params pour passer listing.id avec une association clé valeur %>
-                  <%= button_to t(".commander"), new_need_order_path(@need), params:{offer_id: listing.id},method: :get, class:"btn btn-order", data:{action: "click->info#stop"} %>
-
-
+                  <%# la méthode distance_to est communiquée par geocoder pour calculer la distance entre deux éléments %>
+                  <%# la méthode .round permet d'obtenir uniquement deux chiffres après la virgule %>
+                  <p><%= listing.address.city %> <%= @need.address.distance_to(listing.address).round(2) %> <%= t(".unit_distance") %></p>
+                  <p><%= t(".quantité") %> <%= listing.quantity %> <%= unit_label(listing.unit, listing.quantity) %></p>
                 </div>
               </div>
-
             </div>
-            <%# le data-info et la target stimulus pour l'ouverture des fiches dans notre controller info_controller.js %>
-         <details data-info-target="details">
-          <summary><%= t(".details") %></summary>
+
+            <div class="element-droite">
+              <%# On crée notre button qui envoie les paramétres avec la méthod post à notre controller favorites %>
+              <%# point important dans params on passe une action clé valeur. La clé nous permet d'utiliser l'info dans le controller %>
+              <% if @favorites_ids.include?listing.company_id %>
+                <%= button_to "❤️", favorite_path(@favorites.find { |favorite| favorite.favorite_company_id == listing.company_id }), method: :delete, class:"btn-favoris", data:{action: "click->info#stop"} %>
+              <% else %>
+                <%= button_to "♥", favorites_path, params: {favorite_company_id: listing.company_id}, method: :post, class:"btn-favoris", data:{action: "click->info#stop"} %>
+              <% end %>
+
+              <h4><%= listing.unit_price_cents / 100.0 %> € <%= listing.unit %></h4>
+
+              <p><%= @need.quantity * listing.unit_price_cents / 100.0 %> <%= t(".euros") %> <%= @need.quantity %> <%= @need.product.name %></p>
+              <p>Label : <%= listing.label %></p>
+
+              <div class="btn-order">
+
+                <%# je transmet le besoin au controller dans l'url %>
+                <%# j'utilise params pour passer listing.id avec une association clé valeur %>
+                <%= button_to t(".commander"), new_need_order_path(@need), params:{offer_id: listing.id}, method: :get, class:"btn btn-order", data:{action: "click->info#stop"} %>
+
+              </div>
+            </div>
+
+          </div>
+
+          <%# le data-info et la target stimulus pour l'ouverture des fiches dans notre controller info_controller.js %>
+          <details data-info-target="details">
+            <summary><%= t(".details") %></summary>
             <%= listing.company.description %>
           </details>
+
         </div>
 
       <% end %>
 
-
     </div>
+
     <div class="map">
       <%# On doit récupérer les coordonnées longitude et latitude. Utilisation de .map pour les stocker dans un nouveau tableau %>
 
-      <% localisation = @listing_with_favoris.map {|listing| {longitude:listing.address.longitude, color:"#0ccb1f",  latitude:listing.address.latitude, label: listing.company.name, tooltip: listing.company.name}} %>
+      <% localisation = @listing_with_favoris.map {|listing| {longitude:listing.address.longitude, color:"#0ccb1f", latitude:listing.address.latitude, label: listing.company.name, tooltip: listing.company.name}} %>
+
       <%# js_map est communiqué par la documentation et nous lui passons simplement notre variable localisation %>
       <%# on récupère les coordonnées de l'utilisateur %>
-      <% user_localisation = { longitude:@need_address.longitude, latitude:@need_address.latitude, color: "#FF0000"  } %>
+      <% user_localisation = { longitude:@need_address.longitude, latitude:@need_address.latitude, color: "#FF0000" } %>
+
       <%# on utilise la méthode .push pour pousser les données de l'utilisateur dans le hash permis par .map (localisation) %>
       <% ensemble_données = localisation.push(user_localisation) %>
       <%= js_map ensemble_données, zoom: 7.8 %>
-
 
     </div>
   </div>

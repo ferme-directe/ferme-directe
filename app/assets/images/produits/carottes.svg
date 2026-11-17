@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+  <!-- Carotte : orange doux, fanes vert sauge, stries terre. -->
+  <path d="M44 22 C38 16 30 18 24 26 L10 50 C8 54 11 57 15 55 L39 41 C47 35 49 27 44 22 Z" fill="#DE8640" stroke="#6E5443" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M27 30 L32 33 M21 39 L26 42 M17 47 L21 49 M35 28 L38 31" stroke="#6E5443" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M44 22 C44 13 49 7 55 6 C55 13 51 19 44 22 Z" fill="#7A9A5B" stroke="#6E5443" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M44 22 C51 18 58 19 61 24 C55 27 49 26 44 22 Z" fill="#8FAF6A" stroke="#6E5443" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M44 22 C39 15 39 9 42 5 C46 10 46 16 44 22 Z" fill="#8FAF6A" stroke="#6E5443" stroke-width="2" stroke-linejoin="round"/>
+</svg>

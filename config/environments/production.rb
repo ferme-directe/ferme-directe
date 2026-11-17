@@ -58,17 +58,24 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # Set host to be used by links generated in mailer templates.
-  # L'adresse de l'application sur Scalingo ; à remplacer par notre domaine quand il sera branché.
-  config.action_mailer.default_url_options = { host: "ferme-directe.osc-fr1.scalingo.io", protocol: "https" }
+  # Notre domaine, branché le 16 nov. (l'adresse Scalingo y redirige).
+  config.action_mailer.default_url_options = { host: "www.ferme-directe.fr", protocol: "https" }
 
-  # Specify outgoing SMTP server. Remember to add smtp/* credentials via bin/rails credentials:edit.
-  # config.action_mailer.smtp_settings = {
-  #   user_name: Rails.application.credentials.dig(:smtp, :user_name),
-  #   password: Rails.application.credentials.dig(:smtp, :password),
-  #   address: "smtp.example.com",
-  #   port: 587,
-  #   authentication: :plain
-  # }
+  # Envoi par Brevo, en SMTP (story 8 ; choix de Brevo : CLAUDE.md, « Services externes »).
+  # L'identifiant et la clé SMTP sont des variables d'environnement Scalingo, jamais dans le dépôt.
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: "smtp-relay.brevo.com",
+    port: 587,
+    user_name: ENV.fetch("BREVO_SMTP_USERNAME", nil),
+    password: ENV.fetch("BREVO_SMTP_PASSWORD", nil),
+    authentication: :plain,
+    enable_starttls_auto: true
+  }
+
+  # Démonstration : les comptes des seeds ont des adresses en .test, qui n'existent pas.
+  # Leurs e-mails partent vers DEMO_MAIL_BUYER et DEMO_MAIL_FARM (app/mailers/demo_recipients_interceptor.rb).
+  config.action_mailer.interceptors = %w[DemoRecipientsInterceptor]
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
