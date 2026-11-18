@@ -1,60 +1,86 @@
 <div class="container col-lg-12">
   <h1><%= t(".title") %></h1>
   <p><%= t(".subtitle") %></p>
-  <div class="need-form col-lg-8">
+  <div class="need-form col-lg-12">
     <%= simple_form_for @need, url: needs_path do |f| %>
-      <%= f.association :product,
-        as: :grouped_select,
-        group_method: :last,
-        collection: @products.group_by(&:category).transform_values { |products|
-        products.map { |p| [p.name, p.id]}
-        } %>
-      <%= f.input :label,
-        collection: Listing::LABELS %>
-      <%= f.input :quantity,
-          min: 1,
-          step: 1,
-          required: true %>
-      <%= f.input :unit,
-          collection: Listing::UNITS,
-          label_method: ->(unit) { t("units.choice.#{unit}") },
-          required: true %>
-      <%= f.input :needed_on,
-          as: :string,
-          input_html: {
-            type: "date",
-            min: Date.current
-          } %>
-      <%= f.input :address_id,
-          collection: @addresses,
-          label_method: :full_address,
-          value_method: :id,
-          selected: current_user.company.addresses.first&.id,
-          include_blank: false%>
-      <%= f.input :radius_km,
-          input_html: {min: 5, max: 50, step: 5} %>
-      <div class="form-group">
-        <%= f.input :max_price,
-            input_html: {min: 0.01, step: 0.01},
-            required: false %>
-        <p class="small text-body-secondary"><%= t(".max_price_text") %></p>
+      <div class="need-card">
+        <div class="row gx-3">
+          <div class="col-lg-6">
+            <%= f.association :product,
+              as: :grouped_select,
+              group_method: :last,
+              collection: @products.group_by(&:category).transform_values { |products|
+              products.map { |p| [p.name, p.id]}
+              } %>
+          </div>
+          <div class="col-lg-6">
+            <%= f.input :label,
+              collection: Listing::LABELS %>
+          </div>
+        </div>
+          <div class="row gx-3">
+            <div class="col-lg-3">
+              <%= f.input :quantity,
+                  as: :integer,
+                  min: 1,
+                  step: 1,
+                  required: true %>
+            </div>
+            <div class="col-lg-3">
+              <%= f.input :unit,
+                  collection: Listing::UNITS,
+                  label_method: ->(unit) { t("units.choice.#{unit}") },
+                  required: true %>
+            </div>
+            <div class="col-lg-6">
+              <%= f.input :needed_on,
+                  as: :string,
+                  input_html: {
+                    type: "date",
+                    min: Date.current
+                  } %>
+            </div>
+          </div>
       </div>
-      <div class="tag" role="group" aria-label="Priorités">
-        <% Listing::PRIORITIES.each do |priority| %>
-            <input type="checkbox"
-              class="btn-check"
-              name="listing[priorities][]"
-              value="<%= priority %>"
-              id="priority_<%= priority %>"
-              autocomplete="off">
-            <label class="btn btn-outline-primary" for="priority_<%= priority %>">
-              <%= priority.capitalize %>
-            </label>
+      <div class="need-card">
+        <div class="row gx-3">
+          <div class="col-lg-9">
+            <%= f.input :address_id,
+                collection: @addresses,
+                label_method: :full_address,
+                value_method: :id,
+                selected: current_user.company.addresses.first&.id,
+                include_blank: false%>
+          </div>
+          <div class="col-lg-3">
+            <%= f.input :radius_km,
+                input_html: {min: 5, max: 50, step: 5} %>
+          </div>
+          <div class="d-flex align-items-center gap-3">
+            <%= f.input :max_price,
+                input_html: {min: 0.01, step: 0.01},
+                required: false %>
+            <p class="small text-body-secondary mb-0 text-muted"><%= t(".max_price_text") %></p>
+          </div>
+        </div>
+        <div class="need-card-priorities" role="group" aria-label="Priorités">
+          <p class="small text-body-secondary"><%= t(".priorities_hint") %></p>
+          <% Listing::PRIORITIES.each do |priority| %>
+              <input type="checkbox"
+                class="btn-check"
+                name="listing[priorities][]"
+                value="<%= priority %>"
+                id="priority_<%= priority %>"
+                autocomplete="off">
+              <label class="btn btn-outline-primary" for="priority_<%= priority %>">
+                <%= priority.capitalize %>
+              </label>
+          <% end %>
+          </div>
+      </div>
+        <div>
+          <%= f.button :submit, t(".button_see_farm"), class: "btn btn-primary btn-lg" %>
+        </div>
     <% end %>
-    </div>
-      <div>
-        <%= f.button :submit, t(".button_see_farm"), class: "btn btn-primary btn-lg" %>
-        <% end %>
-      </div>
-    </div>
+  </div>
 </div>
