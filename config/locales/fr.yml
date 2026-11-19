@@ -296,9 +296,11 @@ fr:
       prix: prix
       distance: distance
       quantité: quantité
-      euros: euros pour
+      euros: pour
       details: details
       commander: commander
+      label: "Label :"
+      map_loading: Chargement de la carte…
 
 
 

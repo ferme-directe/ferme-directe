@@ -54,10 +54,11 @@
                 <%= button_to "♥", favorites_path, params: {favorite_company_id: listing.company_id}, method: :post, class:"btn-favoris", data:{action: "click->info#stop"} %>
               <% end %>
 
-              <h4><%= listing.unit_price_cents / 100.0 %> € <%= listing.unit %></h4>
+              <%# format_price : « 0,36 € », « 108 € » (charte) ; unit_label : l'unité au singulier ou au pluriel %>
+              <h4><%= format_price(listing.unit_price_cents) %> <%= unit_label(listing.unit, 1) %></h4>
 
-              <p><%= @need.quantity * listing.unit_price_cents / 100.0 %> <%= t(".euros") %> <%= @need.quantity %> <%= @need.product.name %></p>
-              <p>Label : <%= listing.label %></p>
+              <p><%= format_price(@need.quantity * listing.unit_price_cents) %> <%= t(".euros") %> <%= @need.quantity %> <%= @need.product.name %></p>
+              <p><%= t(".label") %> <%= listing.label %></p>
 
               <div class="btn-order">
 
@@ -71,7 +72,7 @@
           </div>
 
           <%# le data-info et la target stimulus pour l'ouverture des fiches dans notre controller info_controller.js %>
-          <details data-info-target="details">
+          <details data-info-target="details" data-action="toggle->info#sync">
             <summary><%= t(".details") %></summary>
             <%= listing.company.description %>
           </details>
@@ -85,15 +86,15 @@
     <div class="map">
       <%# On doit récupérer les coordonnées longitude et latitude. Utilisation de .map pour les stocker dans un nouveau tableau %>
 
-      <% localisation = @listing_with_favoris.map {|listing| {longitude:listing.address.longitude, color:"#0ccb1f", latitude:listing.address.latitude, label: listing.company.name, tooltip: listing.company.name}} %>
+      <% localisation = @listing_with_favoris.map {|listing| {longitude:listing.address.longitude, color: map_color(:farm), latitude:listing.address.latitude, label: listing.company.name, tooltip: listing.company.name}} %>
 
       <%# js_map est communiqué par la documentation et nous lui passons simplement notre variable localisation %>
       <%# on récupère les coordonnées de l'utilisateur %>
-      <% user_localisation = { longitude:@need_address.longitude, latitude:@need_address.latitude, color: "#FF0000" } %>
+      <% user_localisation = { longitude:@need_address.longitude, latitude:@need_address.latitude, color: map_color(:need) } %>
 
       <%# on utilise la méthode .push pour pousser les données de l'utilisateur dans le hash permis par .map (localisation) %>
       <% ensemble_données = localisation.push(user_localisation) %>
-      <%= js_map ensemble_données, zoom: 7.8 %>
+      <%= js_map ensemble_données, zoom: 7.8, loading: t(".map_loading") %>
 
     </div>
   </div>

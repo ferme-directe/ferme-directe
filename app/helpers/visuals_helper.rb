@@ -48,6 +48,14 @@ module VisualsHelper
     user.company ? company_avatar(user.company, size: 36) : user_initials(user)
   end
 
+  # Les couleurs des points de la carte (page des fermes), prises dans la charte (config/_colors.scss) :
+  # comme un SVG, la carte JavaScript ne lit pas le SCSS. Fermes : $sapin ; le lieu du besoin : $terre.
+  MAP_COLORS = { farm: "#2E463A", need: "#6E5443" }.freeze
+
+  def map_color(kind)
+    MAP_COLORS.fetch(kind)
+  end
+
   # « Farine d'épeautre » → « farine-d-epeautre » : le nom du fichier vient du nom du produit.
   def visual_slug(product)
     product&.name.to_s.parameterize

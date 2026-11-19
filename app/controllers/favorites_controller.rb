@@ -10,7 +10,9 @@ class FavoritesController < ApplicationController
     authorize @favorite
     # On doit pouvoir sauvegader notre favoris
     @favorite.save
-    redirect_to need_matches_path(:need_id), notice: t(".success")
+    # Retour à la page d'où vient le clic (la liste des fermes d'un besoin, ou les favoris).
+    # need_matches_path(:need_id) construisait /needs/need_id/matches : un 404 masqué par Turbo.
+    redirect_back_or_to favorites_path, notice: t(".success")
   end
 
   def index
@@ -23,7 +25,7 @@ class FavoritesController < ApplicationController
     # cette ligne uniquement est proposée par L'ia car je ne connais pas authorize
     authorize @favorite
     @favorite.destroy
-    redirect_to need_matches_path(:need_id), notice: t(".supprimer")
+    redirect_back_or_to favorites_path, notice: t(".supprimer")
   end
 end
 # On doit pouvoir afficher nos fermes
