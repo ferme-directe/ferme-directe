@@ -214,8 +214,9 @@ fr:
     new:
       title: De quoi avez-vous besoin ?
       subtitle: Décrivez ce que vous cherchez. Les fermes qui peuvent le fournir seront prévenues.
-      max_price_text: Les fermes au-dessus ne seront pas prévenues.
+      max_price_text: Les fermes affichant un prix au-dessus ne seront pas prévenues.
       button_see_farm: Voir les fermes
+      priorities_hint: Les critères qui comptent le plus pour vous (1 à 2)
 
   # Page d'accueil après connexion (story 14, app/views/pages/home.html.erb).
   pages:
