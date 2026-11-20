@@ -1,21 +1,35 @@
-.container-fichesmaps{
-padding: 10px;
-display: flex;
-flex-direction: row;
-
-gap: 20px;
+// Page des fermes (story 3) : les fiches à gauche, la carte à droite.
+// Répartition 3/5 – 2/5 : les fiches gardent la place de leurs infos sur un écran d'ordinateur portable,
+// la carte reste lisible et suit le défilement (sticky) pour rester visible pendant qu'on parcourt les fiches.
+.container-fichesmaps {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 10px 0;
 }
 
-.fiches{
- flex-grow: 1;
-
+.fiches {
+  flex: 3;
+  min-width: 0;
 }
-.map{
-  width:50%;
-  margin: 0 auto;
-  padding: 25px;
+
+.map {
+  flex: 2;
+  min-width: 0;
   position: sticky;
-  top: 0;
-  height: 5px;
+  top: 1rem;
+  margin-top: 20px; // aligné sur le haut de la première fiche
+}
 
+// Écran étroit (tablette, téléphone) : la carte passe au-dessus des fiches, sur toute la largeur.
+@include media-breakpoint-down(lg) {
+  .container-fichesmaps {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .map {
+    position: static;
+  }
 }

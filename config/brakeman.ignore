@@ -1,0 +1,22 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Remote Code Execution",
+      "warning_code": 130,
+      "fingerprint": "b2ef9ca037e09c20a8a7b7aec14bd62b16fb830e3723adf3b6936529ed347bde",
+      "check_name": "Ruby2Shell",
+      "message": "Ruby 3.3.5 has a critical remote code execution vulnerability (CVE-2026-132825). Upgrade to Ruby 3.3.14 or later",
+      "file": ".ruby-version",
+      "line": 1,
+      "link": "https://www.ruby-lang.org/en/news/2026/11/18/multiple-vulnerabilities-in-regexp-and-string/",
+      "code": null,
+      "render_path": null,
+      "location": null,
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [122, 125, 787],
+      "note": "Temporaire (20 nov. 2026) : le passage à Ruby 3.3.14 est dans sa propre PR, fusionnée juste après. Cette exception est retirée avec elle."
+    }
+  ],
+  "brakeman_version": "8.1.1"
+}

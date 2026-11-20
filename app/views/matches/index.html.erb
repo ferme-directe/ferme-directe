@@ -1,13 +1,12 @@
 
 <div class="container" data-controller="filter">
   <%# Visuels : l'icône du produit à gauche du titre (maquette A02). %>
+  <%# Le titre nomme le besoin, sans article ni possessif : il se lit juste pour tous les produits et toutes les unités. %>
   <div class="d-flex align-items-center gap-3">
-    <%= product_icon(@need.product, size: 52) %>
-    <div>
-      <h1><%= t(".text") %> <%= @need.quantity %> <%= unit_label(@need.unit, @need.quantity) %> <%= @need.product.name %> </h1>
-      <p> <%= t(".paragraphe") %> </p>
-    </div>
+    <%= product_icon(@need.product, size: 56) %>
+    <h1 class="mb-0"><%= t(".heading", product: @need.product.name, quantity: @need.quantity, unit: unit_label(@need.unit, @need.quantity)) %></h1>
   </div>
+  <p class="mt-2"><%= t(".paragraphe") %></p>
 
   <button class="btn btn-order" data-action="click->filter#filter_prix"><%= t(".prix") %></button>
   <button class="btn btn-order" data-action="click->filter#filter_distance"><%= t(".distance") %></button>
@@ -31,16 +30,23 @@
               <%# Visuels : le dessin de la ferme à gauche, ses infos à droite (maquette A02). %>
               <div class="d-flex align-items-start gap-3">
                 <%= company_avatar(listing.company, size: 64) %>
-                <div>
+                <div class="farm-card__facts">
                   <h4><%= listing.company.name %></h4>
                   <% if @favorites_ids.include?listing.company_id %>
                     <span class="tag tag--favorite"> <%= t(".favorit") %></span>
                   <% end %>
 
                   <%# la méthode distance_to est communiquée par geocoder pour calculer la distance entre deux éléments %>
-                  <%# la méthode .round permet d'obtenir uniquement deux chiffres après la virgule %>
-                  <p><%= listing.address.city %> <%= @need.address.distance_to(listing.address).round(2) %> <%= t(".unit_distance") %></p>
+                  <%# number_with_precision : un chiffre après la virgule, au format français (« 7,5 km ») %>
+                  <p><%= listing.address.city %> · <%= number_with_precision(@need.address.distance_to(listing.address), precision: 1) %> <%= t(".unit_distance") %></p>
                   <p><%= t(".quantité") %> <%= listing.quantity %> <%= unit_label(listing.unit, listing.quantity) %></p>
+                  <%# Horaires de retrait et minimum de commande : la fiche de la ferme, comme sur la maquette %>
+                  <% if listing.pickup_hours.present? %>
+                    <p><%= t(".pickup_hours") %> <%= listing.pickup_hours %></p>
+                  <% end %>
+                  <% if listing.min_order_cents.present? %>
+                    <p><%= t(".min_order") %> <%= format_price(listing.min_order_cents) %></p>
+                  <% end %>
                 </div>
               </div>
             </div>
@@ -57,7 +63,7 @@
               <%# format_price : « 0,36 € », « 108 € » (charte) ; unit_label : l'unité au singulier ou au pluriel %>
               <h4><%= format_price(listing.unit_price_cents) %> <%= unit_label(listing.unit, 1) %></h4>
 
-              <p><%= format_price(@need.quantity * listing.unit_price_cents) %> <%= t(".euros") %> <%= @need.quantity %> <%= @need.product.name %></p>
+              <p><%= format_price(@need.quantity * listing.unit_price_cents) %> <%= t(".euros") %> <%= @need.quantity %> <%= unit_label(@need.unit, @need.quantity) %></p>
               <p><%= t(".label") %> <%= listing.label %></p>
 
               <div class="btn-order">
@@ -72,9 +78,12 @@
           </div>
 
           <%# le data-info et la target stimulus pour l'ouverture des fiches dans notre controller info_controller.js %>
-          <details data-info-target="details" data-action="toggle->info#sync">
+          <details class="farm-card__details" data-info-target="details" data-action="toggle->info#sync">
             <summary><%= t(".details") %></summary>
-            <%= listing.company.description %>
+            <p><%= listing.company.description %></p>
+            <% if listing.delivery_terms.present? %>
+              <p><%= listing.delivery_terms %></p>
+            <% end %>
           </details>
 
         </div>

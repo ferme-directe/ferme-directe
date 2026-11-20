@@ -289,15 +289,17 @@ fr:
   matches:
     index:
       title: Les fermes trouvées
-      text: Les fermes qui peuvent fournir vos
-      paragraphe: Vos fermes favorites d'abord. Dépliez une annonce pour en savoir plus ou commander directement.
+      heading: "%{product} · %{quantity} %{unit}"
+      paragraphe: Les fermes à proximité qui peuvent répondre à votre besoin, vos favorites d'abord. Dépliez une annonce pour en savoir plus ou commander directement.
+      pickup_hours: "Retrait :"
+      min_order: "Commande minimum :"
       unit_distance: km
       favorit: ★favorite
       prix: prix
       distance: distance
       quantité: quantité
       euros: pour
-      details: details
+      details: détails
       commander: commander
       label: "Label :"
       map_loading: Chargement de la carte…

@@ -24,6 +24,19 @@ class MatchesPageTest < ActionDispatch::IntegrationTest
     assert_no_match(/\d\.\d+ €/, response.body, "un prix au format anglais (point décimal)")
   end
 
+  test "le titre nomme le besoin et chaque fiche montre retrait, minimum et conditions de la ferme" do
+    offer = listings(:eggs_offer)
+    offer.update!(min_order_cents: 6000, delivery_terms: "Tournée le mardi, à convenir.")
+    get @matches_page
+
+    assert_select "h1", text: "#{@need.product.name} · 300 pièces"
+    assert_includes response.body, offer.pickup_hours
+    assert_includes response.body, "#{I18n.t('matches.index.min_order')} 60 €"
+    assert_includes response.body, "Tournée le mardi, à convenir."
+    assert_includes response.body, "pour 300 pièces"
+    assert_no_match(/\d\.\d+ km/, response.body, "une distance au format anglais (point décimal)")
+  end
+
   test "ajouter une ferme en favori ramène sur la liste des fermes du besoin" do
     post favorites_path, params: { favorite_company_id: companies(:other).id }, headers: { "Referer" => @matches_page }
 
