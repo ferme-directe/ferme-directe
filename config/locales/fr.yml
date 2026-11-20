@@ -26,6 +26,10 @@ fr:
   # Le nom du site : titre de l'onglet, logo de la barre et du pied de page.
   app_name: Ferme Directe
 
+  # Le pied des e-mails (app/views/layouts/mailer.html.erb).
+  mailer:
+    footer: "Ferme Directe · De nouveaux débouchés pour les fermes françaises · Projet de démonstration, Le Wagon batch 2312"
+
   # Les textes des partials partagés. Dans app/views/shared/_navbar.html.erb,
   # t(".needs") est une « recherche paresseuse » (lazy lookup) : Rails complète
   # la clé avec le chemin du fichier et lit shared.navbar.needs.
@@ -91,6 +95,7 @@ fr:
       heading: Votre commande
       reference: Référence %{reference}
     purchase_order:
+      title: Bon de commande
       reference: "Référence %{reference}"
       date: Date
       buyer: Acheteur
