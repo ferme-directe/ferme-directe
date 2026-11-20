@@ -1,13 +1,44 @@
-<%# Cadre commun des e-mails. Les clients mail ignorent les feuilles du site :
-    le style est inline. sapin #2E463A, texte et titre
-    (app/assets/stylesheets/config/_colors.scss). %>
+<%# Cadre commun des e-mails. Les clients mail ignorent les feuilles du site : le style est inline,
+    et la mise en page passe par des tableaux (seule forme que tous les clients affichent pareil).
+    Couleurs de la charte (app/assets/stylesheets/config/_colors.scss) : blé #D9B44A, blé pâle #F5EACB,
+    sapin #2E463A, terre #6E5443, papier #FBF8F1, trait #E4DDD0, gris chaud #6E655B.
+    Le logo est un PNG servi par le site (public/mail) : les clients mail n'affichent pas les SVG. %>
 <!DOCTYPE html>
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
-  <body style="margin:0; padding:24px; font-family:sans-serif; color:#2E463A; background-color:white;">
-    <p style="margin:0 0 16px; font-size:20px;"><%= t("app_name") %></p>
-    <%= yield %>
+  <body style="margin:0; padding:0; background-color:#FBF8F1; font-family:Helvetica, Arial, sans-serif; color:#2E463A;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#FBF8F1;">
+      <tr>
+        <td align="center" style="padding:24px 12px;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px; background-color:#FFFFFF; border:1px solid #E4DDD0; border-radius:12px; overflow:hidden;">
+            <tr>
+              <td style="background-color:#D9B44A; padding:16px 24px;">
+                <table role="presentation" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td style="vertical-align:middle; padding-right:12px;">
+                      <img src="<%= "#{root_url}mail/logo-ferme-directe.png" %>" width="44" height="44" alt="" style="display:block; border:0; background-color:#FBF8F1; border-radius:50%;">
+                    </td>
+                    <td style="vertical-align:middle; font-size:20px; font-weight:bold; color:#2E463A;"><%= t("app_name") %></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:28px 24px; font-size:15px; line-height:1.5;">
+                <%= yield %>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:16px 24px; border-top:1px solid #E4DDD0; font-size:12px; color:#6E655B;">
+                <%= t("mailer.footer") %>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
   </body>
 </html>

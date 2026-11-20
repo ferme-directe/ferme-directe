@@ -75,6 +75,9 @@ $btn-border-radius-lg: $border-radius;
 // --- Les champs de formulaire ------------------------------------------------------
 // Charte : bord « trait » au repos, bord « blé » quand le champ est actif,
 // libellés en terre, texte en encre. 46 px de haut.
+// Fond blanc (charte : « $blanc : cartes, champs ») : sans lui, Bootstrap reprend le fond de la page
+// ($papier) et le champ se confond avec ce qui l'entoure.
+$input-bg:                  $blanc;
 $input-border-width:        1.5px;
 $input-border-color:        $trait;
 $input-border-radius:       $border-radius-sm;
