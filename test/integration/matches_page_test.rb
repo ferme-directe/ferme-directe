@@ -12,6 +12,20 @@ class MatchesPageTest < ActionDispatch::IntegrationTest
     @matches_page = need_matches_path(@need)
   end
 
+  test "une offre sans assez de stock pour le besoin n'apparaît pas, même chez une ferme favorite" do
+    offer = listings(:eggs_offer)
+    get @matches_page
+    assert_includes response.body, offer.company.name, "l'offre de départ doit apparaître"
+
+    offer.update!(quantity: @need.quantity - 1)
+    get @matches_page
+    assert_not_includes response.body, offer.company.name
+
+    offer.update!(quantity: 0, status: :closed)
+    get @matches_page
+    assert_not_includes response.body, offer.company.name
+  end
+
   test "la page affiche les prix au format de la charte et ses textes en français" do
     offer = listings(:eggs_offer)
     get @matches_page
