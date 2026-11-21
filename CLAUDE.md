@@ -47,7 +47,7 @@ La méthode est dans les skills du dépôt, lus automatiquement par Claude Code 
 
 Lire `Gemfile.lock` avant d'écrire du code : il fait foi.
 
-- Ruby 3.3.5 (`.ruby-version`), Rails 8.1, PostgreSQL.
+- Ruby 3.3.14 (`.ruby-version`), Rails 8.1, PostgreSQL.
 - Né du template Le Wagon `devise` : on en garde Devise, Bootstrap 5.3 et Simple Form.
   Les écarts avec une application neuve et nos décisions : `docs/decisions/0001-ecarts-du-template.md`.
 - Assets : **Propshaft** et **Dart Sass** (`dartsass-rails`), le défaut de Rails 8. Hotwire (Turbo, Stimulus) via importmap.
