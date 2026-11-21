@@ -73,7 +73,7 @@
                 id="priority_<%= priority %>"
                 autocomplete="off">
               <label class="btn btn-outline-primary" for="priority_<%= priority %>">
-                <%= priority.capitalize %>
+                <%= Listing.human_enum_value(:priorities, priority) %>
               </label>
           <% end %>
           </div>

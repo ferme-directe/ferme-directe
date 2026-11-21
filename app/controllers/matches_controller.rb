@@ -16,6 +16,10 @@ class MatchesController < ApplicationController
     # @listings = @listings.select { |listing| listing.product == @need.product }
     @listings = @listings.select { |listing| listing.kind == "offer" && listing.product == @need.product }
 
+    # Seulement les offres encore ouvertes, avec assez de stock pour tout le besoin : la ferme refuserait
+    # sinon la commande (Order#accept_and_notify! : out_of_stock). Favorites comprises.
+    @listings = @listings.select { |listing| listing.active? && listing.quantity >= @need.quantity }
+
     # On récupère l'addresse de l'utilsateur
     @need_address = @need.address
 

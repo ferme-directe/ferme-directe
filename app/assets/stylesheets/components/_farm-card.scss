@@ -1,9 +1,20 @@
 .farm-card {
   margin: 20px 0;
   padding: 1em;
-  background: white;
+  background: $blanc;
   border-radius: 1em;
   border: 1px solid $trait;
+
+  // Les infos de la ferme sous son nom (ville, quantité, retrait, minimum), en lignes serrées.
+  // text-wrap: pretty évite un mot seul en bout de ligne (« 8 h – 12 / h »).
+  .farm-card__facts p {
+    margin-bottom: 0.25rem;
+    text-wrap: pretty;
+  }
+
+  .farm-card__details p {
+    margin: 0.5rem 0 0;
+  }
 
   &:hover{
     border: 1px solid $sapin;
@@ -15,8 +26,16 @@
     justify-content: space-between;
   }
 
+  // Les infos à gauche prennent la place libre ; le prix à droite ne se coupe jamais en deux lignes.
+  .element-gauche {
+    flex: 1;
+    min-width: 0;
+  }
+
   .element-droite {
     text-align: right;
+    flex: none;
+    white-space: nowrap;
   }
 
   &.changementEtat{
